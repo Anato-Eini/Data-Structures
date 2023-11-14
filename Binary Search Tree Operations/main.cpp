@@ -16,14 +16,14 @@ Node* insert(Node *n, int num){
         return create(num);
     else if(n->value < num)
         n->right = insert(n->right, num);
-    else if(n->value > num)
+    else if(n->value >= num)
         n->left = insert(n->left, num);
     return n;
 }
 Node* search(Node* n, int num){
     if(n == nullptr)
         return nullptr;
-    else if(num > n->value)
+    else if(num >= n->value)
         return search(n->right, num);
     else if(num < n->value)
         return search(n->left, num);
@@ -36,11 +36,40 @@ Node* mostleft(Node* n){
     }
     return current;
 }
+int max(int a, int b){
+    if(a > b){
+        return a;
+    }else{
+        return b;
+    }
+}
+int maxHeight(Node* n){
+    if(n == nullptr){
+        return 0;
+    }else{
+        return 1 + max(maxHeight(n->left), maxHeight(n->right));
+    }
+}
+int height(Node* n, int num){
+    Node* searched = search(n, num);
+    if(searched == nullptr){
+        return -1;
+    }else{
+        return maxHeight(searched);
+    }
+}
+int depth(Node *n, int num){
+    if(n == nullptr){
+        return -1;
+    }else{
+
+    }
+}
 void deleteNode(Node*& n, int num) {
     if (n == nullptr) {
         return;
     }
-    if (num > n->value) {
+    if (num >= n->value) {
         deleteNode(n->right, num);
     } else if (num < n->value) {
         deleteNode(n->left, num);
@@ -101,8 +130,23 @@ int main(void) {
                 displayTree(node);
                 cout << endl;
                 break;
-            default:
+            case 4:
+                cout << "Max height of the tree is: " << maxHeight(node) << endl;
                 break;
+            case 5:
+                cin >> input;
+                int temp = height(node, input);
+                if(temp == -1){
+                    cout << "Element did not exist" << endl;
+                }else{
+                    cout << "The height of the node with an element " << input << " is " <<
+                }
+                break;
+            case 6:
+                displayTree(node);
+                cout << endl;
+                break;
+
         }
         cout << endl;
     }while(operation != 0);
