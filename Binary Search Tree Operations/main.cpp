@@ -16,14 +16,14 @@ Node* insert(Node *n, int num){
         return create(num);
     else if(n->value < num)
         n->right = insert(n->right, num);
-    else if(n->value >= num)
+    else if(n->value > num)
         n->left = insert(n->left, num);
     return n;
 }
 Node* search(Node* n, int num){
     if(n == nullptr)
         return nullptr;
-    else if(num >= n->value)
+    else if(num > n->value)
         return search(n->right, num);
     else if(num < n->value)
         return search(n->left, num);
@@ -55,21 +55,30 @@ int height(Node* n, int num){
     if(searched == nullptr){
         return -1;
     }else{
-        return maxHeight(searched);
+        return maxHeight(searched) - 1;
+    }
+}
+int depthCounter(Node* n, int num){
+    if(num > n->value){
+        return 1 + depthCounter(n->right, num);
+    }else if(num < n->value){
+        return 1 + depthCounter(n->left, num);
+    }else{
+        return 0;
     }
 }
 int depth(Node *n, int num){
-    if(n == nullptr){
-        return -1;
+    if(search(n, num)){
+        return depthCounter(n, num);
     }else{
-
+        return -1;
     }
 }
 void deleteNode(Node*& n, int num) {
     if (n == nullptr) {
         return;
     }
-    if (num >= n->value) {
+    if (num > n->value) {
         deleteNode(n->right, num);
     } else if (num < n->value) {
         deleteNode(n->left, num);
@@ -84,7 +93,7 @@ void deleteNode(Node*& n, int num) {
                 n = n->left;
             } else if (n->right != nullptr) {
                 n = n->right;
-            } else{
+            } else {
                 n = nullptr;
             }
             delete temp;
@@ -100,9 +109,9 @@ void displayTree(struct Node* node) {
     }
 }
 
-int main(void) {
+int main() {
     struct Node* node = nullptr;
-    int operation,input;
+    int operation,input, temp;
     do {
         cout << "Enter operation: ";
         cin >> operation;
@@ -135,18 +144,27 @@ int main(void) {
                 break;
             case 5:
                 cin >> input;
-                int temp = height(node, input);
+                temp = height(node, input);
                 if(temp == -1){
                     cout << "Element did not exist" << endl;
                 }else{
-                    cout << "The height of the node with an element " << input << " is " <<
+                    cout << "The height of the node with the element " << input << " is " << height(node, input) << endl;
                 }
                 break;
             case 6:
+                cin >> input;
+                temp = depth(node, input);
+                if(temp != -1){
+                    cout << "The depth of the node with the element " << input << " is " << depth(node, input) << endl;
+                }
+                else{
+                    cout << "Element did not exist " << endl;
+                }
+                break;
+            case 7:
                 displayTree(node);
                 cout << endl;
                 break;
-
         }
         cout << endl;
     }while(operation != 0);
