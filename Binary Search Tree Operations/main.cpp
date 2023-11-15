@@ -50,13 +50,9 @@ int main() {
                 cin >> input;
                 tempNode = tree->search(root, input);
                 if(tempNode != nullptr){
-                    if (temp != -1)
-                        cout << "The depth of the node with the element " << input << " is " << tree->depth(root, input)
-                             << endl;
-                    else
-                        cout << "Element did not exist " << endl;
+                    cout << "The depth of the node with the element " << input << " is " << tree->depth(root, input) << endl;
                 }else{
-                    cout << "Element not found";
+                    cout << "Element not found" << endl;
                 }
                 break;
             case 7:
