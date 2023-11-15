@@ -1,11 +1,34 @@
 #include "abstract.h"
 using namespace std;
 class BinarySearchTree: public Tree{
-public:
     Node* create(int num){
         Node *n = new Node{num, nullptr, nullptr};
         return n;
     }
+    int max(int a, int b){
+        if(a > b){
+            return a;
+        }else{
+            return b;
+        }
+    }
+    int depthCounter(Node* n, int num){
+        if(num > n->value){
+            return 1 + depthCounter(n->right, num);
+        }else if(num < n->value){
+            return 1 + depthCounter(n->left, num);
+        }else{
+            return 0;
+        }
+    }
+    Node* mostleft(Node* n){
+        Node* current = n;
+        while(current->left != nullptr){
+            current = current->left;
+        }
+        return current;
+    }
+public:
     Node* insert(Node *n, int num){
         if(n == nullptr)
             return create(num);
@@ -24,20 +47,6 @@ public:
             return search(n->left, num);
         else return n;
     }
-    Node* mostleft(Node* n){
-        Node* current = n;
-        while(current->left != nullptr){
-            current = current->left;
-        }
-        return current;
-    }
-    int max(int a, int b){
-        if(a > b){
-            return a;
-        }else{
-            return b;
-        }
-    }
     int maxHeight(Node* n){
         if(n == nullptr){
             return 0;
@@ -53,15 +62,7 @@ public:
             return maxHeight(searched) - 1;
         }
     }
-    int depthCounter(Node* n, int num){
-        if(num > n->value){
-            return 1 + depthCounter(n->right, num);
-        }else if(num < n->value){
-            return 1 + depthCounter(n->left, num);
-        }else{
-            return 0;
-        }
-    }
+    
     int depth(Node *n, int num){
         if(search(n, num)){
             return depthCounter(n, num);
