@@ -1,7 +1,11 @@
 #include <iostream>
 #include "Tree.h"
 using namespace std;
-
+/*
+Issues: 
+From: Tree.h
+    Repeated usage of search recursion everytime we call height function and depth function which slows down the program
+*/
 int main() {
     Tree* tree = new BinarySearchTree();
     Node* root = nullptr;
