@@ -6,11 +6,7 @@ class BinarySearchTree: public Tree{
         return n;
     }
     int max(int a, int b){
-        if(a > b){
-            return a;
-        }else{
-            return b;
-        }
+        return (a > b) ? a : b;
     }
     int depthCounter(Node* n, int num){
         if(num > n->value){
