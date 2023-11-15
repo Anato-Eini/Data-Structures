@@ -4,10 +4,15 @@ using namespace std;
 int main(){
     Stack* stack = new StackOp();
     string input;
-    TreeNode* root;
+    TreeNode* root; 
     cout << "Enter string: ";
     cin >> input;
     for(char a: input){
+        /*
+        Explanation: If ang current value is an operator, create new node -> pop the stack twice and make it the left child
+        and right child respectively of the new node, otherwise if number, then create new Node assign nullpointers to its children
+        then push it back to stack
+        */
         if(a == '+' || a == '-' || a == '/' || a == '*' || a == '%'){
             TreeNode *c = stack->pop(), *b = stack->pop();
             TreeNode* newNode = new TreeNode{a, b, c};
@@ -17,6 +22,7 @@ int main(){
             stack->push(newNode);
         }
     }
+    //The last value from stack will be automatically be a root to the tree
     root = stack->pop();
     cout << "Output: ";
     stack->printTree(root);
