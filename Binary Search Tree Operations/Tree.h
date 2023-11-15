@@ -39,7 +39,7 @@ public:
         return n;
     }
     /*
-    If our element > to current node, traverse to the right child, else if our element < to current node, traverse to current
+    If our element > to current node, traverse to the right child, else if our element < to current node, traverse to left
     child until we reach nullptr or a node that's equal to our element
     */
     Node* search(Node* n, int num){
