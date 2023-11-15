@@ -26,7 +26,7 @@ class BinarySearchTree: public Tree{
     }
 public:
     /*
-     If our element > to current node, traverse to the right child, else if our element < to current node, traverse to current
+     If our element > to current node, traverse to the right child, else if our element < to current node, traverse to left
     child until we reach nullptr then create a new node right after
     */
     Node* insert(Node *n, int num){
