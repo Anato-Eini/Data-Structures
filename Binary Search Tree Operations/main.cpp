@@ -1,17 +1,10 @@
 #include <iostream>
 #include "Tree.h"
 using namespace std;
-/*
-Issues: 
-From: Tree.h
-    Repeated usage of search recursion everytime we call depth function which slows down the program
-From: World.h
-    Gwapa kaayo si louise di madaaa
-*/
 int main() {
     Tree* tree = new BinarySearchTree();
-    Node* root = nullptr;
-    int operation,input, temp;
+    Node* root = nullptr, *tempNode;
+    int operation, input, temp;
     do {
         cout << "Enter operation: ";
         cin >> operation;
@@ -55,17 +48,23 @@ int main() {
             case 6:
                 cout << "Enter element: ";
                 cin >> input;
-                temp = tree->depth(root, input);
-                if(temp != -1){
-                    cout << "The depth of the node with the element " << input << " is " << tree->depth(root, input) << endl;
-                }
-                else{
-                    cout << "Element did not exist " << endl;
+                tempNode = tree->search(root, input);
+                if(tempNode != nullptr){
+                    if (temp != -1)
+                        cout << "The depth of the node with the element " << input << " is " << tree->depth(root, input)
+                             << endl;
+                    else
+                        cout << "Element did not exist " << endl;
+                }else{
+                    cout << "Element not found";
                 }
                 break;
             case 7:
                 tree->displayTree(root);
                 cout << endl;
+                break;
+            default:
+                cout << "Invalid operation";
                 break;
         }
         cout << endl;
