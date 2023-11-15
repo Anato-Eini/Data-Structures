@@ -1,4 +1,5 @@
 #include "abstract.h"
+#include <iostream>
 using namespace std;
 class BinarySearchTree: public Tree{
     Node* create(int num){
@@ -7,15 +8,6 @@ class BinarySearchTree: public Tree{
     }
     int max(int a, int b){
         return (a > b) ? a : b;
-    }
-    int depthCounter(Node* n, int num){
-        if(num > n->value){
-            return 1 + depthCounter(n->right, num);
-        }else if(num < n->value){
-            return 1 + depthCounter(n->left, num);
-        }else{
-            return 0;
-        }
     }
     Node* mostleft(Node* n){
         Node* current = n;
@@ -74,13 +66,15 @@ public:
 
 
     /*
-    Check first if the element is present in tree then use depthCounter to count the nodes it has passed from root down to that number
+        Count the nodes it has passed from root down to that number
     */
     int depth(Node *n, int num){
-        if(search(n, num)){
-            return depthCounter(n, num);
-        }else{
-            return -1;
+        if(num > n->value){
+            return 1 + depth(n->right, num);
+        }else if(num < n->value){
+            return 1 + depth(n->left, num);
+        }else {
+            return 0;
         }
     }
 
@@ -113,7 +107,7 @@ public:
     }
 
     //Printing elements by traversing the tree using inorder traversal
-    void displayTree(struct Node* node) {
+    void displayTree(Node* node) {
         if (node != nullptr) {
             displayTree(node->left);
             cout << node->value << " ";
