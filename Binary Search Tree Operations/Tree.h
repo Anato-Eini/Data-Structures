@@ -25,6 +25,10 @@ class BinarySearchTree: public Tree{
         return current;
     }
 public:
+    /*
+     If our element > to current node, traverse to the right child, else if our element < to current node, traverse to current
+    child until we reach nullptr then create a new node right after
+    */
     Node* insert(Node *n, int num){
         if(n == nullptr)
             return create(num);
@@ -34,6 +38,10 @@ public:
             n->left = insert(n->left, num);
         return n;
     }
+    /*
+    If our element > to current node, traverse to the right child, else if our element < to current node, traverse to current
+    child until we reach nullptr or a node that's equal to our element
+    */
     Node* search(Node* n, int num){
         if(n == nullptr)
             return nullptr;
@@ -43,6 +51,8 @@ public:
             return search(n->left, num);
         else return n;
     }
+
+    //maximum height of the tree, including the root
     int maxHeight(Node* n){
         if(n == nullptr){
             return 0;
@@ -50,6 +60,9 @@ public:
             return 1 + max(maxHeight(n->left), maxHeight(n->right));
         }
     }
+
+    //Determine if the element is present, if it returns nullptr, the element is not present in the tree. Otherwise
+    //if found then make it as root and use maxHeight function.
     int height(Node* n, int num){
         Node* searched = search(n, num);
         if(searched == nullptr){
@@ -58,7 +71,11 @@ public:
             return maxHeight(searched) - 1;
         }
     }
-    
+
+
+    /*
+    Check first if the element is present in tree then use depthCounter from root up to that number
+    */
     int depth(Node *n, int num){
         if(search(n, num)){
             return depthCounter(n, num);
@@ -66,6 +83,8 @@ public:
             return -1;
         }
     }
+
+    //Kapoy explain ari dapita kay complicated HAHAHAHAHHAHA
     void deleteNode(Node*& n, int num) {
         if (n == nullptr) {
             return;
@@ -93,6 +112,7 @@ public:
         }
     }
 
+    //Printing elements by traversing the tree using inorder traversal
     void displayTree(struct Node* node) {
         if (node != nullptr) {
             displayTree(node->left);
