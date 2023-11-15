@@ -74,7 +74,7 @@ public:
 
 
     /*
-    Check first if the element is present in tree then use depthCounter from root up to that number
+    Check first if the element is present in tree then use depthCounter to count the nodes it has passed from root down to that number
     */
     int depth(Node *n, int num){
         if(search(n, num)){
