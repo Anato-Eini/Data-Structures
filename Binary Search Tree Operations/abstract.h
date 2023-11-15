@@ -1,7 +1,6 @@
 #include "node.h"
 class Tree {
 public:
-    virtual Node* create(int num) = 0;
     virtual Node* insert(Node *n, int num) = 0;
     virtual Node* search(Node* n, int num) = 0;
     virtual int maxHeight(Node* n) = 0;
