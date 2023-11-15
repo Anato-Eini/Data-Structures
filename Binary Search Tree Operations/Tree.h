@@ -53,8 +53,8 @@ public:
         }
     }
 
-    //Determine if the element is present, if it returns nullptr, the element is not present in the tree. Otherwise
-    //if found then make it as root and use maxHeight function.
+    //Determine if the element is present, if it returns nullptr, the element is not present in the tree. 
+    //Otherwise if found then make it as root and use maxHeight function.
     int height(Node* n, int num){
         Node* searched = search(n, num);
         if(searched == nullptr){
