@@ -5,6 +5,8 @@ using namespace std;
 Issues: 
 From: Tree.h
     Repeated usage of search recursion everytime we call height function and depth function which slows down the program
+From: World.h
+    Gwapa kaayo si louise di madaaa
 */
 int main() {
     Tree* tree = new BinarySearchTree();
