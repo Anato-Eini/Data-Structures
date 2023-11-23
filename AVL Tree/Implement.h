@@ -47,16 +47,17 @@ public:
         node->height = max(heightNode(node->left), heightNode(node->right)) + 1;
         int balanceFactor = heightNode(node->right) - heightNode(node->left);
         if(balanceFactor < -1){
-            if(node->left->right){
+            if(num < node->left->value){
+                return rotateRight(node);
+            }else if(num > node->left->value){
                 node->left = rotateLeft(node->left);
                 return rotateRight(node);
-            }else if(node->left->left)
-                return rotateRight(node);
+            }
         }else if (balanceFactor > 1){
-            if(node->right->left){
-                node->right = rotateRight(node->right);
+            if(num > node->right->value){
                 return rotateLeft(node);
-            }else if(node->right->right){
+            }else if(num < node->right->value){
+                node->right = rotateRight(node->right);
                 return rotateLeft(node);
             }
         }
@@ -86,18 +87,20 @@ public:
         }
         returner->height = max(heightNode(returner->right), heightNode(returner->left)) + 1;
         int balanceFactor = heightNode(returner->right) - heightNode(returner->left);
-        if (balanceFactor > 1) {
-            if (returner->right->left) {
-                returner->right = rotateRight(returner->right);
-                return rotateLeft(returner);
-            } else if (returner->right->right)
-                return rotateLeft(returner);
-        } else if (balanceFactor < -1) {
-            if (returner->left->right) {
-                returner->left = rotateLeft(returner->left);
-                return rotateRight(returner);
-            } else if (returner->left->left)
-                return rotateRight(returner);
+        if(balanceFactor < -1){
+            if(num < node->left->value){
+                return rotateRight(node);
+            }else if(num > node->left->value){
+                node->left = rotateLeft(node->left);
+                return rotateRight(node);
+            }
+        }else if (balanceFactor > 1){
+            if(num > node->right->value){
+                return rotateLeft(node);
+            }else if(num < node->right->value){
+                node->right = rotateRight(node->right);
+                return rotateLeft(node);
+            }
         }
         return returner;
     }
