@@ -2,7 +2,6 @@
 #include <iostream>
 using namespace std;
 class AVLTree: public Abstract{
-    Node* root;
     Node* createNode(int num){
         return new Node{num, 1, nullptr, nullptr};
     }
@@ -13,6 +12,7 @@ class AVLTree: public Abstract{
         return (!node) ? 0 : node->height;
     }
     Node* rotateLeft(Node* node){
+        cout << "Rotating node " << node->value << " to the left..." << endl;
         Node* tempRight = node->right, *tempRightLeft = tempRight->left;
         tempRight->left = node;
         node->right = tempRightLeft;
@@ -21,6 +21,7 @@ class AVLTree: public Abstract{
         return tempRight;
     }
     Node* rotateRight(Node* node){
+        cout << "Rotating node " << node->value << " to the right..." << endl;
         Node* tempLeft = node->left, *tempLeftRight = tempLeft->right;
         tempLeft->right = node;
         node->left = tempLeftRight;
@@ -30,23 +31,19 @@ class AVLTree: public Abstract{
     }
     Node* minimumValue(Node* node){
         Node* curr = node;
-        while(curr->left){
+        while(curr->left)
             curr = curr->left;
-        }
         return curr;
     }
 public:
-    AVLTree(){
-        root = nullptr;
-    }
     Node* insertNode(Node* node, int num){
-        if(node == nullptr){
+        if(node == nullptr)
             return createNode(num);
-        }else if(num >= node->value){
+        else if(num >= node->value)
             node->right = insertNode(node->right, num);
-        }else if(num < node->value){
+        else if(num < node->value)
             node->left = insertNode(node->left, num);
-        }
+
         node->height = max(heightNode(node->left), heightNode(node->right)) + 1;
         int balanceFactor = heightNode(node->right) - heightNode(node->left);
         if(balanceFactor < -1){
@@ -66,25 +63,68 @@ public:
         return node;
     }
     Node* deleteNode(Node* node, int num){
-        if(!node){
+        Node *returner = nullptr;
+        if(!node)
             return nullptr;
-        }else if(num < node->value){
-            
+        else if(num < node->value)
+            node->left = deleteNode(node->left, num);
+        else if(num > node->value)
+            node->right = deleteNode(node->right, num);
+        else{
+            if(node->left && node->right){
+                Node* temp = minimumValue(node->right);
+                node->value = temp->value;
+                node->right = deleteNode(node->right, node->value);
+            }else if(node->left)
+                returner = node->left;
+            else if(node->right)
+                returner = node->right;
+            else return nullptr;
         }
+        if(!returner){
+            returner = node;
+        }
+        returner->height = max(heightNode(returner->right), heightNode(returner->left)) + 1;
+        int balanceFactor = heightNode(returner->right) - heightNode(returner->left);
+        if (balanceFactor > 1) {
+            if (returner->right->left) {
+                returner->right = rotateRight(returner->right);
+                return rotateLeft(returner);
+            } else if (returner->right->right)
+                return rotateLeft(returner);
+        } else if (balanceFactor < -1) {
+            if (returner->left->right) {
+                returner->left = rotateLeft(returner->left);
+                return rotateRight(returner);
+            } else if (returner->left->left)
+                return rotateRight(returner);
+        }
+        return returner;
     }
-    Node* searchNode(Node*, int){
-
+    Node* searchNode(Node* node, int num){
+        if(!node)
+            return nullptr;
+        else if(num < node->value)
+            return searchNode(node->left, num);
+        else if(num > node->value)
+            return searchNode(node->right, num);
+        else return node;
     }
-    int depth(Node*){
-
+    int depth(Node* node, int num){
+        if(num < node->value)
+            return 1 + depth(node->left, num);
+        else if(num > node->value)
+            return 1 + depth(node->right, num);
+        else return 0;
     }
-    int height(Node*){
-
+    int height(Node* node){
+        return max(heightNode(node->left), heightNode(node->right)) + 1;
     }
-    int maxHeight(Node*){
-
-    }
-    void print(){
-
+    void print(Node* node){
+        if(node){
+            print(node->left);
+            cout << node->value << " ";
+            print(node->right);
+        }
     }
 };
