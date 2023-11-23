@@ -11,8 +11,17 @@ class AVLTree: public Abstract{
     int heightNode(Node* node){
         return (!node) ? 0 : node->height;
     }
+    Node* minimumValue(Node* node){
+        Node* curr = node;
+        while(curr->left)
+            curr = curr->left;
+        return curr;
+    }
+    /*
+     * These two functions are for rotating nodes ie making parent node A with child node B and C, as a child to either
+     * node B or node C
+    */
     Node* rotateLeft(Node* node){
-        cout << "Rotating node " << node->value << " to the left..." << endl;
         Node* tempRight = node->right, *tempRightLeft = tempRight->left;
         tempRight->left = node;
         node->right = tempRightLeft;
@@ -21,7 +30,6 @@ class AVLTree: public Abstract{
         return tempRight;
     }
     Node* rotateRight(Node* node){
-        cout << "Rotating node " << node->value << " to the right..." << endl;
         Node* tempLeft = node->left, *tempLeftRight = tempLeft->right;
         tempLeft->right = node;
         node->left = tempLeftRight;
@@ -29,21 +37,22 @@ class AVLTree: public Abstract{
         tempLeft->height = max(heightNode(tempLeft->left), heightNode(tempLeft->right)) + 1;
         return tempLeft;
     }
-    Node* minimumValue(Node* node){
-        Node* curr = node;
-        while(curr->left)
-            curr = curr->left;
-        return curr;
-    }
 public:
     Node* insertNode(Node* node, int num){
+        //We will insert the node the same as we insert a node in Binary Search Tree recursively.
+
         if(node == nullptr)
             return createNode(num);
         else if(num >= node->value)
             node->right = insertNode(node->right, num);
         else if(num < node->value)
             node->left = insertNode(node->left, num);
-
+        /*
+         * Updates the height of each node including its balanceFactor.
+         * We will rotate the nodes based on the balanceFactor ie if the balance factor is -1 > then we will rotate
+         * either to the right or right and left, else if 1 < then we will rotate to the left or left and right
+         * depending on the value inserted.
+         */
         node->height = max(heightNode(node->left), heightNode(node->right)) + 1;
         int balanceFactor = heightNode(node->right) - heightNode(node->left);
         if(balanceFactor < -1){
@@ -65,6 +74,13 @@ public:
     }
     Node* deleteNode(Node* node, int num){
         Node *returner = nullptr;
+
+        /*
+         * Searches the element recursively down the tree. If found, determine if it has 1 child, children or none.
+         * If none, return as nullptr, else if it has 1 child then make it a new child of the parent else if it has more
+         * than 1 child then search for the minimum value of its right child, swap the elements, then delete the swapped
+         * node.
+        */
         if(!node)
             return nullptr;
         else if(num < node->value)
@@ -82,9 +98,18 @@ public:
                 returner = node->right;
             else return nullptr;
         }
+
+        //I assigned returner as a new child to its parent.
         if(!returner){
             returner = node;
         }
+        /*
+         * Updates the height of each node including its balanceFactor.
+         * We will rotate the nodes based on the balanceFactor ie if the balance factor is -1 > then we will rotate
+         * either to the right or right and left, else if 1 < then we will rotate to the left or left and right
+         * depending on the value inserted.
+         */
+
         returner->height = max(heightNode(returner->right), heightNode(returner->left)) + 1;
         int balanceFactor = heightNode(returner->right) - heightNode(returner->left);
         if(balanceFactor < -1){
@@ -105,6 +130,12 @@ public:
         return returner;
     }
     Node* searchNode(Node* node, int num){
+        /*
+         * Similar to how we search a node in insertNode and deleteNode, we will find the correct position of node A
+         * by comparing its element to the current node. If the number you're looking for is bigger than the number in
+         * the current node, traverse to the right otherwise traverse to the left until you'll hit a nullptr (which
+         * means the element did not exist) or a node that matches with the number you're looking for.
+        */
         if(!node)
             return nullptr;
         else if(num < node->value)
@@ -123,6 +154,8 @@ public:
     int height(Node* node){
         return max(heightNode(node->left), heightNode(node->right)) + 1;
     }
+
+    //Printing nodes using inorder traversal
     void print(Node* node){
         if(node){
             print(node->left);
