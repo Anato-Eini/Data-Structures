@@ -74,7 +74,6 @@ public:
     }
     Node* deleteNode(Node* node, int num){
         Node *returner = nullptr;
-
         /*
          * Searches the element recursively down the tree. If found, determine if it has 1 child, children or none.
          * If none, return as nullptr, else if it has 1 child then make it a new child of the parent else if it has more

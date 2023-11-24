@@ -8,7 +8,7 @@
 #include "Implement.h"
 using namespace std;
 int main(){
-    AVLTree* avlTree = new AVLTree();
+    auto* avlTree = new AVLTree();
     Node* root = nullptr, *temp;
     int num;
     char input;
