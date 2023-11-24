@@ -135,13 +135,12 @@ public:
          * the current node, traverse to the right otherwise traverse to the left until you'll hit a nullptr (which
          * means the element did not exist) or a node that matches with the number you're looking for.
         */
-        if(!node)
-            return nullptr;
+        if(!node || node->value == num)
+            return node;
         else if(num < node->value)
             return searchNode(node->left, num);
-        else if(num > node->value)
+        else
             return searchNode(node->right, num);
-        else return node;
     }
     int depth(Node* node, int num){
         if(num < node->value)
