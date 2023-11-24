@@ -3,17 +3,15 @@
 using namespace std;
 class BinarySearchTree: public Tree{
     Node* create(int num){
-        Node *n = new Node{num, nullptr, nullptr};
-        return n;
+        return new Node{num, nullptr, nullptr};
     }
     int max(int a, int b){
         return (a > b) ? a : b;
     }
     Node* mostleft(Node* n){
         Node* current = n;
-        while(current->left != nullptr){
+        while(current->left != nullptr)
             current = current->left;
-        }
         return current;
     }
 public:
