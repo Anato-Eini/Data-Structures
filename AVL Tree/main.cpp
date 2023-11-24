@@ -43,7 +43,17 @@ int main(){
                     cout << "Element " << num << " did not exists" << endl;
                 break;
             case 'p':
-                avlTree->print(root);
+                cout << "Pick Traversal Algorithm (1-Pre-order Traversal | 2-In-order Traversal | 3-Post-order Traversal: ";
+                cin >> num;
+                switch (num) {
+                    case 1: avlTree->printPR(root);
+                        break;
+                    case 2: avlTree->printI(root);
+                        break;
+                    case 3: avlTree->printPO(root);
+                        break;
+                    default: cout << "Invalid Operation";
+                }
                 cout << endl;
                 break;
             case 'd':

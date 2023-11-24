@@ -105,13 +105,28 @@ public:
             }
         }
     }
-
-    //Printing elements by traversing the tree using inorder traversal
-    void displayTree(Node* node) {
-        if (node != nullptr) {
-            displayTree(node->left);
+    //Pre-order Traversal
+    void printPR(Node* node){
+        if(node){
             cout << node->value << " ";
-            displayTree(node->right);
+            printPR(node->left);
+            printPR(node->right);
+        }
+    }
+    //Inorder Traversal
+    void printI(Node* node){
+        if(node){
+            printI(node->left);
+            cout << node->value << " ";
+            printI(node->right);
+        }
+    }
+    //Post-order Traversal
+    void printPO(Node* node){
+        if(node){
+            printPO(node->left);
+            printPO(node->right);
+            cout << node->value << " ";
         }
     }
 };

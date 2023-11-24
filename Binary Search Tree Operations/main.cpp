@@ -29,8 +29,6 @@ int main() {
                 cin >> input;
                 tree->deleteNode(root, input);
                 cout << endl;
-                tree->displayTree(root);
-                cout << endl;
                 break;
             case 4:
                 cout << "Max height of the tree is: " << tree->maxHeight(root) << endl;
@@ -56,14 +54,23 @@ int main() {
                 }
                 break;
             case 7:
-                tree->displayTree(root);
+                cout << "Pick Traversal Algorithm (1-Pre-order Traversal | 2-In-order Traversal | 3-Post-order Traversal: ";
+                cin >> input;
+                switch (input) {
+                    case 1: tree->printPR(root);
+                        break;
+                    case 2: tree->printI(root);
+                        break;
+                    case 3: tree->printPO(root);
+                        break;
+                    default: cout << "Invalid Operation";
+                }
                 cout << endl;
                 break;
             default:
-                cout << "Invalid operation";
+                cout << "Invalid Operation";
                 break;
         }
         cout << endl;
     }while(operation != 0);
-    tree->displayTree(root);
 }

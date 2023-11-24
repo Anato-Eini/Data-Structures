@@ -6,5 +6,7 @@ public:
     virtual Node* searchNode(Node*, int) = 0;
     virtual int depth(Node*, int) = 0;
     virtual int height(Node*) = 0;
-    virtual void print(Node*) = 0;
+    virtual void printI(Node*) = 0;
+    virtual void printPO(Node*) = 0;
+    virtual void printPR(Node*) = 0;
 };

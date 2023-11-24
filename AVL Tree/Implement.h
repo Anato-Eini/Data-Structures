@@ -153,12 +153,29 @@ public:
         return max(heightNode(node->left), heightNode(node->right)) + 1;
     }
 
-    //Printing nodes using inorder traversal
-    void print(Node* node){
+    //Pre-order Traversal
+    void printPR(Node* node){
         if(node){
-            print(node->left);
             cout << node->value << " ";
-            print(node->right);
+            printPR(node->left);
+            printPR(node->right);
         }
     }
+    //Inorder Traversal
+    void printI(Node* node){
+        if(node){
+            printI(node->left);
+            cout << node->value << " ";
+            printI(node->right);
+        }
+    }
+    //Post-order Traversal
+    void printPO(Node* node){
+        if(node){
+            printPO(node->left);
+            printPO(node->right);
+            cout << node->value << " ";
+        }
+    }
+
 };

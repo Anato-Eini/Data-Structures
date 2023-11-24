@@ -7,5 +7,7 @@ public:
     virtual int height(Node* n, int num) = 0;
     virtual int depth(Node *n, int num) = 0;
     virtual void deleteNode(Node*& n, int num) = 0;
-    virtual void displayTree(struct Node* node) = 0;
+    virtual void printI(Node*) = 0;
+    virtual void printPO(Node*) = 0;
+    virtual void printPR(Node*) = 0;
 };
