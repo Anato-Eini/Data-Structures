@@ -35,13 +35,12 @@ public:
     child until we reach nullptr or a node that's equal to our element
     */
     Node* search(Node* n, int num){
-        if(n == nullptr)
-            return nullptr;
+        if(!n || n->value == num)
+            return n;
         else if(num > n->value)
             return search(n->right, num);
-        else if(num < n->value)
+        else
             return search(n->left, num);
-        else return n;
     }
 
     //maximum height of the tree, including the root
