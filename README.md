@@ -1,6 +1,4 @@
 # Trees-and-Heaps
-Save Mother Earth
-
 
 As I go on further with my adventures...<br>
 I met many adventurers that became part of my life now...  <br>
