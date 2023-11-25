@@ -22,6 +22,7 @@ class AVLTree: public Abstract{
      * node B or node C
     */
     Node* rotateLeft(Node* node){
+        cout << "Rotating node " << node->value << " to the left" << endl;
         Node* tempRight = node->right, *tempRightLeft = tempRight->left;
         tempRight->left = node;
         node->right = tempRightLeft;
@@ -30,6 +31,7 @@ class AVLTree: public Abstract{
         return tempRight;
     }
     Node* rotateRight(Node* node){
+        cout << "Rotating node " << node->value << " to the right" << endl;
         Node* tempLeft = node->left, *tempLeftRight = tempLeft->right;
         tempLeft->right = node;
         node->left = tempLeftRight;
@@ -40,7 +42,6 @@ class AVLTree: public Abstract{
 public:
     Node* insertNode(Node* node, int num){
         //We will insert the node the same as we insert a node in Binary Search Tree recursively.
-
         if(node == nullptr)
             return createNode(num);
         else if(num >= node->value)
