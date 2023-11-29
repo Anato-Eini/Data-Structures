@@ -33,12 +33,4 @@ public:
             return nullptr;
         }
     }
-    Node* peek(){
-        if(!isEmpty()){
-            return dequeuer->next->value;
-        }else{
-            cout << "Queue is empty" << endl;
-            return nullptr;
-        }
-    }
 };

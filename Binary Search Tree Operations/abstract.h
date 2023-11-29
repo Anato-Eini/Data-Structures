@@ -19,5 +19,4 @@ public:
     virtual bool isEmpty() = 0;
     virtual void enqueue(Node*) = 0;
     virtual Node* dequeue() = 0;
-    virtual Node* peek() = 0;
 };
