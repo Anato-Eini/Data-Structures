@@ -1,4 +1,4 @@
-#include "abstract.h"
+#include "Queue.h"
 #include <iostream>
 using namespace std;
 class BinarySearchTree: public Tree{
@@ -8,8 +8,8 @@ class BinarySearchTree: public Tree{
     int max(int a, int b){
         return (a > b) ? a : b;
     }
-    Node* mostleft(Node* n){
-        Node* current = n;
+    Node* mostleft(Node* node){
+        Node* current = node;
         while(current->left)
             current = current->left;
         return current;
@@ -32,27 +32,27 @@ public:
     If our element > to current node, traverse to the right child, else if our element < to current node, traverse to left
     child until we reach nullptr or a node that's equal to our element
     */
-    Node* search(Node* n, int num){
-        if(!n || n->value == num)
-            return n;
-        else if(num > n->value)
-            return search(n->right, num);
+    Node* search(Node* node, int num){
+        if(!node || node->value == num)
+            return node;
+        else if(num > node->value)
+            return search(node->right, num);
         else
-            return search(n->left, num);
+            return search(node->left, num);
     }
 
     //maximum height of the tree, including the root
-    int maxHeight(Node* n){
-        if(!n){
+    int maxHeight(Node* node){
+        if(!node){
             return 0;
         }else{
-            return 1 + max(maxHeight(n->left), maxHeight(n->right));
+            return 1 + max(maxHeight(node->left), maxHeight(node->right));
         }
     }
     //Determine if the element is present, if it returns nullptr, the element is not present in the tree. 
     //Otherwise if found then make it as root and use maxHeight function.
-    int height(Node* n, int num){
-        Node* searched = search(n, num);
+    int height(Node* node, int num){
+        Node* searched = search(node, num);
         if(!searched){
             return -1;
         }else{
@@ -62,11 +62,11 @@ public:
     /*
         Count the nodes it has passed from root down to that number
     */
-    int depth(Node *n, int num){
-        if(num > n->value){
-            return 1 + depth(n->right, num);
-        }else if(num < n->value){
-            return 1 + depth(n->left, num);
+    int depth(Node *node, int num){
+        if(num > node->value){
+            return 1 + depth(node->right, num);
+        }else if(num < node->value){
+            return 1 + depth(node->left, num);
         }else {
             return 0;
         }
@@ -79,36 +79,36 @@ public:
      * If 2 children, in my own implementation, I search for the smallest element leaf node from the right child,
      * swap the elements to the current node then delete that leaf node
      */
-    Node* deleteNode(Node* n, int num) {
-        if (!n) {
-            return n;
+    Node* deleteNode(Node* node, int num) {
+        if (!node) {
+            return node;
         }
         Node* returner;
-        if (num > n->value) {
-            n->right = deleteNode(n->right, num);
-        } else if (num < n->value) {
-            n->left = deleteNode(n->left, num);
+        if (num > node->value) {
+            node->right = deleteNode(node->right, num);
+        } else if (num < node->value) {
+            node->left = deleteNode(node->left, num);
         } else {
-            if (n->right != nullptr && n->left != nullptr) {
-                Node* minNode = mostleft(n->right);
-                n->value = minNode->value;
-                n->right = deleteNode(n->right, minNode->value);
+            if (node->right && node->left) {
+                Node* minNode = mostleft(node->right);
+                node->value = minNode->value;
+                node->right = deleteNode(node->right, minNode->value);
             } else {
-                if (n->left) {
-                    returner = n->left;
-                    delete n;
+                if (node->left) {
+                    returner = node->left;
+                    delete node;
                     return returner;
-                } else if (n->right) {
-                    returner = n->right;
-                    delete n;
+                } else if (node->right) {
+                    returner = node->right;
+                    delete node;
                     return returner;
                 } else {
-                    delete n;
+                    delete node;
                     return nullptr;
                 }
             }
         }
-        return n;
+        return node;
     }
     //Pre-order Traversal
     void printPR(Node* node){
@@ -132,6 +132,21 @@ public:
             printPO(node->left);
             printPO(node->right);
             cout << node->value << " ";
+        }
+    }
+    //Breadth-first search traversal
+    void printBFS(Node* root){
+        Queue* queue = new QueueList();
+        queue->enqueue(root);
+        while(!queue->isEmpty()){
+            Node* dequeued = queue->dequeue();
+            if(dequeued->left){
+                queue->enqueue(dequeued->left);
+            }
+            if(dequeued->right){
+                queue->enqueue(dequeued->right);
+            }
+            cout << dequeued->value << " ";
         }
     }
 };

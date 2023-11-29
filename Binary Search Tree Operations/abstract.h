@@ -10,4 +10,14 @@ public:
     virtual void printI(Node*) = 0;
     virtual void printPO(Node*) = 0;
     virtual void printPR(Node*) = 0;
+    virtual void printBFS(Node*) = 0;
+};
+
+
+class Queue{
+public:
+    virtual bool isEmpty() = 0;
+    virtual void enqueue(Node*) = 0;
+    virtual Node* dequeue() = 0;
+    virtual Node* peek() = 0;
 };

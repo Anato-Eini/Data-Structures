@@ -53,7 +53,7 @@ int main() {
                 }
                 break;
             case 7:
-                cout << "Pick Traversal Algorithm (1-Pre-order Traversal | 2-In-order Traversal | 3-Post-order Traversal: ";
+                cout << "Pick Traversal Algorithm (1-Pre-order Traversal | 2-In-order Traversal | 3-Post-order Traversal | 4-Breadth-First Search Traversal: ";
                 cin >> input;
                 switch (input) {
                     case 1: tree->printPR(root);
@@ -61,6 +61,8 @@ int main() {
                     case 2: tree->printI(root);
                         break;
                     case 3: tree->printPO(root);
+                        break;
+                    case 4: tree->printBFS(root);
                         break;
                     default: cout << "Invalid Operation";
                 }
