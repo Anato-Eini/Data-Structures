@@ -27,8 +27,7 @@ int main() {
             case 3:
                 cout << "Enter element to delete: ";
                 cin >> input;
-                tree->deleteNode(root, input);
-                cout << endl;
+                root = tree->deleteNode(root, input);
                 break;
             case 4:
                 cout << "Max height of the tree is: " << tree->maxHeight(root) << endl;

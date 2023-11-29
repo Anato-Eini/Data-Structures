@@ -75,32 +75,44 @@ public:
         }
     }
 
-    //Kapoy explain ari dapita kay complicated HAHAHAHAHHAHA
-    void deleteNode(Node*& n, int num) {
+    /*
+     * Search first for the element the same way we search for an element in a binary search tree.
+     * If found, determine the number of children.
+     * If 0 children, return nullptr
+     * If 1 child, determine if left child or right child is present then return that child;
+     * If 2 children, in my own implementation, I search for the smallest element leaf node from the right child,
+     * swap the elements to the current node then delete that leaf node
+     */
+    Node* deleteNode(Node* n, int num) {
         if (n == nullptr) {
-            return;
+            return n;
         }
+        Node* returner;
         if (num > n->value) {
-            deleteNode(n->right, num);
+            n->right = deleteNode(n->right, num);
         } else if (num < n->value) {
-            deleteNode(n->left, num);
+            n->left = deleteNode(n->left, num);
         } else {
             if (n->right != nullptr && n->left != nullptr) {
                 Node* minNode = mostleft(n->right);
                 n->value = minNode->value;
-                deleteNode(n->right, minNode->value);
+                n->right = deleteNode(n->right, minNode->value);
             } else {
-                Node* temp = n;
-                if (n->left != nullptr) {
-                    n = n->left;
-                } else if (n->right != nullptr) {
-                    n = n->right;
+                if (n->left) {
+                    returner = n->left;
+                    delete n;
+                    return returner;
+                } else if (n->right) {
+                    returner = n->right;
+                    delete n;
+                    return returner;
                 } else {
-                    n = nullptr;
+                    delete n;
+                    return nullptr;
                 }
-                delete temp;
             }
         }
+        return n;
     }
     //Pre-order Traversal
     void printPR(Node* node){
