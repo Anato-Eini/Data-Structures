@@ -94,25 +94,21 @@ public:
             node->right = deleteNode(node->right, num);
         else if (num < node->value)
             node->left = deleteNode(node->left, num);
-        else {
-            if (node->right && node->left) {
+        else if (node->right && node->left) {
                 Node* minNode = mostleft(node->right);
                 node->value = minNode->value;
                 node->right = deleteNode(node->right, minNode->value);
-            } else {
-                if (node->left) {
-                    returner = node->left;
-                    delete node;
-                    return returner;
-                } else if (node->right) {
-                    returner = node->right;
-                    delete node;
-                    return returner;
-                } else {
-                    delete node;
-                    return nullptr;
-                }
-            }
+        } else if (node->left) {
+            returner = node->left;
+            delete node;
+            return returner;
+        } else if (node->right) {
+            returner = node->right;
+            delete node;
+            return returner;
+        } else {
+            delete node;
+            return nullptr;
         }
         return node;
     }
