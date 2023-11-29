@@ -18,7 +18,7 @@ int main() {
                 cout << "Enter element to search: ";
                 cin >> input;
                 cout << endl;
-                if (tree->search(root, input) != nullptr) {
+                if (tree->search(root, input)) {
                     cout << input<< " exists" << endl;
                 }else {
                     cout << input <<" does not exists" << endl;
@@ -46,7 +46,7 @@ int main() {
                 cout << "Enter element: ";
                 cin >> input;
                 tempNode = tree->search(root, input);
-                if(tempNode != nullptr){
+                if(tempNode){
                     cout << "The depth of the node with the element " << input << " is " << tree->depth(root, input) << endl;
                 }else{
                     cout << "Element not found" << endl;

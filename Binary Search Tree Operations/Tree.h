@@ -10,7 +10,7 @@ class BinarySearchTree: public Tree{
     }
     Node* mostleft(Node* n){
         Node* current = n;
-        while(current->left != nullptr)
+        while(current->left)
             current = current->left;
         return current;
     }
@@ -20,7 +20,7 @@ public:
     child until we reach nullptr then create a new node right after
     */
     Node* insert(Node *n, int num){
-        if(n == nullptr)
+        if(!n)
             return create(num);
         else if(n->value < num)
             n->right = insert(n->right, num);
@@ -43,25 +43,22 @@ public:
 
     //maximum height of the tree, including the root
     int maxHeight(Node* n){
-        if(n == nullptr){
+        if(!n){
             return 0;
         }else{
             return 1 + max(maxHeight(n->left), maxHeight(n->right));
         }
     }
-
     //Determine if the element is present, if it returns nullptr, the element is not present in the tree. 
     //Otherwise if found then make it as root and use maxHeight function.
     int height(Node* n, int num){
         Node* searched = search(n, num);
-        if(searched == nullptr){
+        if(!searched){
             return -1;
         }else{
             return maxHeight(searched) - 1;
         }
     }
-
-
     /*
         Count the nodes it has passed from root down to that number
     */
@@ -74,7 +71,6 @@ public:
             return 0;
         }
     }
-
     /*
      * Search first for the element the same way we search for an element in a binary search tree.
      * If found, determine the number of children.
@@ -84,7 +80,7 @@ public:
      * swap the elements to the current node then delete that leaf node
      */
     Node* deleteNode(Node* n, int num) {
-        if (n == nullptr) {
+        if (!n) {
             return n;
         }
         Node* returner;
