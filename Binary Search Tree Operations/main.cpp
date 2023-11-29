@@ -68,6 +68,23 @@ int main() {
                 }
                 cout << endl;
                 break;
+            case 8:
+                cout << "Enter the sibling's of you want to search: ";
+                cin >> input;
+                tempNode = tree->search(root, input);
+                if(tempNode){
+                    if(root->value == input)
+                        cout << "There is no sibling of " << input << endl;
+                    else{
+                        tempNode = tree->sibling(root, input);
+                        if(tempNode && root->value != input)
+                            cout << "The sibling of " << input << " is " << tempNode->value << endl;
+                        else
+                            cout << "There is no sibling of " << input << endl;
+                    }
+                }else
+                    cout << input << " does not exists" << endl;
+                break;
             default:
                 cout << "Invalid Operation";
                 break;

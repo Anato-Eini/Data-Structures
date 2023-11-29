@@ -43,33 +43,40 @@ public:
 
     //maximum height of the tree, including the root
     int maxHeight(Node* node){
-        if(!node){
+        if(!node)
             return 0;
-        }else{
+        else
             return 1 + max(maxHeight(node->left), maxHeight(node->right));
-        }
     }
     //Determine if the element is present, if it returns nullptr, the element is not present in the tree. 
     //Otherwise if found then make it as root and use maxHeight function.
     int height(Node* node, int num){
         Node* searched = search(node, num);
-        if(!searched){
+        if(!searched)
             return -1;
-        }else{
+        else
             return maxHeight(searched) - 1;
-        }
     }
     /*
         Count the nodes it has passed from root down to that number
     */
     int depth(Node *node, int num){
-        if(num > node->value){
+        if(num > node->value)
             return 1 + depth(node->right, num);
-        }else if(num < node->value){
+        else if(num < node->value)
             return 1 + depth(node->left, num);
-        }else {
+        else
             return 0;
-        }
+    }
+    Node* sibling(Node* node, int num){
+        if(node->left && node->left->value == num)
+            return node->right;
+        else if(node->right && node->right->value == num)
+            return node->left;
+        else if(node->value > num)
+            return sibling(node->left, num);
+        else
+            return sibling(node->right, num);
     }
     /*
      * Search first for the element the same way we search for an element in a binary search tree.
@@ -80,15 +87,14 @@ public:
      * swap the elements to the current node then delete that leaf node
      */
     Node* deleteNode(Node* node, int num) {
-        if (!node) {
+        if (!node)
             return node;
-        }
         Node* returner;
-        if (num > node->value) {
+        if (num > node->value)
             node->right = deleteNode(node->right, num);
-        } else if (num < node->value) {
+        else if (num < node->value)
             node->left = deleteNode(node->left, num);
-        } else {
+        else {
             if (node->right && node->left) {
                 Node* minNode = mostleft(node->right);
                 node->value = minNode->value;
@@ -140,12 +146,10 @@ public:
         queue->enqueue(root);
         while(!queue->isEmpty()){
             Node* dequeued = queue->dequeue();
-            if(dequeued->left){
+            if(dequeued->left)
                 queue->enqueue(dequeued->left);
-            }
-            if(dequeued->right){
+            if(dequeued->right)
                 queue->enqueue(dequeued->right);
-            }
             cout << dequeued->value << " ";
         }
     }
