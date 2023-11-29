@@ -64,8 +64,6 @@ int main(){
                     cout << "Element " << input << " did not exist" << endl;
                 break;
             case 'X':
-                cout << "Exiting..." << endl;
-                break;
             case 'x':
                 cout << "Exiting..." << endl;
                 break;
