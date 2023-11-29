@@ -18,11 +18,10 @@ int main() {
                 cout << "Enter element to search: ";
                 cin >> input;
                 cout << endl;
-                if (tree->search(root, input)) {
+                if (tree->search(root, input))
                     cout << input<< " exists" << endl;
-                }else {
+                else
                     cout << input <<" does not exists" << endl;
-                }
                 break;
             case 3:
                 cout << "Enter element to delete: ";
@@ -36,21 +35,19 @@ int main() {
                 cout << "Enter element: ";
                 cin >> input;
                 temp = tree->height(root, input);
-                if(temp == -1){
+                if(temp == -1)
                     cout << "Element did not exist" << endl;
-                }else{
+                else
                     cout << "The height of the node with the element " << input << " is " << tree->height(root, input) << endl;
-                }
                 break;
             case 6:
                 cout << "Enter element: ";
                 cin >> input;
                 tempNode = tree->search(root, input);
-                if(tempNode){
+                if(tempNode)
                     cout << "The depth of the node with the element " << input << " is " << tree->depth(root, input) << endl;
-                }else{
+                else
                     cout << "Element not found" << endl;
-                }
                 break;
             case 7:
                 cout << "Pick Traversal Algorithm (1-Pre-order Traversal | 2-In-order Traversal | 3-Post-order Traversal | 4-Breadth-First Search Traversal: ";
