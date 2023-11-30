@@ -8,11 +8,11 @@ public:
         sentinel = new SinglyNode{nullptr, nullptr};
         dequeuer = new SinglyNode{nullptr, nullptr};
     }
-    bool isEmpty(){
+    bool isEmpty() override{
         return !dequeuer->next;
     }
-    void enqueue(Node* node){
-        SinglyNode *newNode = new SinglyNode{node, nullptr};
+    void enqueue(Node* node) override{
+        auto *newNode = new SinglyNode{node, nullptr};
         if(isEmpty()){
             sentinel->next = newNode;
             dequeuer->next = newNode;
@@ -21,7 +21,7 @@ public:
             sentinel->next = newNode;
         }
     }
-    Node* dequeue(){
+    Node* dequeue() override{
         if(!isEmpty()){
             Node* node = dequeuer->next->value;
             SinglyNode *deleter = dequeuer->next;

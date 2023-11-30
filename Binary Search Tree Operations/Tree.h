@@ -2,13 +2,13 @@
 #include <iostream>
 using namespace std;
 class BinarySearchTree: public Tree{
-    Node* create(int num){
+    static Node* create(int num){
         return new Node{num, nullptr, nullptr};
     }
-    int max(int a, int b){
+    static int max(int a, int b){
         return (a > b) ? a : b;
     }
-    Node* mostleft(Node* node){
+    static Node* mostleft(Node* node){
         Node* current = node;
         while(current->left)
             current = current->left;
@@ -19,7 +19,7 @@ public:
      If our element > to current node, traverse to the right child, else if our element < to current node, traverse to left
     child until we reach nullptr then create a new node right after
     */
-    Node* insert(Node *n, int num){
+    Node* insert(Node *n, int num) override{
         if(!n)
             return create(num);
         else if(n->value < num)
@@ -32,7 +32,7 @@ public:
     If our element > to current node, traverse to the right child, else if our element < to current node, traverse to left
     child until we reach nullptr or a node that's equal to our element
     */
-    Node* search(Node* node, int num){
+    Node* search(Node* node, int num) override{
         if(!node || node->value == num)
             return node;
         else if(num > node->value)
@@ -42,7 +42,7 @@ public:
     }
 
     //maximum height of the tree, including the root
-    int maxHeight(Node* node){
+    int maxHeight(Node* node) override{
         if(!node)
             return 0;
         else
@@ -50,7 +50,7 @@ public:
     }
     //Determine if the element is present, if it returns nullptr, the element is not present in the tree. 
     //Otherwise if found then make it as root and use maxHeight function.
-    int height(Node* node, int num){
+    int height(Node* node, int num) override{
         Node* searched = search(node, num);
         if(!searched)
             return -1;
@@ -60,7 +60,7 @@ public:
     /*
         Count the nodes it has passed from root down to that number
     */
-    int depth(Node *node, int num){
+    int depth(Node *node, int num) override{
         if(num > node->value)
             return 1 + depth(node->right, num);
         else if(num < node->value)
@@ -68,7 +68,7 @@ public:
         else
             return 0;
     }
-    Node* sibling(Node* node, int num){
+    Node* sibling(Node* node, int num) override{
         if(node->left && node->left->value == num)
             return node->right;
         else if(node->right && node->right->value == num)
@@ -86,7 +86,7 @@ public:
      * If 2 children, in my own implementation, I search for the smallest element leaf node from the right child,
      * swap the elements to the current node then delete that leaf node
      */
-    Node* deleteNode(Node* node, int num) {
+    Node* deleteNode(Node* node, int num) override {
         if (!node)
             return node;
         Node* returner;
@@ -113,7 +113,7 @@ public:
         return node;
     }
     //Pre-order Traversal
-    void printPR(Node* node){
+    void printPR(Node* node) override{
         if(node){
             cout << node->value << " ";
             printPR(node->left);
@@ -121,7 +121,7 @@ public:
         }
     }
     //Inorder Traversal
-    void printI(Node* node){
+    void printI(Node* node) override{
         if(node){
             printI(node->left);
             cout << node->value << " ";
@@ -129,7 +129,7 @@ public:
         }
     }
     //Post-order Traversal
-    void printPO(Node* node){
+    void printPO(Node* node) override{
         if(node){
             printPO(node->left);
             printPO(node->right);
@@ -137,7 +137,7 @@ public:
         }
     }
     //Breadth-first search traversal
-    void printBFS(Node* root){
+    void printBFS(Node* root) override{
         Queue* queue = new QueueList();
         queue->enqueue(root);
         while(!queue->isEmpty()){

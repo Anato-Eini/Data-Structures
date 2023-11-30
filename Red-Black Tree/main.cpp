@@ -1,8 +1,5 @@
-// Implementing Red-Black Tree in C++
-
 #include <iostream>
 using namespace std;
-
 struct Node {
     int data;
     Node *parent;
@@ -10,14 +7,11 @@ struct Node {
     Node *right;
     int color;
 };
-
 typedef Node *NodePtr;
-
 class RedBlackTree {
 private:
     NodePtr root;
     NodePtr TNULL;
-
     void initializeNULLNode(NodePtr node, NodePtr parent) {
         node->data = 0;
         node->parent = parent;
@@ -102,8 +96,7 @@ private:
                     rightRotate(x->parent);
                     s = x->parent->left;
                 }
-
-                if (s->right->color == 0 && s->right->color == 0) {
+                if (s->right->color == 0) {
                     s->color = 1;
                     x = x->parent;
                 } else {
@@ -113,7 +106,6 @@ private:
                         leftRotate(s);
                         s = x->parent->left;
                     }
-
                     s->color = x->parent->color;
                     x->parent->color = 0;
                     s->left->color = 0;
@@ -242,7 +234,6 @@ private:
                 cout << "L----";
                 indent += "|  ";
             }
-
             string sColor = root->color ? "RED" : "BLACK";
             cout << root->data << "(" << sColor << ")" << endl;
             printHelper(root->left, indent, false);
@@ -397,18 +388,15 @@ public:
     NodePtr getRoot() {
         return this->root;
     }
-
     void deleteNode(int data) {
         deleteNodeHelper(this->root, data);
     }
-
     void printTree() {
         if (root) {
             printHelper(this->root, "", true);
         }
     }
 };
-
 int main() {
     RedBlackTree bst;
     bst.insert(55);
@@ -417,7 +405,6 @@ int main() {
     bst.insert(60);
     bst.insert(75);
     bst.insert(57);
-
     bst.printTree();
     cout << endl
          << "After deleting" << endl;
