@@ -2,16 +2,16 @@
 #include <iostream>
 using namespace std;
 class AVLTree: public Abstract{
-    Node* createNode(int num){
+    static Node* createNode(int num){
         return new Node{num, 1, nullptr, nullptr};
     }
-    int max(int num1, int num2){
+    static int max(int num1, int num2){
         return (num1 > num2) ? num1 : num2;
     }
-    int heightNode(Node* node){
+    static int heightNode(Node* node){
         return (!node) ? 0 : node->height;
     }
-    Node* minimumValue(Node* node){
+    static Node* minimumValue(Node* node){
         Node* curr = node;
         while(curr->left)
             curr = curr->left;
@@ -21,7 +21,7 @@ class AVLTree: public Abstract{
      * These two functions are for rotating nodes ie making parent node A with child node B and C, as a child to either
      * node B or node C
     */
-    Node* rotateLeft(Node* node){
+    static Node* rotateLeft(Node* node){
         cout << "Rotating node " << node->value << " to the left" << endl;
         Node* tempRight = node->right, *tempRightLeft = tempRight->left;
         tempRight->left = node;
@@ -30,7 +30,7 @@ class AVLTree: public Abstract{
         tempRight->height = max(heightNode(tempRight->right), heightNode(tempRight->left)) + 1;
         return tempRight;
     }
-    Node* rotateRight(Node* node){
+    static Node* rotateRight(Node* node){
         cout << "Rotating node " << node->value << " to the right" << endl;
         Node* tempLeft = node->left, *tempLeftRight = tempLeft->right;
         tempLeft->right = node;
@@ -40,7 +40,7 @@ class AVLTree: public Abstract{
         return tempLeft;
     }
 public:
-    Node* insertNode(Node* node, int num){
+    Node* insertNode(Node* node, int num) override{
         //We will insert the node the same as we insert a node in Binary Search Tree recursively.
         if(node == nullptr)
             return createNode(num);
@@ -73,7 +73,7 @@ public:
         }
         return node;
     }
-    Node* deleteNode(Node* node, int num){
+    Node* deleteNode(Node* node, int num) override{
         Node *returner = nullptr;
         /*
          * Searches the element recursively down the tree. If found, determine if it has 1 child, children or none.
@@ -129,7 +129,7 @@ public:
         }
         return returner;
     }
-    Node* searchNode(Node* node, int num){
+    Node* searchNode(Node* node, int num) override{
         /*
          * Similar to how we search a node in insertNode and deleteNode, we will find the correct position of node A
          * by comparing its element to the current node. If the number you're looking for is bigger than the number in
@@ -140,22 +140,21 @@ public:
             return node;
         else if(num < node->value)
             return searchNode(node->left, num);
-        else
-            return searchNode(node->right, num);
+        else return searchNode(node->right, num);
     }
-    int depth(Node* node, int num){
+    int depth(Node* node, int num) override{
         if(num < node->value)
             return 1 + depth(node->left, num);
         else if(num > node->value)
             return 1 + depth(node->right, num);
         else return 0;
     }
-    int height(Node* node){
+    int height(Node* node) override{
         return max(heightNode(node->left), heightNode(node->right)) + 1;
     }
 
     //Pre-order Traversal
-    void printPR(Node* node){
+    void printPR(Node* node) override{
         if(node){
             cout << node->value << " ";
             printPR(node->left);
@@ -163,7 +162,7 @@ public:
         }
     }
     //Inorder Traversal
-    void printI(Node* node){
+    void printI(Node* node) override{
         if(node){
             printI(node->left);
             cout << node->value << " ";
@@ -171,12 +170,11 @@ public:
         }
     }
     //Post-order Traversal
-    void printPO(Node* node){
+    void printPO(Node* node) override{
         if(node){
             printPO(node->left);
             printPO(node->right);
             cout << node->value << " ";
         }
     }
-
 };
