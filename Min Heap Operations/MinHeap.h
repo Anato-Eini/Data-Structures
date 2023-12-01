@@ -21,9 +21,8 @@ class MinHeapOperations: public MinHeap{
     }
 public:
     int removeMin(){
-        if(heapTree.empty()){
+        if(heapTree.empty())
             return -1;
-        }
         int z = heapTree[0];
         swap(&heapTree[0], &heapTree[heapTree.size() - 1]);
         heapTree.pop_back();
@@ -31,34 +30,25 @@ public:
         return z;
     }
     int peek(){
-        if(heapTree.empty()){
+        if(heapTree.empty())
             return -1;
-        }else{
-            return heapTree[0];
-        }
+        else return heapTree[0];
     }
     void deleteNode(int num){
-        for(int i = (int)heapTree.size() - 1; i >= 0; i--){
+        for(int i = (int)heapTree.size() - 1; i >= 0; i--)
             if(heapTree[i] == num){
                 swap(&heapTree[i], &heapTree[heapTree.size() - 1]);
                 heapTree.pop_back();
-                for(;i >= 0; i--){
+                for(;i >= 0; i--)
                     heapify(i);
-                }
             }
-        }
     }
 
     void insert(int new_num) {
         int size = heapTree.size();
-        if (size == 0) {
-            heapTree.push_back(new_num);
-        } else {
-            heapTree.push_back(new_num);
-            for (int ctr = size / 2 - 1; ctr >= 0; ctr--) {
-                heapify(ctr);
-            }
-        }
+        heapTree.push_back(new_num);
+        for (int ctr = size / 2 - 1; ctr >= 0; ctr--)
+            heapify(ctr);
     }
 
     void printHeapTree() {
