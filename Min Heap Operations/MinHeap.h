@@ -39,16 +39,19 @@ public:
             if(heapTree[i] == num){
                 swap(&heapTree[i], &heapTree[heapTree.size() - 1]);
                 heapTree.pop_back();
-                for(;i >= 0; i--)
-                    heapify(i);
+                heapify(i);
             }
     }
 
     void insert(int new_num) {
-        int size = heapTree.size();
         heapTree.push_back(new_num);
-        for (int ctr = size / 2 - 1; ctr >= 0; ctr--)
-            heapify(ctr);
+        int smallest = heapTree.size() - 1;
+        while(true){
+            if(heapTree[smallest] < heapTree[(smallest - 1) / 2] && (smallest - 1) / 2 >= 0){
+                swap(&heapTree[smallest], &heapTree[(smallest - 1) / 2]);
+                smallest = (smallest - 1) / 2;
+            }else break;
+        }
     }
 
     void printHeapTree() {
