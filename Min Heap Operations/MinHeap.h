@@ -47,7 +47,7 @@ public:
         heapTree.push_back(new_num);
         int smallest = heapTree.size() - 1;
         while(true){
-            if(heapTree[smallest] < heapTree[(smallest - 1) / 2] && (smallest - 1) / 2 >= 0){
+            if(heapTree[smallest] < heapTree[(smallest - 1) / 2]){
                 swap(&heapTree[smallest], &heapTree[(smallest - 1) / 2]);
                 smallest = (smallest - 1) / 2;
             }else break;

@@ -31,6 +31,7 @@ int main () {
                 break;
             case 4:
                 cout << "Minimum element removed is: " << minHeap->removeMin() << endl << endl;
+                minHeap->printHeapTree();
                 break;
             default:
                 minHeap->printHeapTree();
