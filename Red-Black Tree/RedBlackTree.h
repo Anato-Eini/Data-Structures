@@ -9,8 +9,8 @@ class RedBlackTree {
     unsigned long long size;
     static void rotateLeft(Node*);
     static void rotateRight(Node*);
-    static void insertHelper(Node*, int);
-    static void insertFix(Node*);
+    void insertHelper(Node*, int);
+    void insertFix(Node*);
     static Node* searchHelper(Node*, int);
 public:
     RedBlackTree() : root(nullptr), size(0) {}

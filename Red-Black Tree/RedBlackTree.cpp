@@ -1,6 +1,5 @@
 #include "RedBlackTree.h"
 void RedBlackTree::insertHelper(Node *node, int value) {
-    Node* newNode = new Node{value, false, nullptr, nullptr};
     if(node->value > value) {
         if(node->left)
             insertHelper(node->left, value);
@@ -33,8 +32,14 @@ void RedBlackTree::insertFix(Node *node) {
     Node* currentNode = node;
     while(!currentNode->parent->isBlack){
         Node* grandParent = currentNode->parent->parent;
+        if(currentNode->parent == grandParent->left){
 
+        }else{
+
+        }
+        if(currentNode == root) break;
     }
+    root->isBlack = true;
 }
 
 Node* RedBlackTree::searchHelper(Node *node, int value) {
