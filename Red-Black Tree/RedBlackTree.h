@@ -17,6 +17,9 @@ public:
     RedBlackTree() : root(nullptr), size(0) {}
     void insert(int);
     Node* search(int);
+    int treeHeight();
+    int nodeHeight(Node*);
+    int nodeDepth(Node*);
 };
 
 

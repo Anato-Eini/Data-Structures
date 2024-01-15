@@ -25,12 +25,40 @@ void RedBlackTree::rotateRight(Node *node) {
     leftRightNode->parent = node;
 }
 
-void RedBlackTree::insert(int value) {
-    if(!root)
-        root = new Node{value, true, nullptr, nullptr, nullptr};
-    else
-        insertHelper(root, value);
-    size++;
+void RedBlackTree::insertFix(Node *node) {
+    Node* currentNode = node;
+    while(!currentNode->parent->isBlack){
+        Node* gp = currentNode->parent->parent;
+        if(currentNode->parent == gp->left){
+            if(!gp->right->isBlack){
+                gp->right->isBlack = true;
+                gp->isBlack = false;
+                currentNode->parent->isBlack = false;
+                currentNode = gp;
+            }else{
+                if(node == node->parent->right){
+                    currentNode->isBlack = true;
+                    rotateLeft(currentNode->parent);
+                }
+                rotateRight(currentNode);
+            }
+        }else{
+            if(!gp->left->isBlack){
+                gp->left->isBlack = false;
+                gp->isBlack = false;
+                currentNode->parent->isBlack = false;
+                currentNode = gp;
+            }else{
+                if(node == node->parent->left){
+                    currentNode->isBlack = true;
+                    rotateRight(currentNode->parent);
+                }
+                rotateLeft(currentNode);
+            }
+        }
+        if(currentNode == root) break;
+    }
+    root->isBlack = true;
 }
 
 void RedBlackTree::insertHelper(Node *node, int value) {
@@ -53,25 +81,12 @@ void RedBlackTree::insertHelper(Node *node, int value) {
     }
 }
 
-void RedBlackTree::insertFix(Node *node) {
-    Node* currentNode = node;
-    while(!currentNode->parent->isBlack){
-        Node* gp = currentNode->parent->parent;
-        if(currentNode->parent == gp->left){
-            if(!gp->right->isBlack){
-                gp->right->isBlack = true;
-                gp->isBlack = false;
-                currentNode->parent->isBlack = false;
-                currentNode = currentNode->parent->parent;
-            }else{
-
-            }
-        }else{
-
-        }
-        if(currentNode == root) break;
-    }
-    root->isBlack = true;
+void RedBlackTree::insert(int value) {
+    if(!root)
+        root = new Node{value, true, nullptr, nullptr, nullptr};
+    else
+        insertHelper(root, value);
+    size++;
 }
 
 Node* RedBlackTree::searchHelper(Node *node, int value) {
