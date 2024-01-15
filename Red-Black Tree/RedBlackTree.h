@@ -7,6 +7,7 @@ using namespace std;
 class RedBlackTree {
     Node* root;
     unsigned long long size;
+    static Node* newNode(Node*, int);
     static void rotateLeft(Node*);
     static void rotateRight(Node*);
     void insertHelper(Node*, int);
