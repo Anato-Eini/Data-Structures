@@ -108,6 +108,11 @@ int RedBlackTree::treeHeight() {
 }
 
 int RedBlackTree::nodeHeight(Node *node) {
-    if(!node) return 0;
+    if(!node) return -1;
     return max(nodeHeight(node->right), nodeHeight(node->left)) + 1;
+}
+
+int RedBlackTree::nodeDepth(Node *node) {
+    if(!node) return -1;
+    return nodeDepth(node->parent) + 1;
 }
