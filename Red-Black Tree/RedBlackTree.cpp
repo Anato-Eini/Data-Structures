@@ -6,23 +6,27 @@ Node *RedBlackTree::newNode(Node *parent, int value) {
 void RedBlackTree::rotateLeft(Node *node) {
     Node* rightNode = node->right;
     Node* rightLeftNode = rightNode->left;
-    node->parent->left = rightNode;
+    if(node->parent)
+        node->parent->left = rightNode;
     rightNode->parent = node->parent;
     rightNode->left = node;
     node->right = rightLeftNode;
     node->parent = rightNode;
-    rightLeftNode->parent = node;
+    if(rightLeftNode)
+        rightLeftNode->parent = node;
 }
 
 void RedBlackTree::rotateRight(Node *node) {
     Node* leftNode = node->left;
     Node* leftRightNode = leftNode->right;
-    node->parent->right = leftNode;
+    if(node->parent)
+        node->parent->right = leftNode;
     leftNode->parent = node->parent;
-    leftNode->right = leftRightNode;
+    leftNode->right = node;
     node->left = leftRightNode;
     node->parent = leftNode;
-    leftRightNode->parent = node;
+    if(leftRightNode)
+        leftRightNode->parent = node;
 }
 
 void RedBlackTree::insertFix(Node *node) {
@@ -30,7 +34,7 @@ void RedBlackTree::insertFix(Node *node) {
     while(!currentNode->parent->isBlack){
         Node* gp = currentNode->parent->parent;
         if(currentNode->parent == gp->left){
-            if(!gp->right->isBlack){
+            if(!gp->right->isBlack && gp->right){
                 gp->right->isBlack = true;
                 gp->isBlack = false;
                 currentNode->parent->isBlack = false;
@@ -40,10 +44,10 @@ void RedBlackTree::insertFix(Node *node) {
                     currentNode->isBlack = true;
                     rotateLeft(currentNode->parent);
                 }
-                rotateRight(currentNode);
+                rotateRight(currentNode->parent);
             }
         }else{
-            if(!gp->left->isBlack){
+            if(gp->left && !gp->left->isBlack){
                 gp->left->isBlack = false;
                 gp->isBlack = false;
                 currentNode->parent->isBlack = false;
@@ -53,7 +57,10 @@ void RedBlackTree::insertFix(Node *node) {
                     currentNode->isBlack = true;
                     rotateRight(currentNode->parent);
                 }
-                rotateLeft(currentNode);
+                if(currentNode->parent == root)
+                    root = currentNode;
+                currentNode->parent->isBlack = false;
+                rotateLeft(currentNode->parent);
             }
         }
         if(currentNode == root) break;
