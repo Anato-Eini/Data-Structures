@@ -37,7 +37,7 @@ void RedBlackTree::insertFix(Node *node) {
             if(!gp->right->isBlack && gp->right){
                 gp->right->isBlack = true;
                 gp->isBlack = false;
-                currentNode->parent->isBlack = false;
+                currentNode->parent->isBlack = true;
                 currentNode = gp;
             }else{
                 if(node == node->parent->right){
@@ -48,9 +48,9 @@ void RedBlackTree::insertFix(Node *node) {
             }
         }else{
             if(gp->left && !gp->left->isBlack){
-                gp->left->isBlack = false;
+                gp->left->isBlack = true;
                 gp->isBlack = false;
-                currentNode->parent->isBlack = false;
+                currentNode->parent->isBlack = true;
                 currentNode = gp;
             }else{
                 if(node == node->parent->left){
