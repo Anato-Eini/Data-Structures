@@ -101,3 +101,13 @@ Node* RedBlackTree::searchHelper(Node *node, int value) {
 Node* RedBlackTree::search(int value) {
     return searchHelper(root, value);
 }
+
+
+int RedBlackTree::treeHeight() {
+    return nodeHeight(root) + 1;
+}
+
+int RedBlackTree::nodeHeight(Node *node) {
+    if(!node) return 0;
+    return max(nodeHeight(node->right), nodeHeight(node->left)) + 1;
+}
