@@ -13,6 +13,23 @@ class RedBlackTree {
     void insertHelper(Node*, int);
     void insertFix(Node*);
     static Node* searchHelper(Node*, int);
+    void printHelper(Node* root, string indent, bool last) {
+        if (root) {
+            cout << indent;
+            if (last) {
+                cout << "R----";
+                indent += "   ";
+            } else {
+                cout << "L----";
+                indent += "|  ";
+            }
+
+            string sColor = !root->isBlack ? "RED" : "BLACK";
+            cout << root->value << "(" << sColor << ")" << endl;
+            printHelper(root->left, indent, false);
+            printHelper(root->right, indent, true);
+        }
+    }
 public:
     RedBlackTree() : root(nullptr), size(0) {}
     void insert(int);
@@ -20,6 +37,11 @@ public:
     int treeHeight();
     int nodeHeight(Node*);
     int nodeDepth(Node*);
+    void printTree() {
+        if (root) {
+            printHelper(this->root, "", true);
+        }
+    }
 };
 
 

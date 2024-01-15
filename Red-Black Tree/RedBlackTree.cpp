@@ -34,17 +34,26 @@ void RedBlackTree::insertFix(Node *node) {
     while(!currentNode->parent->isBlack){
         Node* gp = currentNode->parent->parent;
         if(currentNode->parent == gp->left){
-            if(!gp->right->isBlack && gp->right){
+            if(gp->right && !gp->right->isBlack){
                 gp->right->isBlack = true;
                 gp->isBlack = false;
                 currentNode->parent->isBlack = true;
                 currentNode = gp;
             }else{
-                if(node == node->parent->right){
+                if(currentNode == currentNode->parent->right){
                     currentNode->isBlack = true;
                     rotateLeft(currentNode->parent);
+                    if(currentNode->parent == root)
+                        root = currentNode;
+                    currentNode->parent->isBlack = false;
+                    rotateRight(currentNode->parent);
+                }else{
+                    currentNode->parent->isBlack = true;
+                    gp->isBlack = false;
+                    if(gp == root)
+                        root = currentNode->parent;
+                    rotateRight(gp);
                 }
-                rotateRight(currentNode->parent);
             }
         }else{
             if(gp->left && !gp->left->isBlack){
@@ -53,14 +62,20 @@ void RedBlackTree::insertFix(Node *node) {
                 currentNode->parent->isBlack = true;
                 currentNode = gp;
             }else{
-                if(node == node->parent->left){
+                if(currentNode == currentNode->parent->left){
                     currentNode->isBlack = true;
                     rotateRight(currentNode->parent);
+                    if(currentNode->parent == root)
+                        root = currentNode;
+                    currentNode->parent->isBlack = false;
+                    rotateLeft(currentNode->parent);
+                }else{
+                    currentNode->parent->isBlack = true;
+                    gp->isBlack = false;
+                    if(gp == root)
+                        root = currentNode->parent;
+                    rotateLeft(gp);
                 }
-                if(currentNode->parent == root)
-                    root = currentNode;
-                currentNode->parent->isBlack = false;
-                rotateLeft(currentNode->parent);
             }
         }
         if(currentNode == root) break;
