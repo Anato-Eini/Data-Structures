@@ -3,6 +3,10 @@ int main(){
     auto* tree = new RedBlackTree();
     int operation, input, result;
     Node* tempNode;
+    for(int i = 1; i <= 10; i++){
+        tree->insert(i);
+        tree->insert(21 - i);
+    }
     do{
         cout << "Enter operation: ";
         cin >> operation;
@@ -84,25 +88,6 @@ int main(){
 //                    cout << input << " does not exists" << endl;
 //                break;
             case 9:
-                cout << "Enter the element you want to know of its color: ";
-                cin >> input;
-                tempNode = tree->search(input);
-                if(tempNode)
-                    cout << "The color of element " << input << " is " << ((tempNode->isBlack) ? "black\n" : "red\n");
-                else
-                    cout << input << " does not exists\n";
-                break;
-            case 10:
-                cout << "Enter the element you want to know of its parent: ";
-                cin >> input;
-                tempNode = tree->search(input);
-                if(tempNode)
-                    cout << "The parent of element " << input << " is " <<
-                    (tempNode->parent ? to_string(tempNode->parent->value) + '\n' : "none\n");
-                else
-                    cout << input << " does not exists\n";
-                break;
-            case 11:
                 tree->printTree();
                 break;
             default:

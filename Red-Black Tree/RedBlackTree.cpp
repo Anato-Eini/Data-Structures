@@ -6,7 +6,9 @@ Node *RedBlackTree::newNode(Node *parent, int value) {
 void RedBlackTree::rotateLeft(Node *node) {
     Node* rightNode = node->right;
     Node* rightLeftNode = rightNode->left;
-    if(node->parent)
+    if(node->parent && node == node->parent->right)
+        node->parent->right = rightNode;
+    else if(node->parent && node == node->parent->left)
         node->parent->left = rightNode;
     rightNode->parent = node->parent;
     rightNode->left = node;
@@ -19,8 +21,10 @@ void RedBlackTree::rotateLeft(Node *node) {
 void RedBlackTree::rotateRight(Node *node) {
     Node* leftNode = node->left;
     Node* leftRightNode = leftNode->right;
-    if(node->parent)
+    if(node->parent && node == node->parent->right)
         node->parent->right = leftNode;
+    else if(node->parent && node == node->parent->left)
+        node->parent->left = leftNode;
     leftNode->parent = node->parent;
     leftNode->right = node;
     node->left = leftRightNode;
@@ -53,6 +57,7 @@ void RedBlackTree::insertFix(Node *node) {
                     if(gp == root)
                         root = currentNode->parent;
                     rotateRight(gp);
+                    currentNode = currentNode->parent;
                 }
             }
         }else{
@@ -75,10 +80,12 @@ void RedBlackTree::insertFix(Node *node) {
                     if(gp == root)
                         root = currentNode->parent;
                     rotateLeft(gp);
+                    currentNode = currentNode->parent;
                 }
             }
         }
-        if(currentNode == root) break;
+        if(currentNode == root || currentNode->isBlack)
+            break;
     }
     root->isBlack = true;
 }
