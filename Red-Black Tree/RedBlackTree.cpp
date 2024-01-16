@@ -131,6 +131,29 @@ Node* RedBlackTree::search(int value) {
     return searchHelper(root, value);
 }
 
+void RedBlackTree::printTreeHelper(Node *node, string indent, bool isRight) {
+    if(node){
+        cout << indent;
+        if(isRight){
+            cout << "R----";
+            indent += "   ";
+        }else{
+            cout << "L----";
+            indent += "|  ";
+        }
+        cout << node->value << " (" << (node->isBlack ? "Black" : "Red") << ")\n";
+        printTreeHelper(node->left, indent, false);
+        printTreeHelper(node->right, indent, true);
+    }
+}
+
+void RedBlackTree::printTree() {
+    cout << "Size: " << size << '\n';
+    if(root)
+        printTreeHelper(root, "", true);
+    else
+        cout << "Tree is empty\n";
+}
 
 int RedBlackTree::treeHeight() {
     return nodeHeight(root) + 1;
