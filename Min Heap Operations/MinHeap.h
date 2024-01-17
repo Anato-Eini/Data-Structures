@@ -40,6 +40,7 @@ public:
                 swap(&heapTree[i], &heapTree[heapTree.size() - 1]);
                 heapTree.pop_back();
                 heapify(i);
+                break;
             }
     }
 
