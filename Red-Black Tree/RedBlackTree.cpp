@@ -51,8 +51,7 @@ void RedBlackTree::rotateRight(Node *node) {
 
 void RedBlackTree::colorFix(Node *node) {
     Node* currentNode = node;
-    while(!currentNode->parent->isBlack && !currentNode->isBlack
-    && currentNode->parent->parent && currentNode->parent){
+    while(!currentNode->parent->isBlack){
         Node* gp = currentNode->parent->parent;
         if(currentNode->parent == gp->left){
             if(gp->right && !gp->right->isBlack){
@@ -62,20 +61,14 @@ void RedBlackTree::colorFix(Node *node) {
                 currentNode = gp;
             }else{
                 if(currentNode == currentNode->parent->right){
-                    currentNode->isBlack = true;
-                    rotateLeft(currentNode->parent);
-                    if(currentNode->parent == root)
-                        root = currentNode;
-                    currentNode->parent->isBlack = false;
-                    rotateRight(currentNode->parent);
-                }else{
-                    currentNode->parent->isBlack = true;
-                    gp->isBlack = false;
-                    if(gp == root)
-                        root = currentNode->parent;
-                    rotateRight(gp);
                     currentNode = currentNode->parent;
+                    rotateLeft(currentNode);
                 }
+                currentNode->parent->isBlack = true;
+                gp->isBlack = false;
+                if(gp == root)
+                    root = currentNode->parent;
+                rotateRight(gp);
             }
         }else{
             if(gp->left && !gp->left->isBlack){
@@ -85,20 +78,14 @@ void RedBlackTree::colorFix(Node *node) {
                 currentNode = gp;
             }else{
                 if(currentNode == currentNode->parent->left){
-                    currentNode->isBlack = true;
-                    rotateRight(currentNode->parent);
-                    if(currentNode->parent == root)
-                        root = currentNode;
-                    currentNode->parent->isBlack = false;
-                    rotateLeft(currentNode->parent);
-                }else{
-                    currentNode->parent->isBlack = true;
-                    gp->isBlack = false;
-                    if(gp == root)
-                        root = currentNode->parent;
-                    rotateLeft(gp);
                     currentNode = currentNode->parent;
+                    rotateRight(currentNode);
                 }
+                currentNode->parent->isBlack = true;
+                gp->isBlack = false;
+                if(gp == root)
+                    root = currentNode->parent;
+                rotateLeft(gp);
             }
         }
         if(currentNode == root)
