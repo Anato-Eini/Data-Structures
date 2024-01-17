@@ -125,8 +125,25 @@ void RedBlackTree::deleteFix(Node *node) {
     Node* currentNode = node;
     while(currentNode != root && currentNode->parent){
         if(currentNode->parent->left == currentNode){
-            Node* sibling = siblingNode(currentNode);
+            Node* sibling = currentNode->parent->right;
+            if(sibling->isBlack){
+                if(sibling->right && !sibling->right->isBlack){
+                    sibling->right->isBlack = true;
+                    rotateLeft(currentNode->parent);
+                } else if(sibling->left && !sibling->left->isBlack){
+                    sibling->left->isBlack = true;
+                    rotateRight(sibling);
+                    if(currentNode->parent == root)
+                        root = sibling->parent;
+                    rotateLeft(currentNode->parent);
+                } else{
+                    sibling->isBlack = false;
+                    if(sibling->parent->isBlack)
+                        currentNode = currentNode->parent;
+                }
+            }else{
 
+            }
         }else{
 
         }
