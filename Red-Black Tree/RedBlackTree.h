@@ -10,7 +10,6 @@ class RedBlackTree {
     static Node* newNode(Node*, int);
     static Node* searchHelper(Node*, int);
     static Node* minimumNode(Node*);
-    Node* siblingNode(Node*);
     static void printTreeHelper(Node*, string, bool);
     static void rotateLeft(Node*);
     static void rotateRight(Node*);

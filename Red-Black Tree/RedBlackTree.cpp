@@ -9,15 +9,6 @@ Node* RedBlackTree::minimumNode(Node *node) {
     return node;
 }
 
-Node* RedBlackTree::siblingNode(Node *node) {
-    if(node == root)
-        return nullptr;
-    else if(node->parent->left == node)
-        return node->parent->right;
-    else
-        return node->parent->left;
-}
-
 void RedBlackTree::rbTransplant(Node *u, Node *v) {
     if(!u->parent)
         root = v;
@@ -132,7 +123,14 @@ void RedBlackTree::insert(int value) {
 
 void RedBlackTree::deleteFix(Node *node) {
     Node* currentNode = node;
+    while(currentNode != root && currentNode->parent){
+        if(currentNode->parent->left == currentNode){
+            Node* sibling = siblingNode(currentNode);
 
+        }else{
+
+        }
+    }
     root->isBlack = true;
 }
 
