@@ -7,6 +7,9 @@ int main(){
         tree->insert(i);
         tree->insert(21 - i);
     }
+    for(int i =1; i <= 20; i++){
+        cout <<  to_string(i) << (tree->search(i) ? + " exists" : " didn't exists") << '\n';
+    }
     do{
         cout << "Enter operation: ";
         cin >> operation;

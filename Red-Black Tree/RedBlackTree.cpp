@@ -9,14 +9,15 @@ Node* RedBlackTree::minimumNode(Node *node) {
     return node;
 }
 
-void RedBlackTree::rbTransplant(Node *node1, Node *node2) {
-    if(!node1->parent)
-        root = node2;
-    else if(node1->parent->left == node1)
-        node1->parent->left = node2;
+void RedBlackTree::rbTransplant(Node *u, Node *v) {
+    if(!u->parent)
+        root = v;
+    else if(u->parent->left == u)
+        u->parent->left = v;
     else
-        node1->parent->right = node2;
-    node2->parent = node1->parent;
+        u->parent->right = v;
+    if(v)
+        v->parent = u->parent;
 }
 
 void RedBlackTree::rotateLeft(Node *node) {
@@ -49,7 +50,7 @@ void RedBlackTree::rotateRight(Node *node) {
         leftRightNode->parent = node;
 }
 
-void RedBlackTree::colorFix(Node *node) {
+void RedBlackTree::insertFix(Node *node) {
     Node* currentNode = node;
     while(!currentNode->parent->isBlack){
         Node* gp = currentNode->parent->parent;
@@ -100,14 +101,14 @@ void RedBlackTree::insertHelper(Node *node, int value) {
             insertHelper(node->left, value);
         else {
             node->left = newNode(node, value);
-            colorFix(node->left);
+            insertFix(node->left);
         }
     }else{
         if(node->right)
             insertHelper(node->right, value);
         else {
             node->right = newNode(node, value);
-            colorFix(node->right);
+            insertFix(node->right);
         }
     }
 }
@@ -122,35 +123,20 @@ void RedBlackTree::insert(int value) {
 
 
 void RedBlackTree::deleteNode(Node* node) {
-    bool isDeletedNodeBlack = node->isBlack;
-    Node* replacementNode = nullptr;
-    if(!node->left && !node->right) {
-        if(!node->parent)
-            root = nullptr;
-        else if(node->parent->left == node){
-            node->parent->left = nullptr;
-            node->parent = nullptr;
-        }else{
-            node->parent->right = nullptr;
-            node->parent = nullptr;
-        }
-    }else if(!node->left) {
+    bool isDeletedBlack = node->isBlack;
+    Node* replacementNode;
+    if(!node->left){
         replacementNode = node->right;
         rbTransplant(node, node->right);
-    }else if(!node->right) {
+    }else if(!node->right){
         replacementNode = node->left;
         rbTransplant(node, node->left);
     }else{
         Node* minimum = minimumNode(node->right);
-        replacementNode = minimum->right;
-        node->value = minimum->value;
-        node->isBlack = minimum->isBlack;
-        deleteNode(minimum);
+        
     }
-    delete node;
-    if(replacementNode && isDeletedNodeBlack)
-        colorFix(replacementNode);
     size--;
+    delete node;
 }
 
 Node* RedBlackTree::searchHelper(Node *node, int value) {

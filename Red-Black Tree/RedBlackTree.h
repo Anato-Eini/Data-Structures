@@ -14,17 +14,17 @@ class RedBlackTree {
     static void rotateLeft(Node*);
     static void rotateRight(Node*);
     void insertHelper(Node*, int);
-    void colorFix(Node*);
+    void insertFix(Node*);
     void rbTransplant(Node* , Node*);
 public:
     RedBlackTree() : root(nullptr), size(0) {}
     void insert(int);
     void deleteNode(Node*);
+    void printTree();
     Node* search(int);
     int treeHeight();
     int nodeHeight(Node*);
     int nodeDepth(Node*);
-    void printTree();
 };
 
 
