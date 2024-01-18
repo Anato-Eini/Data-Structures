@@ -10,6 +10,12 @@ int main(){
     for(int i =1; i <= 20; i++){
         cout <<  to_string(i) << (tree->search(i) ? + " exists" : " didn't exists") << '\n';
     }
+    tree->printTree();
+    for(int i = 1; i <= 20; i++) {
+        tree->deleteNode(tree->search(i));
+        cout << i << " successfully deleted\n";
+        tree->printTree();
+    }
     do{
         cout << "Enter operation: ";
         cin >> operation;
