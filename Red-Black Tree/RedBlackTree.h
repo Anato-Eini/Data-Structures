@@ -5,24 +5,27 @@
 #include "Node.h"
 using namespace std;
 class RedBlackTree {
-    Node* root;
+    Node* root, *null;
     unsigned long long size;
-    static Node* newNode(Node*, int);
-    static Node* searchHelper(Node*, int);
-    static Node* minimumNode(Node*);
-    static void printTreeHelper(Node*, string, bool);
-    static void rotateLeft(Node*);
-    static void rotateRight(Node*);
+    Node* newNode(Node*, int);
+    Node* minimumNode(Node*);
+    Node* searchHelper(Node*, int);
+    void rotateLeft(Node*);
+    void rotateRight(Node*);
+    void printTreeHelper(Node*, string, bool);
     void insertHelper(Node*, int);
     void insertFix(Node*);
     void rbTransplant(Node* , Node*);
     void deleteFix(Node*);
 public:
-    RedBlackTree() : root(nullptr), size(0) {}
+    RedBlackTree() : size(0), null(new Node{0, true, nullptr, nullptr}) {
+        root = null;
+    }
+    Node* search(int);
+    Node* nullNode();
     void insert(int);
     void deleteNode(Node*);
     void printTree();
-    Node* search(int);
     int treeHeight();
     int nodeHeight(Node*);
     int nodeDepth(Node*);
