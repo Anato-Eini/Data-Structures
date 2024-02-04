@@ -13,8 +13,9 @@ class AVLTree {
     void rotateLeft(Node*);
     void rotateRight(Node*);
     void insertHelper(Node*, int);
-    void deleteNodeHelper(Node*);
-    void reBalanceTree(Node*, int);
+    void deleteNodeHelper(Node*a);
+    void insertFix(Node*, int);
+    void deleteFix(Node*);
     void nodeTransplant(Node*, Node*);
     void printTreeHelper(Node*, string, bool);
     static int nodeHeight(Node*);
@@ -25,8 +26,8 @@ public:
     void insertNode(int);
     void deleteNode(int);
     void printTree();
-    int depth(Node*);
-    int height(Node*);
+    int depth(int);
+    int height(int);
     int treeHeight();
 };
 

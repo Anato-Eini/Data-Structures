@@ -8,13 +8,27 @@ Node* AVLTree::createNode(Node *parent, int value) {
     return new Node{value, 1, nullptr, nullptr, parent};
 }
 
+void AVLTree::deleteFix(Node *node) {
+    node->height = max(nodeHeight(node->left), nodeHeight(node->right)) + 1;
+    int balanceFactor = getBalanceFactor(node);
+    if(balanceFactor > 1){
+        if(getBalanceFactor(node->left) < 0)
+            rotateLeft(node->left);
+        rotateRight(node);
+    }else if(balanceFactor < -1){
+        if(getBalanceFactor(node->right) > 0)
+            rotateRight(node->right);
+        rotateLeft(node);
+    }
+}
+
 void AVLTree::nodeTransplant(Node *u, Node *v) {
     if(u == root)
         root = v;
     else if(u->parent->left == u) {
         u->parent->left = v;
         u->parent->height = max(nodeHeight(u->parent->left), nodeHeight(u->parent->right)) + 1;
-    }else {
+    }else{
         u->parent->right = v;
         u->parent->height = max(nodeHeight(u->parent->left), nodeHeight(u->parent->right)) + 1;
     }
@@ -60,7 +74,7 @@ void AVLTree::rotateRight(Node *node) {
         leftRight->parent = node;
 }
 
-void AVLTree::reBalanceTree(Node *node, int value) {
+void AVLTree::insertFix(Node *node, int value) {
     node->height = max(nodeHeight(node->left), nodeHeight(node->right)) + 1;
     int balanceFactor = getBalanceFactor(node);
     if (balanceFactor > 1) {
@@ -86,7 +100,7 @@ void AVLTree::insertHelper(Node *node, int value) {
         else
             node->right = createNode(node, value);
     }
-    reBalanceTree(node, value);
+    insertFix(node, value);
 }
 
 void AVLTree::insertNode(int value) {
@@ -98,25 +112,32 @@ void AVLTree::insertNode(int value) {
 }
 
 void AVLTree::deleteNodeHelper(Node *node) {
-    Node* replacementNode;
-    if(!node->left){
+    Node* replacementNode, *curr = node;
+    if (!node->left)
         replacementNode = node->right;
-        nodeTransplant(node, replacementNode);
-    }else if(!node->right){
+    else if (!node->right)
         replacementNode = node->left;
-        nodeTransplant(node, replacementNode);
-    }else{
-        Node* minimumNode = minimumValue(node->right);
-        node->value = minimumNode->value;
-        deleteNodeHelper(minimumNode);
+    else {
+        curr = minimumValue(node->right);
+        node->value = curr->value;
+        replacementNode = curr->right;
     }
+    nodeTransplant(curr, replacementNode);
+    curr = curr->parent;
+    while(curr){
+        deleteFix(curr);
+        curr = curr->parent;
+    }
+    delete node;
 }
 
 void AVLTree::deleteNode(int value) {
     Node* node = searchNode(value);
-    if(node)
+    if(node) {
         deleteNodeHelper(node);
-    else
+        size--;
+        cout <<     value << " found\n";
+    }else
         cout << value << " not found\n";
 }
 
@@ -124,13 +145,13 @@ Node* AVLTree::searchNodeHelper(Node* node, int value) {
     if(!node || node->value == value)
         return node;
     else if(node->value > value)
-        searchNodeHelper(node->left, value);
+        return searchNodeHelper(node->left, value);
     else
-        searchNodeHelper(node->right, value);
+        return searchNodeHelper(node->right, value);
 }
 
 Node* AVLTree::searchNode(int value) {
-    searchNodeHelper(root, value);
+    return searchNodeHelper(root, value);
 }
 
 int AVLTree::nodeHeight(Node *node) {
@@ -162,4 +183,25 @@ void AVLTree::printTree() {
     if(size == 0)
         cout << "Tree is empty.\n";
     printTreeHelper(root, "", true);
+}
+
+int AVLTree::treeHeight() {
+    return root ? root->height: 0;
+}
+
+int AVLTree::depth(int value) {
+    Node* searchedNode = searchNode(value);
+    if(!searchedNode)
+        return -1;
+    int depthCounter = 0;
+    while(searchedNode) {
+        searchedNode = searchedNode->parent;
+        depthCounter++;
+    }
+    return depthCounter;
+}
+
+int AVLTree::height(int value) {
+    Node* searchedNode = searchNode(value);
+    return searchedNode ? searchedNode->height - 1: -1;
 }

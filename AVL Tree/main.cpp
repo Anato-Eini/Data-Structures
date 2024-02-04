@@ -5,12 +5,11 @@
  * A little bit complex and "juggly" but that's what makes it so fun and challenging
  */
 #include <iostream>
-#include "Implement.h"
+#include "AVLTree.h"
 using namespace std;
 int main(){
     auto* avlTree = new AVLTree();
-    Node* root = nullptr, *temp;
-    int num;
+    int num, result;
     char input;
     do{
         cout << "Enter an operation: ";
@@ -18,50 +17,33 @@ int main(){
         switch (input) {
             case '+':
                 cin >> num;
-                root = avlTree->insertNode(root, num);
+                avlTree->insertNode(num);
                 break;
             case '-':
                 cin >> num;
-                root = avlTree->deleteNode(root, num);
+                avlTree->deleteNode(num);
                 break;
             case 'H':
-                cout << "Max Height of the tree is: " << avlTree->height(root) << endl;
+                cout << "Max Height of the tree is: " << avlTree->treeHeight() << endl;
                 break;
             case 'h':
                 cin >> num;
-                temp = avlTree->searchNode(root, num);
-                if(temp)
-                    cout << "The height of the node with an element " << num << " is " << avlTree->height(temp) - 1 << endl;
-                else
-                    cout << "No such element exists" << endl;
+                result = avlTree->height(num);
+                cout << num << ((result == -1) ? " not found\n": "\'s height is " + to_string(result)) << '\n';
                 break;
             case 's':
                 cin >> num;
-                if(avlTree->searchNode(root, num))
-                    cout << "Element " << num << " exists" << endl;
-                else
-                    cout << "Element " << num << " did not exists" << endl;
+                cout << "Element " << num << (avlTree->searchNode(num) ? " exists" : " did not exists") << '\n';
                 break;
             case 'p':
-                cout << "Pick Traversal Algorithm (1-Pre-order Traversal | 2-In-order Traversal | 3-Post-order Traversal: ";
-                cin >> num;
-                switch (num) {
-                    case 1: avlTree->printPR(root);
-                        break;
-                    case 2: avlTree->printI(root);
-                        break;
-                    case 3: avlTree->printPO(root);
-                        break;
-                    default: cout << "Invalid Operation";
-                }
-                cout << endl;
+                avlTree->printTree();
+                cout << '\n';
                 break;
             case 'd':
                 cin >> num;
-                if(avlTree->searchNode(root, num))
-                    cout << "The depth of the node with an element " << input << " is " << avlTree->depth(root, num) << endl;
-                else
-                    cout << "Element " << input << " did not exist" << endl;
+                result = avlTree->depth(num);
+                cout << (result == -1 ? "Element " + to_string(num) + " did not exist": "The depth of the node " +
+                        to_string(num) + " is " + to_string(result - 1)) << '\n';
                 break;
             case 'X':
             case 'x':
