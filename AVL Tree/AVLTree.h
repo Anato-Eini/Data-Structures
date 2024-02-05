@@ -13,7 +13,7 @@ class AVLTree {
     void rotateLeft(Node*);
     void rotateRight(Node*);
     void insertHelper(Node*, int);
-    void deleteNodeHelper(Node*a);
+    void deleteNodeHelper(Node*);
     void insertFix(Node*, int);
     void deleteFix(Node*);
     void nodeTransplant(Node*, Node*);
