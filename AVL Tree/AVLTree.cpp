@@ -112,13 +112,14 @@ void AVLTree::insertNode(int value) {
 }
 
 void AVLTree::deleteNodeHelper(Node *node) {
-    Node* replacementNode, *curr = node;
+    Node* replacementNode, *curr = node, *deleteNode;
+    deleteNode = curr;
     if (!node->left)
         replacementNode = node->right;
     else if (!node->right)
         replacementNode = node->left;
     else {
-        curr = minimumValue(node->right);
+        deleteNode = curr = minimumValue(node->right);
         node->value = curr->value;
         replacementNode = curr->right;
     }
@@ -128,7 +129,7 @@ void AVLTree::deleteNodeHelper(Node *node) {
         deleteFix(curr);
         curr = curr->parent;
     }
-    delete node;
+    delete deleteNode;
 }
 
 void AVLTree::deleteNode(int value) {
@@ -136,7 +137,6 @@ void AVLTree::deleteNode(int value) {
     if(node) {
         deleteNodeHelper(node);
         size--;
-        cout <<     value << " found\n";
     }else
         cout << value << " not found\n";
 }
