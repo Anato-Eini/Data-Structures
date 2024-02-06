@@ -205,3 +205,7 @@ int AVLTree::height(int value) {
     Node* searchedNode = searchNode(value);
     return searchedNode ? searchedNode->height - 1: -1;
 }
+
+bool AVLTree::isEmpty() {
+    return size == 0;
+}

@@ -23,6 +23,7 @@ class AVLTree {
 public:
     AVLTree() : root(nullptr), size(0) {}
     Node* searchNode(int);
+    bool isEmpty();
     void insertNode(int);
     void deleteNode(int);
     void printTree();
