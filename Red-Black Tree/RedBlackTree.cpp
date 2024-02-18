@@ -254,7 +254,7 @@ Node* RedBlackTree::nullNode() {
     return null;
 }
 
-bool RedBlackTree::isEmpty() {
+bool RedBlackTree::isEmpty() const {
     return size == 0;
 }
 

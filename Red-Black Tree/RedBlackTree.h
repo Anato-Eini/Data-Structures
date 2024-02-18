@@ -5,8 +5,8 @@
 #include "Node.h"
 using namespace std;
 class RedBlackTree {
-    Node* root, *null;
     unsigned long long size;
+    Node* root, *null;
     Node* newNode(Node*, int);
     Node* minimumNode(Node*);
     Node* searchHelper(Node*, int);
@@ -15,7 +15,7 @@ class RedBlackTree {
     void printTreeHelper(Node*, string, bool);
     void insertHelper(Node*, int);
     void insertFix(Node*);
-    void rbTransplant(Node* , Node*);
+    void rbTransplant(Node*, Node*);
     void deleteFix(Node*);
 public:
     RedBlackTree() : size(0), null(new Node{0, true, nullptr, nullptr}) {
@@ -26,7 +26,7 @@ public:
     void insert(int);
     void deleteNode(Node*);
     void printTree();
-    bool isEmpty();
+    bool isEmpty() const;
     int treeHeight();
     int nodeHeight(Node*);
     int nodeDepth(Node*);
