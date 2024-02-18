@@ -26,9 +26,11 @@ public:
     void insert(int);
     void deleteNode(Node*);
     void printTree();
+    bool isEmpty();
     int treeHeight();
     int nodeHeight(Node*);
     int nodeDepth(Node*);
+    int minimumValue();
 };
 
 

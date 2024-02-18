@@ -253,3 +253,14 @@ int RedBlackTree::nodeDepth(Node *node) {
 Node* RedBlackTree::nullNode() {
     return null;
 }
+
+bool RedBlackTree::isEmpty() {
+    return size == 0;
+}
+
+int RedBlackTree::minimumValue() {
+    Node* node = minimumNode(root);
+    int value = node->value;
+    deleteNode(node);
+    return value;
+}
