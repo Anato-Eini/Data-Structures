@@ -1,0 +1,10 @@
+#ifndef TREES_AND_HEAPS_SPLAYTREE_H
+#define TREES_AND_HEAPS_SPLAYTREE_H
+
+
+class SplayTree {
+
+};
+
+
+#endif //TREES_AND_HEAPS_SPLAYTREE_H
