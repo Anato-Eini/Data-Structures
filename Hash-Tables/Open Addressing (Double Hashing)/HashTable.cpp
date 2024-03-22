@@ -1,6 +1,7 @@
 #include "HashTable.h"
 #include <iostream>
 #include <cmath>
+#include <cassert>
 bool HashTable::isPrime(int value) {
     for(int i = 2; i <= value / 2; i++)
         if(value % i == 0)
@@ -11,9 +12,9 @@ bool HashTable::isPrime(int value) {
 void HashTable::reInsert(pair<int, int> *newArray) {
     for(int i = 0; i < totalSize; i++){
         int j = 1,
-            index = (hashFunction(newArray[i].first) + hashFunction2(j++, newArray[i].first)) % size;
+            index = (hashFunction(newArray[i].first) + hashFunction2(j++)) % size;
         while(array[index])
-            index = (hashFunction(newArray[i].first) + hashFunction2(j++, newArray[i].first)) % size;
+            index = (hashFunction(newArray[i].first) + hashFunction2(j++)) % size;
         array[index] = new Node{newArray[i]};
     }
     delete newArray;
@@ -47,19 +48,20 @@ pair<int, int>* HashTable::getAllElements() {
     return newArray;
 }
 
-int HashTable::hashFunction(int value) const {
-    return value % size;
+int HashTable::hashFunction(int key) const {
+    return key % size;
 }
 
-int HashTable::hashFunction2(int i, int key) const {
-    return i * (stack->peek() - (key % stack->peek()));
+int HashTable::hashFunction2(int key) const {
+    int peeked = stack->isEmpty() ? 1 : stack->peek();
+    return peeked - (key % peeked);
 }
 
 void HashTable::insertItem(pair<int, int>& keyValue) {
     reHash();
-    int i = 1, index = (hashFunction(keyValue.first) + hashFunction2(i++, keyValue.first)) % size;
+    int i = 1, index = (hashFunction(keyValue.first) + hashFunction2(i++)) % size;
     while (array[index])
-        index = (hashFunction(keyValue.first) + hashFunction2(i++, keyValue.first)) % size;
+        index = (hashFunction(keyValue.first) + hashFunction2(i++)) % size;
     array[index] = new Node {keyValue};
     totalSize++;
 }
@@ -91,13 +93,13 @@ void HashTable::print() {
 
 void HashTable::getValue(int key) {
     Node* node = nullptr;
-    int i = 1, index = (hashFunction(key) + hashFunction2(i++, key)) % size;
+    int i = 1, index = (hashFunction(key) + hashFunction2(i++)) % size;
     while(i < size && array[index]){
         if(array[index]->keyValue.first == key) {
             node = array[index];
             break;
         }
-        index = (hashFunction(key) + hashFunction2(i++, key)) % size;
+        index = (hashFunction(key) + hashFunction2(i++)) % size;
     }
     cout << (node ? to_string(node->keyValue.second): "(None) ") << '\n';
 }

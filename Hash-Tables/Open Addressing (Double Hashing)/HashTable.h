@@ -5,8 +5,8 @@ class HashTable {
     Stack* stack;
     Node **array;
     int totalSize, size;
-    [[nodiscard]] int hashFunction(int) const; // formula (hashFunction + hashFunction2) % size
-    [[nodiscard]] int hashFunction2(int, int) const;
+    [[nodiscard]] int hashFunction(int) const;
+    [[nodiscard]] int hashFunction2(int) const;
     void reHash();
     void reInsert(pair<int, int>*);
     pair<int, int>* getAllElements();
