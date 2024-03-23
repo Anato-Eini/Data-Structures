@@ -59,9 +59,8 @@ int HashTable::hashFunction2(int key) const {
 
 void HashTable::insertItem(pair<int, int>& keyValue) {
     reHash();
-    int i = 1, index = (hashFunction(keyValue.first) + hashFunction2(i++)) % size;
-    while (array[index])
-        index = (hashFunction(keyValue.first) + hashFunction2(i++)) % size;
+    int i = 1, index;
+    while (array[(index = (hashFunction(keyValue.first) + hashFunction2(i++)) % size)]){}
     array[index] = new Node {keyValue};
     totalSize++;
 }
