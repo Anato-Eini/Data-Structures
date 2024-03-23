@@ -14,7 +14,7 @@ class HashTable {
 public:
     HashTable() : size(1), array(new Node*[1]), totalSize(0), stack(new Stack()) {
         array[0] = nullptr;
-        stack->push(1)->push(1);
+        stack->push(1);
     }
     void insertItem(pair<int, int>&);
     void deleteItem(int);

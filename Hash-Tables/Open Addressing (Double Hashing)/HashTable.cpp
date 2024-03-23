@@ -11,10 +11,8 @@ bool HashTable::isPrime(int value) {
 
 void HashTable::reInsert(pair<int, int> *newArray) {
     for(int i = 0; i < totalSize; i++){
-        int j = 1,
-            index = (hashFunction(newArray[i].first) + hashFunction2(j++)) % size;
-        while(array[index])
-            index = (hashFunction(newArray[i].first) + hashFunction2(j++)) % size;
+        int j = 1, index;
+        while (array[(index = (hashFunction(newArray->first) + j++ * hashFunction2(newArray->first)) % size)]){}
         array[index] = new Node{newArray[i]};
     }
     delete newArray;
@@ -53,32 +51,37 @@ int HashTable::hashFunction(int key) const {
 }
 
 int HashTable::hashFunction2(int key) const {
-    int peeked = stack->isEmpty() ? 1 : stack->peek();
-    return peeked - (key % peeked);
+    if(stack->isEmpty())
+        stack->push(1);
+    return stack->peek() - (key % stack->peek());
 }
 
 void HashTable::insertItem(pair<int, int>& keyValue) {
     reHash();
     int i = 1, index;
-    while (array[(index = (hashFunction(keyValue.first) + hashFunction2(i++)) % size)]){}
+    while (array[(index = (hashFunction(keyValue.first) + i++ * hashFunction2(keyValue.first)) % size)]){}
     array[index] = new Node {keyValue};
     totalSize++;
 }
 
-void HashTable::deleteItem(int value) {
-    int index = hashFunction(value), traverse = 0;
-    while(traverse < size && array[index]){
-        if(array[index]->keyValue.first == value) {
-            while (index + 1 < size && array[index + 1 ] && array[index + 1]->keyValue.first == value)
-                array[index++] = array[index + 1];
+void HashTable::deleteItem(int key) {
+    int i = 1, index = (hashFunction(key) + i * hashFunction2(key)) % size;
+    while(i <= size && array[index]){
+        if(array[index]->keyValue.first == key) {
+            int nextIndex = (hashFunction(key) + i++ * hashFunction(key)) % size;
+            while (i <= size && array[nextIndex] && array[nextIndex]->keyValue.first == key) {
+                array[index] = array[nextIndex];
+                index = nextIndex;
+                nextIndex = (hashFunction(key) + i++ * hashFunction2(key)) % size;
+            }
             array[index] = nullptr;
             --totalSize;
             reHash();
             return;
         }
-        index = (++traverse + index) % size;
+        index = (hashFunction(key) + ++i * hashFunction2(key)) % size;
     }
-    cout << "Element with key " << value << " doesn't exist\n";
+    cout << "Element with key " << key << " doesn't exist\n";
 }
 
 void HashTable::print() {
@@ -93,12 +96,12 @@ void HashTable::print() {
 void HashTable::getValue(int key) {
     Node* node = nullptr;
     int i = 1, index = (hashFunction(key) + hashFunction2(i++)) % size;
-    while(i < size && array[index]){
+    while(i <= size && array[index]){
         if(array[index]->keyValue.first == key) {
             node = array[index];
             break;
         }
-        index = (hashFunction(key) + hashFunction2(i++)) % size;
+        index = (hashFunction(key) + i++ * hashFunction2(key)) % size;
     }
     cout << (node ? to_string(node->keyValue.second): "(None) ") << '\n';
 }
