@@ -6,7 +6,7 @@ class Stack {
     int size;
 public:
     Stack(): head(new StackNode{0, nullptr}), size(0){}
-    void push(int);
+    Stack* push(int);
     int pop();
     int peek();
     [[nodiscard]] bool isEmpty() const;

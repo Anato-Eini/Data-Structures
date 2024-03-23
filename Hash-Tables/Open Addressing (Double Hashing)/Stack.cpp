@@ -1,7 +1,8 @@
 #include "Stack.h"
-void Stack::push(int value) {
+Stack* Stack::push(int value) {
     head->next = new StackNode{value, head->next};
     size++;
+    return this;
 }
 
 int Stack::pop() {
