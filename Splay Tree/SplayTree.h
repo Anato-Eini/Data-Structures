@@ -7,18 +7,12 @@ using namespace std;
 class SplayTree {
     Node* root;
     int size;
-    static Node* minimumValue(Node*);
-    Node* searchNodeHelper(Node*, int);
     static Node* createNode(Node*, int);
-    void zag(Node*);
-    void zig(Node*);
-    void insertHelper(Node*, int);
-    void deleteNodeHelper(Node*);
-    void insertFix(Node*, int);
-    void deleteFix(Node*);
-    void nodeTransplant(Node*, Node*);
+    void leftRotate(Node*);
+    void rightRotate(Node*);
+    void splay(int);
+    void splayHelper(Node*, int);
     void printTreeHelper(Node*, string, bool);
-    static int nodeHeight(Node*);
 public:
     SplayTree(): root(nullptr), size(0){}
     Node* searchNode(int);
