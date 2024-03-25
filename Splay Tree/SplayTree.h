@@ -7,27 +7,25 @@ using namespace std;
 class SplayTree {
     Node* root;
     int size;
+    [[nodiscard]] Node* searchNode(int) const;
     static Node* createNode(Node*, int);
+    Node* searchNodeHelper(Node*, int) const;
     void leftRotate(Node*);
     void rightRotate(Node*);
     void splay(Node*, int);
-    void printTreeHelper(Node*, string, bool);
+    void printTreeHelper(Node*, string, bool) const;
+    int treeHeightHelper(Node*) const;
+    int depthHelper(Node*, int) const;
 public:
     SplayTree(): root(nullptr), size(0){}
-    void search(int);
-    bool isEmpty();
+    Node* search(int);
+    [[nodiscard]]bool isEmpty() const;
     void insertNode(int);
     void deleteNode(int);
-    void printTree();
-    int depth(int);
-    int height(int);
-    int treeHeight();
-    Node* getRoot(){
-        return root;
-    }
-    void setRoot(Node* node){
-        root = node;
-    }
+    void printTree() const;
+    [[nodiscard]] int depth(int) const;
+    [[nodiscard]] int treeHeight() const;
+    [[nodiscard]] int height(int) const;
 };
 
 
