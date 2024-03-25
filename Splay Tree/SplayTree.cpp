@@ -36,11 +36,11 @@ void SplayTree::rightRotate(Node* node){
         leftRightNode->parent = node;
 }
 
-void SplayTree::splay(int value) {
-    splayHelper(root, value);
+void SplayTree::search(int value) {
+    splay(root, value);
 }
 
-void SplayTree::splayHelper(Node *node, int value) {
+void SplayTree::splay(Node *node, int value) {
     if(!node || node->value == value)
         return;
 
@@ -49,14 +49,14 @@ void SplayTree::splayHelper(Node *node, int value) {
             return;
 
         if(node->left->value > value){
-            splayHelper(node->left->left, value);
+            splay(node->left->left, value);
             rightRotate(node);
-            splayHelper(node->parent, value);
+            splay(node->parent, value);
         }else if(node->left->value < value){
-            splayHelper(node->left->right, value);
+            splay(node->left->right, value);
             if(node->left->right)
                 leftRotate(node->left);
-            splayHelper(node, value);
+            splay(node, value);
         }else
             rightRotate(node->left);
     }else{
@@ -64,15 +64,39 @@ void SplayTree::splayHelper(Node *node, int value) {
             return;
 
         if(node->right->value < value){
-            splayHelper(node->right->right, value);
+            splay(node->right->right, value);
             leftRotate(node);
-            splayHelper(node->parent, value);
+            splay(node->parent, value);
         }else if(node->right->value > value){
-            splayHelper(node->right->left, value);
+            splay(node->right->left, value);
             if(node->right->left)
                 rightRotate(node->right);
-            splayHelper(node, value);
+            splay(node, value);
         }else
-            leftRotate(node->left);
+            leftRotate(node->right);
     }
+}
+
+void SplayTree::printTreeHelper(Node *node, string indent, bool isRight) {
+    if(node){
+        cout << indent;
+        if(isRight){
+            cout << "R----";
+            indent += "   ";
+        }else{
+            cout << "L----";
+            indent += "|  ";
+        }
+        cout << node->value << "\n";
+        printTreeHelper(node->left, indent, false);
+        printTreeHelper(node->right, indent, true);
+    }
+}
+
+void SplayTree::printTree() {
+    cout << "Size: " << size << '\n';
+    if(root)
+        printTreeHelper(root, "", true);
+    else
+        cout << "Tree is empty\n";
 }

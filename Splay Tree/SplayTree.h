@@ -10,12 +10,11 @@ class SplayTree {
     static Node* createNode(Node*, int);
     void leftRotate(Node*);
     void rightRotate(Node*);
-    void splay(int);
-    void splayHelper(Node*, int);
+    void splay(Node*, int);
     void printTreeHelper(Node*, string, bool);
 public:
     SplayTree(): root(nullptr), size(0){}
-    Node* searchNode(int);
+    void search(int);
     bool isEmpty();
     void insertNode(int);
     void deleteNode(int);
@@ -23,6 +22,12 @@ public:
     int depth(int);
     int height(int);
     int treeHeight();
+    Node* getRoot(){
+        return root;
+    }
+    void setRoot(Node* node){
+        root = node;
+    }
 };
 
 
