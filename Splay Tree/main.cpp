@@ -42,7 +42,7 @@ int main()
                 if(result == -1)
                     cout << input << " does not exist\n";
                 else
-                    cout << input << " height: " << result << '\n';
+                    cout << "The height of " << input << " is " << result << '\n';
                 break;
             /*case 6:
                 cout << "Enter element: ";

@@ -145,7 +145,7 @@ void SplayTree::printTree() const{
 
 int SplayTree::height(int value) const {
     Node* searchedNode = searchNodeHelper(root, value);
-    return searchedNode ? treeHeightHelper(searchedNode) + 1: -1;
+    return searchedNode ? treeHeightHelper(searchedNode): -1;
 }
 
 int SplayTree::treeHeight() const{
