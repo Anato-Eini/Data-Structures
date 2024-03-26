@@ -59,6 +59,7 @@ void SplayTree::deleteNode(int value) {
         leftSubtree->right = rightSubtree;
         root = leftSubtree;
     }
+    root->parent = nullptr;
     size--;
 }
 
@@ -85,46 +86,36 @@ void SplayTree::insertNode(int value) {
     size++;
 }
 
-void SplayTree::splay(Node *node, int value) {
-    if(!node || node->value == value)
-        return;
-
-    if(node->value > value){
-        if(!node->left)
-            return;
-
-        if(node->left->value > value){
-            splay(node->left->left, value);
-            rightRotate(node);
-            rightRotate(node->parent);
-            return;
-        }else if(node->left->value < value){
-            splay(node->left->right, value);
-            if(node->left->right)
-                leftRotate(node->left);
-            rightRotate(node);
-        }else if(node->parent)
-            splay(node->parent, value);
+void SplayTree::splay(Node *rootNode, int value) {
+    Node* curr = rootNode;
+    while(true){
+        if(curr->value > value && curr->left) {
+            curr = curr->left;
+            continue;
+        }else if(curr->value < value && curr->right) {
+            curr = curr->right;
+            continue;
+        }
+        break;
+    }
+    while(curr->parent){
+        Node* gp = curr->parent->parent;
+        if(gp && curr->parent == gp->left){
+            if(curr == curr->parent->left)
+                rightRotate(gp);
+            else
+                leftRotate(curr->parent);
+            rightRotate(curr->parent);
+        }else if(gp && curr->parent == gp->right){
+            if(curr == curr->parent->right)
+                leftRotate(gp);
+            else
+                rightRotate(curr->parent);
+            leftRotate(curr->parent);
+        }else if(curr == curr->parent->left)
+            rightRotate(curr->parent);
         else
-            rightRotate(node);
-    }else{
-        if(!node->right)
-            return;
-
-        if(node->right->value < value){
-            splay(node->right->right, value);
-            leftRotate(node);
-            leftRotate(node->parent);
-            return;
-        }else if(node->right->value > value){
-            splay(node->right->left, value);
-            if(node->right->left)
-                rightRotate(node->right);
-            leftRotate(node);
-        }else if(node->parent)
-            splay(node->parent, value);
-        else
-            leftRotate(node);
+            leftRotate(curr->parent);
     }
 }
 
@@ -154,7 +145,7 @@ void SplayTree::printTree() const{
 
 int SplayTree::height(int value) const {
     Node* searchedNode = searchNodeHelper(root, value);
-    return searchedNode ? treeHeightHelper(searchedNode) : -1;
+    return searchedNode ? treeHeightHelper(searchedNode) + 1: -1;
 }
 
 int SplayTree::treeHeight() const{
@@ -163,7 +154,7 @@ int SplayTree::treeHeight() const{
 
 int SplayTree::treeHeightHelper(Node *node) const{
     if(!node)
-        return 0;
+        return -1;
     return max(treeHeightHelper(node->left), treeHeightHelper(node->right)) + 1;
 }
 
