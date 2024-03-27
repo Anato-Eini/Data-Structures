@@ -7,7 +7,9 @@ using namespace std;
 class SplayTree {
     Node* root;
     int size;
+    [[nodiscard]] Node* searchNode(int) const;
     static Node* createNode(Node*, int);
+    Node* searchNodeHelper(Node*, int) const;
     void leftRotate(Node*);
     void rightRotate(Node*);
     void splay(Node*, int);

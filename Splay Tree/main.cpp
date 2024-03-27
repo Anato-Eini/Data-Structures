@@ -3,10 +3,6 @@ int main()
 {
     auto* tree = new SplayTree();
     int operation, input, result;
-    for(int i = 1; i <= 10; i++){
-        tree->insertNode(i);
-        tree->insertNode(21 - i);
-    }
     do{
         cout << "Enter operation: ";
         cin >> operation;
