@@ -3,11 +3,9 @@ int main()
 {
     auto* tree = new SplayTree();
     int operation, input, result;
-    for(int i = 0; i < 10; i++){
-        tree->insertNode(i + 1);
-        tree->printTree();
-        tree->insertNode(20 - i);
-        tree->printTree();
+    for(int i = 1; i <= 10; i++){
+        tree->insertNode(i);
+        tree->insertNode(21 - i);
     }
     do{
         cout << "Enter operation: ";
@@ -44,16 +42,15 @@ int main()
                 else
                     cout << "The height of " << input << " is " << result << '\n';
                 break;
-            /*case 6:
+            case 6:
                 cout << "Enter element: ";
                 cin >> input;
-                tempNode = tree->search(input);
-                if(tempNode != tree->nullNode())
-                    cout << "The depth of the node with the element " << input << " is " << tree->nodeDepth(tempNode) <<
-                         endl;
+                result = tree->depth(input);
+                if(result >= 0)
+                    cout << "The depth of the node with the element " << input << " is " << result << '\n';
                 else
-                    cout << "Element not found" << endl;
-                break;*/
+                    cout << "Element not found" << '\n';
+                break;
             case 7:
                 tree->printTree();
                 break;
