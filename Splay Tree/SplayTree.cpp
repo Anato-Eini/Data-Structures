@@ -53,11 +53,12 @@ void SplayTree::deleteNode(int value) {
     else if(!rightSubtree)
         root = leftSubtree;
     else{
-        splay(root->left, rightSubtree->value);
         leftSubtree->right = rightSubtree;
         root = leftSubtree;
+        rightSubtree->parent = leftSubtree;
     }
-    root->parent = nullptr;
+    if(root)
+        root->parent = nullptr;
     size--;
 }
 
@@ -127,7 +128,7 @@ void SplayTree::printTreeHelper(Node *node, string indent, bool isRight) const {
             cout << "L----";
             indent += "|  ";
         }
-        cout << node->value  << (node->parent ? " has parent": " no parent") << "\n";
+        cout << node->value << "\n";
         printTreeHelper(node->left, indent, false);
         printTreeHelper(node->right, indent, true);
     }
