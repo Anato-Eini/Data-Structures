@@ -188,5 +188,8 @@ void AVLTree::printTreeHelper(Node *node, string indent, bool isRight) {
 }
 
 void AVLTree::printTree() {
-    printTreeHelper(root, "", true);
+    if(size == 0)
+        cout << "Tree is empty.\n";
+    else
+        printTreeHelper(root, "", true);
 }
