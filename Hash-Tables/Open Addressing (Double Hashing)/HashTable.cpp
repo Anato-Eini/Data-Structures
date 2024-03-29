@@ -87,7 +87,12 @@ void HashTable::insertItem(pair<int, int>& keyValue) {
     reHash();
     int i = 1, index;
     //While loop will keep running until array[index] is empty for insertion
-    while (array[(index = (hashFunction(keyValue.first) + i++ * hashFunction2(keyValue.first)) % capacity)]){}
+    while (array[(index = (hashFunction(keyValue.first) + i++ * hashFunction2(keyValue.first)) % capacity)]){
+        if(array[index]->keyValue.first == keyValue.first){
+            array[index]->keyValue.second = keyValue.second;
+            return;
+        }
+    }
 
     array[index] = new Node {keyValue};
 
@@ -100,12 +105,14 @@ void HashTable::deleteItem(int key) {
     while(i <= capacity && array[index]){
 
         if(array[index]->keyValue.first == key) {
-            int nextIndex = (hashFunction(key) + i++ * hashFunction(key)) % capacity;
+            int nextIndex = (hashFunction(key) + ++i * hashFunction(key)) % capacity, foundIndex = index;
 
-            while (i <= capacity && array[nextIndex] && array[nextIndex]->keyValue.first == key) {
+            while (i <= capacity && array[nextIndex] &&
+            (hashFunction(array[nextIndex]->keyValue.first) + i *
+            hashFunction2(array[nextIndex]->keyValue.first)) % capacity == foundIndex) {
                 array[index] = array[nextIndex];
                 index = nextIndex;
-                nextIndex = (hashFunction(key) + i++ * hashFunction2(key)) % capacity;
+                nextIndex = (hashFunction(key) + ++i * hashFunction2(key)) % capacity;
             }
 
             array[index] = nullptr;
@@ -130,19 +137,17 @@ void HashTable::print() {
     }
 }
 
-void HashTable::getValue(int key) {
-    Node* node = nullptr;
-    int i = 1, index = (hashFunction(key) + hashFunction2(i++)) % capacity;
+pair<int, int>* HashTable::getValue(int key) {
+    int i = 1, index = (hashFunction(key) + i++ * hashFunction2(key)) % capacity;
 
-    while(i <= capacity && array[index]){
+    while(i <= size && array[index]){
 
         if(array[index]->keyValue.first == key) {
-            node = array[index];
-            break;
+            return &array[index]->keyValue;
         }
 
         index = (hashFunction(key) + i++ * hashFunction2(key)) % capacity;
     }
 
-    cout << (node ? to_string(node->keyValue.second): "(None) ") << '\n';
+    return nullptr;
 }

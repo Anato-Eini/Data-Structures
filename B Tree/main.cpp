@@ -234,7 +234,7 @@ void BTreeNode::merge(int idx) {
 
 // Insertion operation
 void BTree::insertion(int k) {
-    if (root == NULL) {
+    if (root == nullptr) {
         root = new BTreeNode(t, true);
         root->keys[0] = k;
         root->n = 1;

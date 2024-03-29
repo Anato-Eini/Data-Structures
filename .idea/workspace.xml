@@ -11,18 +11,19 @@
   </component>
   <component name="CMakeRunConfigurationManager">
     <generated>
-      <config projectName="Data-Structures" targetName="HashTable__Double_Hashing_" />
-      <config projectName="Data-Structures" targetName="Queue" />
       <config projectName="Data-Structures" targetName="HashTable__Quadratic_Probing_" />
-      <config projectName="Data-Structures" targetName="MinHeap" />
       <config projectName="Data-Structures" targetName="HashTable__Linear_Probing_" />
-      <config projectName="Data-Structures" targetName="HashTable__Open_Hashing_" />
-      <config projectName="Data-Structures" targetName="PriorityQueueMaxHeap" />
       <config projectName="Data-Structures" targetName="AVL_Tree" />
-      <config projectName="Data-Structures" targetName="Expression_Tree" />
-      <config projectName="Data-Structures" targetName="Red_Black_Tree" />
       <config projectName="Data-Structures" targetName="B_Tree" />
       <config projectName="Data-Structures" targetName="LinkedLists" />
+      <config projectName="Data-Structures" targetName="HashTable__Double_Hashing_" />
+      <config projectName="Data-Structures" targetName="Queue" />
+      <config projectName="Data-Structures" targetName="MinHeap" />
+      <config projectName="Data-Structures" targetName="HashTable__Open_Hashing_" />
+      <config projectName="Data-Structures" targetName="PriorityQueueMaxHeap" />
+      <config projectName="Data-Structures" targetName="Splay_Tree" />
+      <config projectName="Data-Structures" targetName="Expression_Tree" />
+      <config projectName="Data-Structures" targetName="Red_Black_Tree" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -32,7 +33,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f10ed3ed-95d0-4849-a967-19fa257f4765" name="Changes" comment="Completion of Main Operations">
-      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_15_2024_1_27_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_15_2024_1_27_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_6_2024_11_12_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_6_2024_11_12_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/B Tree/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/B Tree/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/HashTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/HashTable.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/HashTable.h" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/HashTable.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hash-Tables/Separate Chaining (Open Hashing)/HashTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Separate Chaining (Open Hashing)/HashTable.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cache-v2-8a08333095a2b8c88c1a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-6299a03191d36936bbc6.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-384b24ab44a8fc4eabf1.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2024-03-29T01-05-49-0768.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CMakeSystem.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CMakeSystem.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdC/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdC/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdCXX/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdCXX/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Double_Hashing_.dir/Open_Addressing_(Double_Hashing)/HashTable.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Double_Hashing_.dir/Open_Addressing_(Double_Hashing)/HashTable.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Double_Hashing_.dir/Open_Addressing_(Double_Hashing)/Stack.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Double_Hashing_.dir/Open_Addressing_(Double_Hashing)/Stack.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Double_Hashing_.dir/Open_Addressing_(Double_Hashing)/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Double_Hashing_.dir/Open_Addressing_(Double_Hashing)/main.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Open_Hashing_.dir/Separate_Chaining_(Open_Hashing)/AVLTree.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Open_Hashing_.dir/Separate_Chaining_(Open_Hashing)/AVLTree.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Open_Hashing_.dir/Separate_Chaining_(Open_Hashing)/HashTable.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Open_Hashing_.dir/Separate_Chaining_(Open_Hashing)/HashTable.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Open_Hashing_.dir/Separate_Chaining_(Open_Hashing)/Stack.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Open_Hashing_.dir/Separate_Chaining_(Open_Hashing)/Stack.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Open_Hashing_.dir/Separate_Chaining_(Open_Hashing)/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Open_Hashing_.dir/Separate_Chaining_(Open_Hashing)/main.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/HashTable__Double_Hashing_.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/HashTable__Double_Hashing_.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/HashTable__Open_Hashing_.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/HashTable__Open_Hashing_.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +134,8 @@
     "CMake Application.HashTable-Separate_Chaining.executor": "Run",
     "CMake Application.HashTable.cpp.executor": "Run",
     "CMake Application.HashTable.h.executor": "Run",
+    "CMake Application.HashTable__Double_Hashing_.executor": "Run",
+    "CMake Application.HashTable__Open_Hashing_.executor": "Run",
     "CMake Application.HashTables_Double-Hashing.executor": "Run",
     "CMake Application.Node.h.executor": "Run",
     "CMake Application.Red-Black_Tree.executor": "Run",
@@ -124,12 +164,7 @@
       <recent name="D:\Trees-and-Heaps\Splay Tree" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.AVL_Tree">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="CMake Application.HashTable__Double_Hashing_">
     <configuration name="AVL_Tree" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Data-Structures" TARGET_NAME="AVL_Tree" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Data-Structures" RUN_TARGET_NAME="AVL_Tree">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -283,6 +318,7 @@
       <workItem from="1711538208498" duration="5544000" />
       <workItem from="1711631966863" duration="3810000" />
       <workItem from="1711670733752" duration="3300000" />
+      <workItem from="1711723310825" duration="4265000" />
     </task>
     <task id="LOCAL-00001" summary="Already implemented all of the features except for the logic when rotating nodes">
       <option name="closed" value="true" />

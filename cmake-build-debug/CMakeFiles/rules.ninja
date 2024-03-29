@@ -270,7 +270,7 @@ rule CXX_EXECUTABLE_LINKER__HashTable__Open_Hashing__Debug
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = "D:\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SD:\Trees-and-Heaps -BD:\Trees-and-Heaps\cmake-build-debug
+  command = "D:\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SD:\Projects\Trees-and-Heaps -BD:\Projects\Trees-and-Heaps\cmake-build-debug
   description = Re-running CMake...
   generator = 1
 

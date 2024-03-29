@@ -5,7 +5,7 @@ int main(){
     auto* hashTable = new HashTable();
     char operation;
     int number, number2;
-    pair<int, int> p;
+    pair<int, int> p, *result;
     do{
         cout << "Op: ";
         cin >> operation;
@@ -25,7 +25,8 @@ int main(){
             case 'g':
                 cin >> number;
                 cout << "The value of key " << number << ": ";
-                hashTable->getValue(number);
+                result = hashTable->getValue(number);
+                cout << (result ? to_string(result->second): "(None) ") << '\n';
             default:
                 break;
         }

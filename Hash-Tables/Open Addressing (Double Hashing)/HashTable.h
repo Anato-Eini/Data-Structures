@@ -13,9 +13,9 @@ class HashTable {
     static bool isPrime(int);
 public:
     HashTable();
+    pair<int, int>* getValue(int);
     void insertItem(pair<int, int>&);
     void deleteItem(int);
     void print();
-    void getValue(int key);
 };
 #endif //HASH_TABLES_HASHTABLE_H
