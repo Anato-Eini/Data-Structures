@@ -39,5 +39,4 @@ add_executable(HashTable__Open_Hashing_
         "Separate Chaining (Open Hashing)/Stack.cpp"
         "Separate Chaining (Open Hashing)/HashTable.cpp"
         "Separate Chaining (Open Hashing)/main.cpp"
-
 )

@@ -21,3 +21,9 @@ int Stack::peek() {
 [[nodiscard]] bool Stack::isEmpty() const {
     return size == 0;
 }
+
+Stack::~Stack() {
+    while(!isEmpty())
+        pop();
+    delete head;
+}

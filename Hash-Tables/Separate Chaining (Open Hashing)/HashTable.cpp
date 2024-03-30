@@ -75,9 +75,9 @@ void HashTable::insertItem(pair<int, int>& keyValue) {
     if(searchedNode)
         searchedNode->pair = keyValue;
     else {
+        reHash();
         array[hashFunction(keyValue.first)]->insertNode(keyValue);
         size++;
-        reHash();
     }
 }
 

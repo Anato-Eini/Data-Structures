@@ -28,7 +28,11 @@ add_executable(PriorityQueueMaxHeap
         "Implementing Priority Queues with Max Heap/main.cpp"
         "Implementing Priority Queues with Max Heap/PriorityQueue.h"
         "Implementing Priority Queues with Max Heap/node.h")
-add_executable(LinkedLists Linked-Lists/Abstract.h Linked-Lists/main.cpp Linked-Lists/Implement.h Linked-Lists/Node.h)
+add_executable(LinkedLists
+        "Linked-Lists/Abstract.h" "Linked-Lists/main.cpp"
+        "Linked-Lists/Implement.h"
+        "Linked-Lists/Node.h"
+)
 
 add_executable(MinHeap
         "Min Heap Operations/abstract.h"
@@ -37,8 +41,8 @@ add_executable(MinHeap
 )
 
 add_executable(Queue
-        Queue/Deque.cpp
-        Queue/queue.cpp
+        "Queue/Deque.cpp"
+        "Queue/queue.cpp"
 )
 
 add_executable(Red_Black_Tree

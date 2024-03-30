@@ -4,14 +4,14 @@
 class HashTable {
     Stack* stack;
     Node **array;
-    int totalSize, size;
+    int size, capacity;
     [[nodiscard]] int hashFunction(int) const;
     void reHash();
     void reInsert(pair<int, int>*);
     pair<int, int>* getAllElements();
     static bool isPrime(int);
 public:
-    HashTable() : size(1), array(new Node*[1]), totalSize(0), stack(new Stack()) {
+    HashTable() : capacity(1), array(new Node*[1]), size(0), stack(new Stack()) {
         array[0] = nullptr;
         stack->push(1);
     }

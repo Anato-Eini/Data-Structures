@@ -10,6 +10,7 @@ public:
     int pop();
     int peek();
     [[nodiscard]] bool isEmpty() const;
+    ~Stack();
 };
 
 
