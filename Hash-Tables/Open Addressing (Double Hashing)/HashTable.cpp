@@ -1,7 +1,6 @@
 #include "HashTable.h"
 #include <iostream>
 #include <cmath>
-#include <list>
 //Constructor for Hashtable
 HashTable::HashTable(): capacity(1), array(new Node*[1]), size(0), stack(new Stack()){
     array[0] = nullptr;
@@ -18,7 +17,7 @@ bool HashTable::isPrime(int value) {
 
 //Function for inserting the elements to a new hashtable from an array without increasing the size;
 void HashTable::reInsert(vector<pair<int, int>> &newArray) {
-    list<int> list;
+
     for(pair<int, int> p: newArray){
         int j = 1, index;
         //While loop will keep running until array[index] is empty for insertion
@@ -49,7 +48,7 @@ void HashTable::reHash() {
             array[i] = nullptr;
 
         reInsert(newArray);
-    }else if (!stack->isEmpty() && size <= stack->peek()){
+    }else if (!stack->isEmpty() && size <= ceil(stack->peek() * 0.75)){
         //If the size is less than or equal to the previous prime number, we'll resize the capacity to the
         //previous prime number
         vector<pair<int, int>> newArray = getAllElements();
@@ -113,23 +112,11 @@ void HashTable::insertItem(pair<int, int>& keyValue) {
 void HashTable::deleteItem(int key) {
     int i = 1;
     int index = (hashFunction(key) + i * hashFunction2(key)) % capacity; //Initial index;
-    int copyIndex = index; //might be useful later
 
     //i <= capacity determines if we already scanned all possible indexes
-    while(i <= capacity && array[index]){
-        if(array[index]->keyValue.first == key) {
-            int nextIndex = (hashFunction(key) + ++i * hashFunction(key)) % capacity;
-            cout << "Next index " << nextIndex << '\n';
-            //This will shift all the elements with the same hashValue to the left
-            while (i <= capacity && array[nextIndex] &&
-                    (hashFunction(array[nextIndex]->keyValue.first) + 1 *
-                    hashFunction2(array[nextIndex]->keyValue.first)) % capacity == copyIndex) {
-                cout << "Shift\n";
-                array[index] = array[nextIndex];
-                index = nextIndex;
-                nextIndex = (hashFunction(key) + ++i * hashFunction2(key)) % capacity;
-            }
-
+    while(i <= capacity){
+        if(array[index] && array[index]->keyValue.first == key) {
+            delete array[index];
             array[index] = nullptr;
             --size;
             reHash();
@@ -157,9 +144,9 @@ void HashTable::print() {
 void HashTable::getValue(int key) {
     int i = 1, index = (hashFunction(key) + i++ * hashFunction2(key)) % capacity;
 
-    while(i <= capacity && array[index]){
+    while(i <= capacity){
 
-        if(array[index]->keyValue.first == key) {
+        if(array[index] && array[index]->keyValue.first == key) {
             cout << "The value of key " << key << " is " << array[index]->keyValue.second << '\n';
             return;
         }
@@ -172,6 +159,7 @@ void HashTable::getValue(int key) {
 
 HashTable::~HashTable() {
     delete stack;
+
     for(int i = 0; i < capacity; i++)
         delete array[i];
 

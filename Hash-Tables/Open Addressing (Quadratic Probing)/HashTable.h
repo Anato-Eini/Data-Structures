@@ -1,20 +1,18 @@
 #ifndef HASH_TABLES_HASHTABLE_H
 #define HASH_TABLES_HASHTABLE_H
 #include "Stack.h"
+#include <vector>
 class HashTable {
-    Stack* stack;
-    Node **array;
-    int size, capacity;
+    Stack* stack; //Used for traversing between prime numbers
+    Node **array; //An array of pointers to nodes
+    int size, capacity; //Current capacity and maximum capacity
     [[nodiscard]] int hashFunction(int) const;
     void reHash();
-    void reInsert(pair<int, int>*);
-    pair<int, int>* getAllElements();
+    void reInsert(vector<pair<int, int>>&);
+    vector<pair<int, int>> getAllElements();
     static bool isPrime(int);
 public:
-    HashTable() : capacity(1), array(new Node*[1]), size(0), stack(new Stack()) {
-        array[0] = nullptr;
-        stack->push(1);
-    }
+    HashTable();
     void insertItem(pair<int, int>&);
     void deleteItem(int);
     void print();

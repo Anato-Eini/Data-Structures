@@ -2,6 +2,13 @@
 #include <iostream>
 #include <cmath>
 
+//Constructor for HashTable
+HashTable::HashTable() : capacity(1), array(new Node*[1]), size(0), stack(new Stack()) {
+    array[0] = nullptr;
+    stack->push(1);
+}
+
+//Function for finding prime. We will skip prime number 2 for now
 bool HashTable::isPrime(int value) {
     for(int i = 2; i <= value / 2; i++)
         if(value % i == 0)
@@ -9,82 +16,120 @@ bool HashTable::isPrime(int value) {
     return true;
 }
 
-void HashTable::reInsert(pair<int, int> *newArray) {
-    for(int i = 0; i < size; i++){
-        int traverse = 0, hashValue = hashFunction(newArray[i].first), index;
+//Function for inserting the elements to a new hashtable from an array without increasing the capacity;
+void HashTable::reInsert(vector<pair<int, int>> &newArray) {
+    for(pair<int, int> p: newArray){
+        int i = 0, hashValue = hashFunction(p.first), index = (hashValue + i * i) % capacity;
+
+        //While loop will keep running until array[index] is empty for insertion
         while(array[index]) {
-            index = (hashValue + traverse * traverse) % capacity;
-            traverse++;
+            i++;
+            index = (hashValue + i * i) % capacity;
         }
-        array[index] = new Node{newArray[i]};
+
+        array[index] = new Node{p};
     }
-    delete newArray;
+
 }
 
+//Resize if it reaches the upper bound and lower bound of load factor
 void HashTable::reHash() {
-    if(size >= ceil(capacity * 0.75)) {
+    if(size > floor(capacity * 0.75)) {
+        //If the load factor reaches the upper bound ceiling, we will push the current capacity to the stack and
+        //find new prime number for the capacity
         stack->push(capacity);
-        pair<int, int>* newArray = getAllElements();
+
+        vector<pair<int, int>> newArray = getAllElements();
+
+        for(int i = 0; i < capacity; i++)
+            delete array[i];
+
         while (!isPrime((capacity += 2))) {}
+
         array = (Node**) realloc(array, sizeof(Node*) * capacity);
         for(int i = 0; i < capacity; i++)
             array[i] = nullptr;
+
         reInsert(newArray);
-    }else if (!stack->isEmpty() && size <= stack->peek()){
-        pair<int, int>* newArray = getAllElements();
+
+    }else if (!stack->isEmpty() && size <= floor(stack->peek() * 0.75)){
+        //If the capacity is less than or equal to the previous prime number, we'll resize the capacity to the
+        //previous prime number
+        vector<pair<int, int>> newArray = getAllElements();
+
+        for(int i = 0; i < capacity; i++)
+            delete array[i];
+
         capacity = stack->pop();
+
         array = (Node**) realloc(array, sizeof(Node*) * capacity);
         for(int i = 0; i < capacity; i++)
             array[i] = nullptr;
+
         reInsert(newArray);
     }
 }
 
-pair<int, int>* HashTable::getAllElements() {
-    auto* newArray = new pair<int, int>[size];
-    int index = 0;
+vector<pair<int, int>> HashTable::getAllElements() {
+    vector<pair<int, int>> elements;
+
     for (int i = 0; i < capacity; ++i)
         if(array[i])
-            newArray[index++] = array[i]->keyValue;
-    return newArray;
+            elements.push_back(array[i]->keyValue);
+
+    return elements;
 }
 
 int HashTable::hashFunction(int value) const {
     return value % capacity;
 }
 
+//Function for inserting elements
 void HashTable::insertItem(pair<int, int>& keyValue) {
-    reHash();
-    int traverse = 0, hashValue = (hashFunction(keyValue.first) + traverse * traverse) % capacity;
-    while (array[hashValue]) {
-        hashValue = (hashValue + traverse * traverse) % capacity;
-        traverse++;
-    }
-    array[hashValue] = new Node {keyValue};
+    int i = 0;
+    int hashValue = hashFunction(keyValue.first);
+    int index = (hashValue + i * i) % capacity;
+
     size++;
+    reHash();
+
+    while (array[index]) {
+
+        if(array[index]->keyValue.first == keyValue.first){
+            array[index]->keyValue = keyValue;
+            size--;
+            reHash();
+            return;
+        }
+
+        i++;
+        index = (hashValue + i * i) % capacity;
+    }
+    array[index] = new Node {keyValue};
 }
 
-void HashTable::deleteItem(int value) {
-    int traverse = 0, index = (hashFunction(value) + traverse * traverse) % capacity, nextIndex;
-    while(traverse < capacity && array[index]){
-        if(array[index]->keyValue.first == value) {
-            traverse++;
-            nextIndex = (index + traverse * traverse) % capacity;
-            while(traverse < capacity && array[nextIndex] && array[nextIndex]->keyValue.first == value){
-                array[index] = array[nextIndex];
-                index = nextIndex;
-                traverse++;
-                nextIndex = (nextIndex + traverse * traverse) % capacity;
-            }
+
+//Function for deleting elements by key
+void HashTable::deleteItem(int key) {
+    int i = 0;
+    int hashValue = hashFunction(key);
+    int index = (hashValue + i * i) % capacity;
+
+    while(i < capacity){
+
+        if(array[index] && array[index]->keyValue.first == key) {
+            delete array[index];
             array[index] = nullptr;
             --size;
             reHash();
             return;
         }
-        traverse++;
-        index = (index + traverse * traverse) % capacity;
+
+        i++;
+        index = (hashValue + i * i) % capacity;
     }
-    cout << "Element with key " << value << " doesn't exist\n";
+
+    cout << "Element with key " << key << " doesn't exist\n";
 }
 
 void HashTable::print() {
@@ -97,16 +142,19 @@ void HashTable::print() {
 }
 
 void HashTable::getValue(int key) {
-    Node* node = nullptr;
-    int traverse = 0, hashValue = hashFunction(key);
-    int index;
-    while(traverse < capacity && array[index]){
-        index = (hashValue + traverse * traverse) % capacity;
-        if(array[index]->keyValue.first == key) {
-            node = array[index];
-            break;
+    int i = 0, hashValue = hashFunction(key);
+    int index = (hashValue + i * i) % capacity;
+
+    while(i < capacity){
+
+        if(array[index] && array[index]->keyValue.first == key) {
+            cout << "The value of key " << key << " is " << array[index]->keyValue.second << '\n';
+            return;
         }
-        traverse++;
+
+        i++;
+        index = (hashValue + i * i) % capacity;
     }
-    cout << (node ? to_string(node->keyValue.second): "(None) ") << '\n';
+
+    cout << "Element with key " << key << " doesn't exist\n";
 }
