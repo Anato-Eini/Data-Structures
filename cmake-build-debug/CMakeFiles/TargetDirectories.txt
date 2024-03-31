@@ -7,6 +7,7 @@ D:/Projects/Trees-and-Heaps/cmake-build-debug/CMakeFiles/MinHeap.dir
 D:/Projects/Trees-and-Heaps/cmake-build-debug/CMakeFiles/Queue.dir
 D:/Projects/Trees-and-Heaps/cmake-build-debug/CMakeFiles/Red_Black_Tree.dir
 D:/Projects/Trees-and-Heaps/cmake-build-debug/CMakeFiles/Splay_Tree.dir
+D:/Projects/Trees-and-Heaps/cmake-build-debug/CMakeFiles/Binary_Search_Tree.dir
 D:/Projects/Trees-and-Heaps/cmake-build-debug/CMakeFiles/edit_cache.dir
 D:/Projects/Trees-and-Heaps/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 D:/Projects/Trees-and-Heaps/cmake-build-debug/Hash-Tables/CMakeFiles/HashTable__Double_Hashing_.dir

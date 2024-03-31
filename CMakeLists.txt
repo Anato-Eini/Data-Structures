@@ -58,3 +58,10 @@ add_executable(Splay_Tree
         "Splay Tree/Node.h"
         "Splay Tree/main.cpp"
 )
+
+add_executable(Binary_Search_Tree
+        "Binary Search Tree/main.cpp"
+        "Binary Search Tree/Node.h"
+        "Binary Search Tree/BinarySearchTree.cpp"
+        "Binary Search Tree/BinarySearchTree.h"
+)

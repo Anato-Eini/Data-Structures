@@ -19,6 +19,7 @@
       <config projectName="Data-Structures" targetName="HashTable__Double_Hashing_" />
       <config projectName="Data-Structures" targetName="Queue" />
       <config projectName="Data-Structures" targetName="MinHeap" />
+      <config projectName="Data-Structures" targetName="Binary_Search_Tree" />
       <config projectName="Data-Structures" targetName="HashTable__Open_Hashing_" />
       <config projectName="Data-Structures" targetName="PriorityQueueMaxHeap" />
       <config projectName="Data-Structures" targetName="Splay_Tree" />
@@ -33,32 +34,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f10ed3ed-95d0-4849-a967-19fa257f4765" name="Changes" comment="Completion of Main Operations">
+      <change afterPath="$PROJECT_DIR$/Binary Search Tree/BinarySearchTree.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binary Search Tree/BinarySearchTree.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binary Search Tree/Node.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binary Search Tree/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/HashTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/HashTable.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/Node.h" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/Node.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/Stack.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/Stack.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/Stack.h" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Double Hashing)/Stack.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Linear Probing)/HashTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Linear Probing)/HashTable.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Linear Probing)/HashTable.h" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Linear Probing)/HashTable.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Linear Probing)/Stack.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Linear Probing)/Stack.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Linear Probing)/Stack.h" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Linear Probing)/Stack.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Linear Probing)/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Linear Probing)/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/HashTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/HashTable.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/HashTable.h" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/HashTable.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/Stack.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/Stack.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/Stack.h" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/Stack.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-HashTable__Double_Hashing_-Debug-481f2fbb9d99d7e36dc0.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-HashTable__Linear_Probing_-Debug-3ac58b439a2e85a3a22a.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-HashTable__Open_Hashing_-Debug-3d412bf043f52366f75e.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-HashTable__Quadratic_Probing_-Debug-31ca3c31fa7c77615dfd.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Binary Search Tree Operations/Queue.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Binary Search Tree Operations/Tree.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Binary Search Tree Operations/abstract.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Binary Search Tree Operations/main.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Binary Search Tree Operations/node.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/HashTable__Double_Hashing_.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/HashTable__Double_Hashing_.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/HashTable__Linear_Probing_.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/HashTable__Linear_Probing_.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/HashTable__Quadratic_Probing_.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Hash-Tables/HashTable__Quadratic_Probing_.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +112,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "C/C++ File.main.cpp.executor": "Run",
+    "CMake Application.Binary_Search_Tree.executor": "Run",
     "CMake Application.HashTable-Separate_Chaining.executor": "Run",
     "CMake Application.HashTable.cpp.executor": "Run",
     "CMake Application.HashTable.h.executor": "Run",
@@ -154,13 +148,23 @@
       <recent name="D:\Trees-and-Heaps\Splay Tree" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.HashTable__Quadratic_Probing_">
+  <component name="RunManager" selected="CMake Application.Binary_Search_Tree">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AVL_Tree" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Data-Structures" TARGET_NAME="AVL_Tree" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Data-Structures" RUN_TARGET_NAME="AVL_Tree">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="B_Tree" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Data-Structures" TARGET_NAME="B_Tree" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Data-Structures" RUN_TARGET_NAME="B_Tree">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Binary_Search_Tree" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Data-Structures" TARGET_NAME="Binary_Search_Tree" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Data-Structures" RUN_TARGET_NAME="Binary_Search_Tree">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -233,6 +237,7 @@
     <list>
       <item itemvalue="CMake Application.AVL_Tree" />
       <item itemvalue="CMake Application.B_Tree" />
+      <item itemvalue="CMake Application.Binary_Search_Tree" />
       <item itemvalue="CMake Application.Expression_Tree" />
       <item itemvalue="CMake Application.LinkedLists" />
       <item itemvalue="CMake Application.MinHeap" />
@@ -311,7 +316,10 @@
       <workItem from="1711723310825" duration="4335000" />
       <workItem from="1711771560572" duration="3078000" />
       <workItem from="1711774674582" duration="999000" />
-      <workItem from="1711775790691" duration="16073000" />
+      <workItem from="1711775790691" duration="16904000" />
+      <workItem from="1711795222021" duration="5983000" />
+      <workItem from="1711833224314" duration="2598000" />
+      <workItem from="1711894215480" duration="4491000" />
     </task>
     <task id="LOCAL-00001" summary="Already implemented all of the features except for the logic when rotating nodes">
       <option name="closed" value="true" />
@@ -576,6 +584,13 @@
     <MESSAGE value="Completion of Main Operations" />
     <option name="LAST_COMMIT_MESSAGE" value="Completion of Main Operations" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="CMakeRunConfiguration">
+        <watch expression="node-&gt;parent" language="ObjectiveC" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

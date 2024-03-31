@@ -361,6 +361,45 @@ build Splay_Tree.exe: CXX_EXECUTABLE_LINKER__Splay_Tree_Debug CMakeFiles/Splay_T
   TARGET_IMPLIB = libSplay_Tree.dll.a
   TARGET_PDB = Splay_Tree.exe.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target Binary_Search_Tree
+
+
+#############################################
+# Order-only phony target for Binary_Search_Tree
+
+build cmake_object_order_depends_target_Binary_Search_Tree: phony || CMakeFiles/Binary_Search_Tree.dir
+
+build CMakeFiles/Binary_Search_Tree.dir/Binary_Search_Tree/main.cpp.obj: CXX_COMPILER__Binary_Search_Tree_unscanned_Debug D$:/Projects/Trees-and-Heaps/Binary$ Search$ Tree/main.cpp || cmake_object_order_depends_target_Binary_Search_Tree
+  DEP_FILE = CMakeFiles\Binary_Search_Tree.dir\Binary_Search_Tree\main.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Binary_Search_Tree.dir
+  OBJECT_FILE_DIR = CMakeFiles\Binary_Search_Tree.dir\Binary_Search_Tree
+
+build CMakeFiles/Binary_Search_Tree.dir/Binary_Search_Tree/BinarySearchTree.cpp.obj: CXX_COMPILER__Binary_Search_Tree_unscanned_Debug D$:/Projects/Trees-and-Heaps/Binary$ Search$ Tree/BinarySearchTree.cpp || cmake_object_order_depends_target_Binary_Search_Tree
+  DEP_FILE = CMakeFiles\Binary_Search_Tree.dir\Binary_Search_Tree\BinarySearchTree.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Binary_Search_Tree.dir
+  OBJECT_FILE_DIR = CMakeFiles\Binary_Search_Tree.dir\Binary_Search_Tree
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Binary_Search_Tree
+
+
+#############################################
+# Link the executable Binary_Search_Tree.exe
+
+build Binary_Search_Tree.exe: CXX_EXECUTABLE_LINKER__Binary_Search_Tree_Debug CMakeFiles/Binary_Search_Tree.dir/Binary_Search_Tree/main.cpp.obj CMakeFiles/Binary_Search_Tree.dir/Binary_Search_Tree/BinarySearchTree.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\Binary_Search_Tree.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = Binary_Search_Tree.exe
+  TARGET_IMPLIB = libBinary_Search_Tree.dll.a
+  TARGET_PDB = Binary_Search_Tree.exe.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -605,6 +644,8 @@ build AVL_Tree: phony AVL_Tree.exe
 
 build B_Tree: phony B_Tree.exe
 
+build Binary_Search_Tree: phony Binary_Search_Tree.exe
+
 build Expression_Tree: phony Expression_Tree.exe
 
 build HashTable__Double_Hashing_: phony Hash-Tables/HashTable__Double_Hashing_.exe
@@ -643,7 +684,7 @@ build Splay_Tree: phony Splay_Tree.exe
 #############################################
 # Folder: D:/Projects/Trees-and-Heaps/cmake-build-debug
 
-build all: phony AVL_Tree.exe B_Tree.exe Expression_Tree.exe PriorityQueueMaxHeap.exe LinkedLists.exe MinHeap.exe Queue.exe Red_Black_Tree.exe Splay_Tree.exe Hash-Tables/all
+build all: phony AVL_Tree.exe B_Tree.exe Expression_Tree.exe PriorityQueueMaxHeap.exe LinkedLists.exe MinHeap.exe Queue.exe Red_Black_Tree.exe Splay_Tree.exe Binary_Search_Tree.exe Hash-Tables/all
 
 # =============================================================================
 
