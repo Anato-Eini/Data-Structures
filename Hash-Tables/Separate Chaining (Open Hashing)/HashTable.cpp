@@ -1,7 +1,6 @@
 #include "HashTable.h"
 #include <cmath>
 
-
 //Constructor
 HashTable::HashTable() : capacity(1), array(new AVLTree*[1]), size(0), stack(new Stack()) {
     for (int i = 0; i < 1; ++i)
@@ -72,9 +71,14 @@ int HashTable::hashFunction(int value) const {
 
 //Function for inserting elements
 void HashTable::insertItem(pair<int, int>& keyValue) {
-    array[hashFunction(keyValue.first)]->insertNode(keyValue);
-    size++;
-    reHash();
+    Node* searchedNode = array[hashFunction(keyValue.first)]->searchNode(keyValue.first);
+    if(searchedNode)
+        searchedNode->pair = keyValue;
+    else {
+        reHash();
+        array[hashFunction(keyValue.first)]->insertNode(keyValue);
+        size++;
+    }
 }
 
 //Function for deleting elements by key

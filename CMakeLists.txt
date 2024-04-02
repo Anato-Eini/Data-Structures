@@ -32,12 +32,9 @@ add_executable(PriorityQueueMaxHeap
         "Implementing Priority Queues with Max Heap/abstract.h"
         "Implementing Priority Queues with Max Heap/main.cpp"
         "Implementing Priority Queues with Max Heap/PriorityQueue.h"
-        "Implementing Priority Queues with Max Heap/node.h"
-)
-
+        "Implementing Priority Queues with Max Heap/node.h")
 add_executable(LinkedLists
-        "Linked-Lists/Abstract.h"
-        "Linked-Lists/main.cpp"
+        "Linked-Lists/Abstract.h" "Linked-Lists/main.cpp"
         "Linked-Lists/Implement.h"
         "Linked-Lists/Node.h"
 )
@@ -65,4 +62,11 @@ add_executable(Splay_Tree
         "Splay Tree/SplayTree.cpp"
         "Splay Tree/Node.h"
         "Splay Tree/main.cpp"
+)
+
+add_executable(Binary_Search_Tree
+        "Binary Search Tree/main.cpp"
+        "Binary Search Tree/Node.h"
+        "Binary Search Tree/BinarySearchTree.cpp"
+        "Binary Search Tree/BinarySearchTree.h"
 )

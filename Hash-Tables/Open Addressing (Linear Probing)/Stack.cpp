@@ -1,4 +1,7 @@
 #include "Stack.h"
+
+Stack::Stack(): head(new StackNode{0, nullptr}), size(0){}
+
 void Stack::push(int value) {
     head->next = new StackNode{value, head->next};
     size++;
@@ -19,4 +22,10 @@ int Stack::peek() {
 
 [[nodiscard]] bool Stack::isEmpty() const {
     return size == 0;
+}
+
+Stack::~Stack() {
+    while(!isEmpty())
+        pop();
+    delete head;
 }

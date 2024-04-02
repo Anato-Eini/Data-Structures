@@ -5,11 +5,12 @@ class Stack {
     StackNode* head;
     int size;
 public:
-    Stack(): head(new StackNode{0, nullptr}), size(0){}
+    Stack();
     Stack* push(int);
     int pop();
     int peek();
     [[nodiscard]] bool isEmpty() const;
+    ~Stack();
 };
 
 

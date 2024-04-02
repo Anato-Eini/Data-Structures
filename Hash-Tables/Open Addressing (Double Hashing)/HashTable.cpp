@@ -1,7 +1,6 @@
 #include "HashTable.h"
 #include <iostream>
 #include <cmath>
-
 //Constructor for Hashtable
 HashTable::HashTable(): capacity(1), array(new Node*[1]), size(0), stack(new Stack()){
     array[0] = nullptr;
@@ -17,25 +16,30 @@ bool HashTable::isPrime(int value) {
 }
 
 //Function for inserting the elements to a new hashtable from an array without increasing the size;
-void HashTable::reInsert(pair<int, int> *newArray) {
-    for(int i = 0; i < size; i++){
+void HashTable::reInsert(vector<pair<int, int>> &newArray) {
+
+    for(pair<int, int> p: newArray){
         int j = 1, index;
         //While loop will keep running until array[index] is empty for insertion
-        while (array[(index = (hashFunction(newArray->first) + j++ * hashFunction2(newArray->first)) % capacity)]){}
+        while (j <= capacity &&
+                array[(index = (hashFunction(p.first) + j++ * hashFunction2(p.first)) % capacity)]){}
 
-        array[index] = new Node{newArray[i]};
+        array[index] = new Node{p};
     }
-    delete newArray;
 }
 
 //Resize if it reaches the upper bound and lower bound of load factor
 void HashTable::reHash() {
-    if(size >= ceil(capacity * 0.75)) {
+    if(size > ceil(capacity * 0.75)) {
         //If the load factor reaches the upper bound ceiling, we will push the current capacity to the stack and
         //find new prime number for the capacity
+
         stack->push(capacity);
 
-        pair<int, int>* newArray = getAllElements();
+        vector<pair<int, int>> newArray = getAllElements();
+
+        for(int i = 0; i < capacity; i++)
+            delete array[i];
 
         while (!isPrime((capacity += 2))) {}
 
@@ -44,10 +48,13 @@ void HashTable::reHash() {
             array[i] = nullptr;
 
         reInsert(newArray);
-    }else if (!stack->isEmpty() && size <= stack->peek()){
+    }else if (!stack->isEmpty() && size <= ceil(stack->peek() * 0.75)){
         //If the size is less than or equal to the previous prime number, we'll resize the capacity to the
         //previous prime number
-        pair<int, int>* newArray = getAllElements();
+        vector<pair<int, int>> newArray = getAllElements();
+
+        for(int i = 0; i < capacity; i++)
+            delete array[i];
 
         capacity = stack->pop();
 
@@ -60,15 +67,14 @@ void HashTable::reHash() {
 }
 
 //Function for getting all the elements of the hashtable and return an array of pairs
-pair<int, int>* HashTable::getAllElements() {
-    auto* newArray = new pair<int, int>[size];
+vector<pair<int, int>> HashTable::getAllElements() {
+    vector<pair<int, int>> elements;
 
-    int index = 0;
     for (int i = 0; i < capacity; ++i)
         if(array[i])
-            newArray[index++] = array[i]->keyValue;
+            elements.push_back(array[i]->keyValue);
 
-    return newArray;
+    return elements;
 }
 
 int HashTable::hashFunction(int key) const {
@@ -84,30 +90,33 @@ int HashTable::hashFunction2(int key) const {
 
 //Function for inserting elements
 void HashTable::insertItem(pair<int, int>& keyValue) {
-    reHash();
     int i = 1, index;
-    //While loop will keep running until array[index] is empty for insertion
-    while (array[(index = (hashFunction(keyValue.first) + i++ * hashFunction2(keyValue.first)) % capacity)]){}
-
-    array[index] = new Node {keyValue};
 
     size++;
+    reHash();
+    //Will keep looping until found an empty slot
+    while (array[(index = (hashFunction(keyValue.first) + i++ * hashFunction2(keyValue.first)) % capacity)]){
+
+        if(array[index]->keyValue.first == keyValue.first){
+            array[index]->keyValue = keyValue;
+            size--;
+            reHash();
+            return;
+        }
+
+    }
+    array[index] = new Node {keyValue};
 }
 
+//Function for deleting elements by key
 void HashTable::deleteItem(int key) {
-    int i = 1, index = (hashFunction(key) + i * hashFunction2(key)) % capacity;
-    //i <= capacity determines if we already scan all possible indexes given that each hash values are unique
-    while(i <= capacity && array[index]){
+    int i = 1;
+    int index = (hashFunction(key) + i * hashFunction2(key)) % capacity; //Initial index;
 
-        if(array[index]->keyValue.first == key) {
-            int nextIndex = (hashFunction(key) + i++ * hashFunction(key)) % capacity;
-
-            while (i <= capacity && array[nextIndex] && array[nextIndex]->keyValue.first == key) {
-                array[index] = array[nextIndex];
-                index = nextIndex;
-                nextIndex = (hashFunction(key) + i++ * hashFunction2(key)) % capacity;
-            }
-
+    //i <= capacity determines if we already scanned all possible indexes
+    while(i <= capacity){
+        if(array[index] && array[index]->keyValue.first == key) {
+            delete array[index];
             array[index] = nullptr;
             --size;
             reHash();
@@ -119,6 +128,7 @@ void HashTable::deleteItem(int key) {
     cout << "Element with key " << key << " doesn't exist\n";
 }
 
+//Print the HashTable
 void HashTable::print() {
     cout << "\nSize: " << size << "\nCapacity: " << capacity << "\n";
 
@@ -130,19 +140,28 @@ void HashTable::print() {
     }
 }
 
+//Function for getting the value by key
 void HashTable::getValue(int key) {
-    Node* node = nullptr;
-    int i = 1, index = (hashFunction(key) + hashFunction2(i++)) % capacity;
+    int i = 1, index = (hashFunction(key) + i++ * hashFunction2(key)) % capacity;
 
-    while(i <= capacity && array[index]){
+    while(i <= capacity){
 
-        if(array[index]->keyValue.first == key) {
-            node = array[index];
-            break;
+        if(array[index] && array[index]->keyValue.first == key) {
+            cout << "The value of key " << key << " is " << array[index]->keyValue.second << '\n';
+            return;
         }
 
         index = (hashFunction(key) + i++ * hashFunction2(key)) % capacity;
     }
 
-    cout << (node ? to_string(node->keyValue.second): "(None) ") << '\n';
+    cout << "Element with key " << key << " doesn't exist\n";
+}
+
+HashTable::~HashTable() {
+    delete stack;
+
+    for(int i = 0; i < capacity; i++)
+        delete array[i];
+
+    delete[] array;
 }

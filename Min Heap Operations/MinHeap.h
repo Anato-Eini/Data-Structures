@@ -24,7 +24,7 @@ public:
         if(heapTree.empty())
             return -1;
         int z = heapTree[0];
-        swap(&heapTree[0], &heapTree[heapTree.size() - 1]);
+        swap(&heapTree[0], &heapTree[heapTree.capacity() - 1]);
         heapTree.pop_back();
         heapify( 0);
         return z;
@@ -35,9 +35,9 @@ public:
         else return heapTree[0];
     }
     void deleteNode(int num){
-        for(int i = (int)heapTree.size() - 1; i >= 0; i--)
+        for(int i = (int)heapTree.capacity() - 1; i >= 0; i--)
             if(heapTree[i] == num){
-                swap(&heapTree[i], &heapTree[heapTree.size() - 1]);
+                swap(&heapTree[i], &heapTree[heapTree.capacity() - 1]);
                 heapTree.pop_back();
                 heapify(i);
                 break;
@@ -46,7 +46,7 @@ public:
 
     void insert(int new_num) {
         heapTree.push_back(new_num);
-        int smallest = heapTree.size() - 1;
+        int smallest = heapTree.capacity() - 1;
         while(true){
             if(heapTree[smallest] < heapTree[(smallest - 1) / 2]){
                 swap(&heapTree[smallest], &heapTree[(smallest - 1) / 2]);

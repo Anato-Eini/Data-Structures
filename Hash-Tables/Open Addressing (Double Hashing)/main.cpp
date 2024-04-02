@@ -24,8 +24,8 @@ int main(){
                 break;
             case 'g':
                 cin >> number;
-                cout << "The value of key " << number << ": ";
                 hashTable->getValue(number);
+                break;
             default:
                 break;
         }

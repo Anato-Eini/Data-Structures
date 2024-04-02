@@ -1,4 +1,4 @@
-# Install script for directory: D:/Trees-and-Heaps/Hash-Tables
+# Install script for directory: D:/Projects/Trees-and-Heaps/Hash-Tables
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

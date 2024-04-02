@@ -36,11 +36,11 @@ class PriorityQueue: public AbstractPriorityQueue{
 public:
     void enqueue(int num, int priority){
         queue.push_back({num, priority});
-        heapifyUp((int)queue.size() - 1);
+        heapifyUp((int)queue.capacity() - 1);
     }
     int dequeue(){
         int num = queue[0].value;
-        swap(&queue[0], &queue[queue.size() - 1]);
+        swap(&queue[0], &queue[queue.capacity() - 1]);
         queue.pop_back();
         heapifyDown(0);
         return num;
