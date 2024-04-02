@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_subdirectory(Hash-Tables)
 
+add_subdirectory(Graphs)
+
 add_executable(AVL_Tree
         "AVL Tree/AVLTree.cpp"
         "AVL Tree/Node.h"
@@ -32,9 +34,12 @@ add_executable(PriorityQueueMaxHeap
         "Implementing Priority Queues with Max Heap/abstract.h"
         "Implementing Priority Queues with Max Heap/main.cpp"
         "Implementing Priority Queues with Max Heap/PriorityQueue.h"
-        "Implementing Priority Queues with Max Heap/node.h")
+        "Implementing Priority Queues with Max Heap/node.h"
+)
+
 add_executable(LinkedLists
-        "Linked-Lists/Abstract.h" "Linked-Lists/main.cpp"
+        "Linked-Lists/Abstract.h"
+        "Linked-Lists/main.cpp"
         "Linked-Lists/Implement.h"
         "Linked-Lists/Node.h"
 )
