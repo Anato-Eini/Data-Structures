@@ -4,7 +4,7 @@ using namespace std;
 int main(){
     DoublyList* list = new DoublyLinkedList();
     int size, input;
-    cout << "Enter size of linked list: ";
+    cout << "Enter capacity of linked list: ";
     cin >> size;
     for(int a = 1; a <= size; a++){
         cout << "Enter element " << a << ": ";

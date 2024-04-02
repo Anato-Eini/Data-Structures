@@ -15,6 +15,10 @@ add_executable(AVL_Tree
 
 add_executable(B_Tree
         "B Tree/main.cpp"
+        "B Tree/BTreeNode.cpp"
+        "B Tree/BTreeNode.h"
+        "B Tree/BTree.cpp"
+        "B Tree/BTree.h"
 )
 
 add_executable(Expression_Tree
@@ -23,12 +27,20 @@ add_executable(Expression_Tree
         "Expression Tree/Stack.h"
         "Expression Tree/main.cpp"
 )
+
 add_executable(PriorityQueueMaxHeap
         "Implementing Priority Queues with Max Heap/abstract.h"
         "Implementing Priority Queues with Max Heap/main.cpp"
         "Implementing Priority Queues with Max Heap/PriorityQueue.h"
-        "Implementing Priority Queues with Max Heap/node.h")
-add_executable(LinkedLists Linked-Lists/Abstract.h Linked-Lists/main.cpp Linked-Lists/Implement.h Linked-Lists/Node.h)
+        "Implementing Priority Queues with Max Heap/node.h"
+)
+
+add_executable(LinkedLists
+        "Linked-Lists/Abstract.h"
+        "Linked-Lists/main.cpp"
+        "Linked-Lists/Implement.h"
+        "Linked-Lists/Node.h"
+)
 
 add_executable(MinHeap
         "Min Heap Operations/abstract.h"
@@ -37,8 +49,8 @@ add_executable(MinHeap
 )
 
 add_executable(Queue
-        Queue/Deque.cpp
-        Queue/queue.cpp
+        "Queue/Deque.cpp"
+        "Queue/queue.cpp"
 )
 
 add_executable(Red_Black_Tree

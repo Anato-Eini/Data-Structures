@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "Expression_Tree.exe"
+			"path" : "Queue.exe"
 		},
 		{
-			"path" : "Expression_Tree.pdb"
+			"path" : "Queue.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -27,7 +27,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 20,
+				"line" : 51,
 				"parent" : 0
 			}
 		]
@@ -52,11 +52,12 @@
 			},
 			"sourceIndexes" : 
 			[
-				3
+				0,
+				1
 			]
 		}
 	],
-	"id" : "Expression_Tree::@6890427a1f51a3e7e1df",
+	"id" : "Queue::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -76,8 +77,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "Expression_Tree",
-	"nameOnDisk" : "Expression_Tree.exe",
+	"name" : "Queue",
+	"nameOnDisk" : "Queue.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -86,19 +87,11 @@
 	"sourceGroups" : 
 	[
 		{
-			"name" : "Header Files",
-			"sourceIndexes" : 
-			[
-				0,
-				1,
-				2
-			]
-		},
-		{
 			"name" : "Source Files",
 			"sourceIndexes" : 
 			[
-				3
+				0,
+				1
 			]
 		}
 	],
@@ -106,24 +99,15 @@
 	[
 		{
 			"backtrace" : 1,
-			"path" : "Expression Tree/Abstract.h",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "Expression Tree/TreeNode.h",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "Expression Tree/Stack.h",
+			"compileGroupIndex" : 0,
+			"path" : "Queue/Deque.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Expression Tree/main.cpp",
-			"sourceGroupIndex" : 1
+			"path" : "Queue/queue.cpp",
+			"sourceGroupIndex" : 0
 		}
 	],
 	"type" : "EXECUTABLE"

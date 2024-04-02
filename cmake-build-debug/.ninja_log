@@ -1,18 +1,21 @@
 # ninja log v5
+1038	1215	7333778860236795	Hash-Tables/HashTable__Linear_Probing_.exe	e8c2fc137bd550bb
 1	5737	7333778170789346	Hash-Tables/CMakeFiles/HashTable__Double_Hashing_.dir/Open_Addressing_(Double_Hashing)/main.cpp.obj	a125bddc76ce7756
-9	5913	7333778172554611	Hash-Tables/CMakeFiles/HashTable__Double_Hashing_.dir/Open_Addressing_(Double_Hashing)/Stack.cpp.obj	16948df4c21cc25d
 5	9436	7333778207770363	Hash-Tables/CMakeFiles/HashTable__Double_Hashing_.dir/Open_Addressing_(Double_Hashing)/HashTable.cpp.obj	1417d76df7d74183
+9	5913	7333778172554611	Hash-Tables/CMakeFiles/HashTable__Double_Hashing_.dir/Open_Addressing_(Double_Hashing)/Stack.cpp.obj	16948df4c21cc25d
 9437	9878	7333778212168593	Hash-Tables/HashTable__Double_Hashing_.exe	8b95b734865d3a5c
+9	1038	7333778858481916	Hash-Tables/CMakeFiles/HashTable__Linear_Probing_.dir/Open_Addressing_(Linear_Probing)/HashTable.cpp.obj	70efcda198145e1f
 6	243	7333778850533185	Hash-Tables/CMakeFiles/HashTable__Linear_Probing_.dir/Open_Addressing_(Linear_Probing)/Stack.cpp.obj	37d524c44bc699a9
 1	785	7333778855958674	Hash-Tables/CMakeFiles/HashTable__Linear_Probing_.dir/Open_Addressing_(Linear_Probing)/main.cpp.obj	6176083f36b95c26
-9	1038	7333778858481916	Hash-Tables/CMakeFiles/HashTable__Linear_Probing_.dir/Open_Addressing_(Linear_Probing)/HashTable.cpp.obj	70efcda198145e1f
-1038	1215	7333778860236795	Hash-Tables/HashTable__Linear_Probing_.exe	e8c2fc137bd550bb
 5	177	7333778895809736	Hash-Tables/CMakeFiles/HashTable__Open_Hashing_.dir/Separate_Chaining_(Open_Hashing)/Stack.cpp.obj	e49f562ef0d0b19e
 8	1140	7333778905255119	Hash-Tables/CMakeFiles/HashTable__Open_Hashing_.dir/Separate_Chaining_(Open_Hashing)/main.cpp.obj	6b2fae1d75ddca0c
 0	1298	7333778907010417	Hash-Tables/CMakeFiles/HashTable__Open_Hashing_.dir/Separate_Chaining_(Open_Hashing)/AVLTree.cpp.obj	4840a44e014f8efc
+10	976	7333778944029752	Hash-Tables/CMakeFiles/HashTable__Quadratic_Probing_.dir/Open_Addressing_(Quadratic_Probing)/HashTable.cpp.obj	217f6fde1e4f124f
 178	1339	7333778907419321	Hash-Tables/CMakeFiles/HashTable__Open_Hashing_.dir/Separate_Chaining_(Open_Hashing)/HashTable.cpp.obj	6914c77c600f5395
 1339	1630	7333778910321551	Hash-Tables/HashTable__Open_Hashing_.exe	d798186d79c2f8d1
+977	1173	7333778945973694	Hash-Tables/HashTable__Quadratic_Probing_.exe	be627ffe53ef7f7d
 1	194	7333778936199993	Hash-Tables/CMakeFiles/HashTable__Quadratic_Probing_.dir/Open_Addressing_(Quadratic_Probing)/Stack.cpp.obj	e7b00a594689631f
 6	737	7333778941646135	Hash-Tables/CMakeFiles/HashTable__Quadratic_Probing_.dir/Open_Addressing_(Quadratic_Probing)/main.cpp.obj	36cd55f3db9dec6e
-10	976	7333778944029752	Hash-Tables/CMakeFiles/HashTable__Quadratic_Probing_.dir/Open_Addressing_(Quadratic_Probing)/HashTable.cpp.obj	217f6fde1e4f124f
-977	1173	7333778945973694	Hash-Tables/HashTable__Quadratic_Probing_.exe	be627ffe53ef7f7d
+2	1251	7333863294094684	build.ninja	64258263b8498573
+25	3060	7333845009878544	CMakeFiles/B_Tree.dir/B_Tree/main.cpp.obj	e20fe4342c1bc4ed
+3061	3913	7333845018256122	B_Tree.exe	fc2416e84353b8bf

@@ -94,6 +94,18 @@ build CMakeFiles/B_Tree.dir/B_Tree/main.cpp.obj: CXX_COMPILER__B_Tree_unscanned_
   OBJECT_DIR = CMakeFiles\B_Tree.dir
   OBJECT_FILE_DIR = CMakeFiles\B_Tree.dir\B_Tree
 
+build CMakeFiles/B_Tree.dir/B_Tree/BTreeNode.cpp.obj: CXX_COMPILER__B_Tree_unscanned_Debug D$:/Trees-and-Heaps/B$ Tree/BTreeNode.cpp || cmake_object_order_depends_target_B_Tree
+  DEP_FILE = CMakeFiles\B_Tree.dir\B_Tree\BTreeNode.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\B_Tree.dir
+  OBJECT_FILE_DIR = CMakeFiles\B_Tree.dir\B_Tree
+
+build CMakeFiles/B_Tree.dir/B_Tree/BTree.cpp.obj: CXX_COMPILER__B_Tree_unscanned_Debug D$:/Trees-and-Heaps/B$ Tree/BTree.cpp || cmake_object_order_depends_target_B_Tree
+  DEP_FILE = CMakeFiles\B_Tree.dir\B_Tree\BTree.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\B_Tree.dir
+  OBJECT_FILE_DIR = CMakeFiles\B_Tree.dir\B_Tree
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target B_Tree
@@ -102,7 +114,7 @@ build CMakeFiles/B_Tree.dir/B_Tree/main.cpp.obj: CXX_COMPILER__B_Tree_unscanned_
 #############################################
 # Link the executable B_Tree.exe
 
-build B_Tree.exe: CXX_EXECUTABLE_LINKER__B_Tree_Debug CMakeFiles/B_Tree.dir/B_Tree/main.cpp.obj
+build B_Tree.exe: CXX_EXECUTABLE_LINKER__B_Tree_Debug CMakeFiles/B_Tree.dir/B_Tree/main.cpp.obj CMakeFiles/B_Tree.dir/B_Tree/BTreeNode.cpp.obj CMakeFiles/B_Tree.dir/B_Tree/BTree.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\B_Tree.dir
