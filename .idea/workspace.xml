@@ -33,31 +33,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f10ed3ed-95d0-4849-a967-19fa257f4765" name="Changes" comment="Completion of Main Operations">
-      <change afterPath="$PROJECT_DIR$/B Tree/BTree.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/B Tree/BTree.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/B Tree/BTreeNode.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/B Tree/BTreeNode.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/B Tree/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/B Tree/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/HashTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/HashTable.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/HashTable.h" beforeDir="false" afterPath="$PROJECT_DIR$/Hash-Tables/Open Addressing (Quadratic Probing)/HashTable.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Linked-Lists/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Linked-Lists/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-384b24ab44a8fc4eabf1.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2024-03-29T01-05-49-0768.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-B_Tree-Debug-5f907ef2aba36ef8bd19.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-Expression_Tree-Debug-68ca908b9b6bbff98642.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-LinkedLists-Debug-125e35f229548962ad86.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-MinHeap-Debug-a5534432fff8f94636e2.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-PriorityQueueMaxHeap-Debug-bacde9a6f3c23a7ae145.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-Queue-Debug-db59eaef05a05f368606.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-Red_Black_Tree-Debug-af2cfead5f1fa173bef3.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-Splay_Tree-Debug-0f6c90dc113f0ad3a86d.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,16 +210,16 @@
       <item itemvalue="CMake Application.AVL_Tree" />
       <item itemvalue="CMake Application.B_Tree" />
       <item itemvalue="CMake Application.Expression_Tree" />
-      <item itemvalue="CMake Application.HashTable__Double_Hashing_" />
-      <item itemvalue="CMake Application.HashTable__Linear_Probing_" />
-      <item itemvalue="CMake Application.HashTable__Open_Hashing_" />
-      <item itemvalue="CMake Application.HashTable__Quadratic_Probing_" />
       <item itemvalue="CMake Application.LinkedLists" />
       <item itemvalue="CMake Application.MinHeap" />
       <item itemvalue="CMake Application.PriorityQueueMaxHeap" />
       <item itemvalue="CMake Application.Queue" />
       <item itemvalue="CMake Application.Red_Black_Tree" />
       <item itemvalue="CMake Application.Splay_Tree" />
+      <item itemvalue="CMake Application.HashTable__Double_Hashing_" />
+      <item itemvalue="CMake Application.HashTable__Linear_Probing_" />
+      <item itemvalue="CMake Application.HashTable__Open_Hashing_" />
+      <item itemvalue="CMake Application.HashTable__Quadratic_Probing_" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
