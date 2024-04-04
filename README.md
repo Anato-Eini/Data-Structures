@@ -1,4 +1,3 @@
-# Trees-and-Heaps
+# Data Structures
 
-
-Currently planning to conquer all types of trees....
+Data structures implemented over the course of 2nd year of CS
