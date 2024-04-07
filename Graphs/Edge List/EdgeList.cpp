@@ -8,10 +8,10 @@ std::vector<std::string> EdgeList::vertices() const{
     return vertices;
 }
 
-std::vector<Edge*> EdgeList::edges() const{
-    std::vector<Edge*> edges;
-    for(const std::pair<std::string, Edge*> pairs: Edges)
-        edges.push_back(pairs.second);
+std::vector<std::pair<std::string, Edge*>> EdgeList::edges() const{
+    std::vector<std::pair<std::string, Edge*>> edges;
+    for(const std::pair<std::string, Edge*> pair: Edges)
+        edges.push_back(pair);
     return edges;
 }
 
@@ -33,12 +33,12 @@ std::vector<Edge*> EdgeList::incomingEdges(const std::string& vertex){
     return outgoingEdges(vertex);
 }
 
-Edge* EdgeList::getEdge(const std::string& vertex1, const std::string& vertex2){
+std::string EdgeList::getEdge(const std::string& vertex1, const std::string& vertex2){
     for(const std::pair<std::string, Edge*> pair: Edges)
         if((pair.second->pairVertex.first == vertex1 || pair.second->pairVertex.first == vertex2) &&
             (pair.second->pairVertex.second == vertex1 || pair.second->pairVertex.second == vertex2))
-            return pair.second;
-    return nullptr;
+            return pair.first;
+    return "";
 }
 
 std::string EdgeList::opposite(const std::string& vertex){
@@ -57,7 +57,11 @@ void EdgeList::addVertex(const std::string& name){
 
 void EdgeList::addEdge(const std::string& name, int weight, const std::string& vertex1, const std::string& vertex2){
     if(Edges.contains(name))
-        std::cout << "Vertex already exists\n";
+        std::cout << name << " edge already exists\n";
+    else if(!Vertices.contains(vertex1))
+        std::cout << vertex1 << " vertex doesn't exist\n";
+    else if(!Vertices.contains(vertex2))
+        std::cout << vertex2 << " vertex doesn't exist\n";
     else
         Edges.insert({name, new Edge{{vertex1, vertex2}, weight}});
 }
@@ -107,13 +111,20 @@ int EdgeList::inDegree(const std::string& vertex){
     return outDegree(vertex);
 }
 
+bool EdgeList::containEdge(const std::string& edge) const{
+    return Edges.contains(edge);
+}
+bool EdgeList::containVertex(const std::string& vertex) const{
+    return Vertices.contains(vertex);
+}
+
 std::ostream& operator<<(std::ostream& os, EdgeList* edgeList){
     os << "Vertices:";
     for(const std::string& s: edgeList->Vertices)
         os << " " << s;
-    os << "Edges:\n";
+    os << "\nEdges:\n";
     for(const std::pair<std::string, Edge*> pair: edgeList->Edges)
-        os << "Name: " << pair.first << " " << pair.second << '\n';
+        os << "Name: " << pair.first << "\t" << pair.second << '\n';
     return os;
 }
 
@@ -121,8 +132,15 @@ std::ostream& operator<<(std::ostream& os, EdgeList& edgeList){
     os << "Vertices:";
     for(const std::string& s: edgeList.Vertices)
         os << " " << s;
-    os << "Edges:\n";
+    os << "\nEdges:\n";
     for(const std::pair<std::string, Edge*> pair: edgeList.Edges)
-        os << "Name: " << pair.first << " " << pair.second << '\n';
+        os << "Name: " << pair.first << "\t" << pair.second << '\n';
     return os;
+}
+
+EdgeList::~EdgeList(){
+    Vertices.clear();
+    for(const std::pair<std::string, Edge*> pair: Edges)
+        delete pair.second;
+    Edges.clear();
 }
