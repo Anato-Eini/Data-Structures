@@ -48,7 +48,7 @@ int main()
                     cout << "Element not found" << '\n';
                 break;
             case 7:
-                tree->printTree();
+                cout << tree;
                 break;
             default:
                 cout << "Invalid Operation";

@@ -1,4 +1,9 @@
 #include "RedBlackTree.h"
+
+RedBlackTree::RedBlackTree() : size(0), null(new Node{0, true, nullptr, nullptr}) {
+    root = null;
+}
+
 Node *RedBlackTree::newNode(Node *parent, int value) {
     return new Node{value, false, null, null, parent};
 }
@@ -212,28 +217,20 @@ Node* RedBlackTree::search(int value) {
     return searchHelper(root, value);
 }
 
-void RedBlackTree::printTreeHelper(Node *node, string indent, bool isRight) {
+void RedBlackTree::printTreeHelper(Node *node, string indent, bool isRight, ostream& ostream1) const{
     if(node != null){
-        cout << indent;
+        ostream1 << indent;
         if(isRight){
-            cout << "R----";
+            ostream1 << "R----";
             indent += "   ";
         }else{
-            cout << "L----";
+            ostream1 << "L----";
             indent += "|  ";
         }
-        cout << node->value << " (" << (node->isBlack ? "Black" : "Red") << ")\n";
-        printTreeHelper(node->left, indent, false);
-        printTreeHelper(node->right, indent, true);
+        ostream1 << node->value << " (" << (node->isBlack ? "Black" : "Red") << ")\n";
+        printTreeHelper(node->left, indent, false, ostream1);
+        printTreeHelper(node->right, indent, true, ostream1);
     }
-}
-
-void RedBlackTree::printTree() {
-    cout << "Size: " << size << '\n';
-    if(root != null)
-        printTreeHelper(root, "", true);
-    else
-        cout << "Tree is empty\n";
 }
 
 int RedBlackTree::treeHeight() {
@@ -258,9 +255,11 @@ bool RedBlackTree::isEmpty() const {
     return size == 0;
 }
 
-int RedBlackTree::minimumValue() {
-    Node* node = minimumNode(root);
-    int value = node->value;
-    deleteNode(node);
-    return value;
+ostream& operator<<(ostream& ostream1, const RedBlackTree* tree){
+    ostream1 << "Size: " << tree->size << '\n';
+    if(tree->root)
+        tree->printTreeHelper(tree->root, "", true, ostream1);
+    else
+        ostream1 << "Tree is empty\n";
+    return ostream1;
 }

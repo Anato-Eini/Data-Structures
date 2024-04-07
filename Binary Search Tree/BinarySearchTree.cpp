@@ -138,29 +138,21 @@ int BinarySearchTree::depthNode(int value) {
     return depthNodeHelper(root, value);
 }
 
-void BinarySearchTree::printTreeHelper(Node *node, string indent, bool isRight) {
+void BinarySearchTree::printTreeHelper(Node *node, string indent, bool isRight, ostream& os) const{
     if(node){
-        cout << indent;
+        os << indent;
         if (isRight) {
-            cout << "R----";
+            os << "R----";
             indent += "   ";
         } else {
-            cout << "L----";
+            os << "L----";
             indent += "|  ";
         }
 
-        cout << node->value <<'\n';
-        printTreeHelper(node->left, indent, false);
-        printTreeHelper(node->right, indent, true);
+        os << node->value <<'\n';
+        printTreeHelper(node->left, indent, false, os);
+        printTreeHelper(node->right, indent, true, os);
     }
-}
-
-void BinarySearchTree::printTree() {
-    cout << "Size: " << size << '\n';
-    if(size != 0)
-        printTreeHelper(root, "", true);
-    else
-        cout << "Tree is empty\n";
 }
 
 void BinarySearchTree::printInorderHelper(Node *node) {
@@ -215,4 +207,13 @@ void BinarySearchTree::printBFS() {
         if(node->right)
             queue.push_back(node->right);
     }
+}
+
+ostream& operator<<(ostream& ostream1, const BinarySearchTree* tree){
+    ostream1 << "Size: " << tree->size << '\n';
+    if(tree->root)
+        tree->printTreeHelper(tree->root, "", true, ostream1);
+    else
+        ostream1 << "Tree is empty\n";
+    return ostream1;
 }

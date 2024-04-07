@@ -12,26 +12,24 @@ class RedBlackTree {
     Node* searchHelper(Node*, int);
     void rotateLeft(Node*);
     void rotateRight(Node*);
-    void printTreeHelper(Node*, string, bool);
+    void printTreeHelper(Node*, string, bool, ostream&) const;
     void insertHelper(Node*, int);
     void insertFix(Node*);
     void rbTransplant(Node*, Node*);
     void deleteFix(Node*);
 public:
-    RedBlackTree() : size(0), null(new Node{0, true, nullptr, nullptr}) {
-        root = null;
-    }
+    RedBlackTree();
     Node* search(int);
     Node* nullNode();
     void insert(int);
     void deleteNode(Node*);
-    void printTree();
     bool isEmpty() const;
     int treeHeight();
     int nodeHeight(Node*);
     int nodeDepth(Node*);
-    int minimumValue();
+    friend ostream& operator<<(ostream&, const RedBlackTree*);
 };
 
+ostream& operator<<(ostream&, const RedBlackTree*);
 
 #endif //TREES_AND_HEAPS_REDBLACKTREE_H

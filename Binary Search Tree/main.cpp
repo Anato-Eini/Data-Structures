@@ -54,7 +54,7 @@ int main() {
                         break;
                     case 4: tree->printBFS();
                         break;
-                    case 5: tree->printTree();
+                    case 5: cout << tree;
                         break;
                     default: cout << "Invalid Operation";
                 }

@@ -118,28 +118,20 @@ void SplayTree::splay(Node *rootNode, int value) {
     }
 }
 
-void SplayTree::printTreeHelper(Node *node, string indent, bool isRight) const {
+void SplayTree::printTreeHelper(Node *node, string indent, bool isRight, ostream& ostream1) const {
     if(node){
-        cout << indent;
+        ostream1 << indent;
         if(isRight){
-            cout << "R----";
+            ostream1 << "R----";
             indent += "   ";
         }else{
-            cout << "L----";
+            ostream1 <<  "L----";
             indent += "|  ";
         }
-        cout << node->value << "\n";
-        printTreeHelper(node->left, indent, false);
-        printTreeHelper(node->right, indent, true);
+        ostream1 << node->value << '\n';
+        printTreeHelper(node->left, indent, false, ostream1);
+        printTreeHelper(node->right, indent, true, ostream1);
     }
-}
-
-void SplayTree::printTree() const{
-    cout << "Size: " << size << '\n';
-    if(root)
-        printTreeHelper(root, "", true);
-    else
-        cout << "Tree is empty\n";
 }
 
 int SplayTree::height(int value) const {
@@ -184,4 +176,13 @@ int SplayTree::depthHelper(Node *node, int value) const {
 
 int SplayTree::depth(int value) const{
     return depthHelper(root, value);
+}
+
+ostream& operator<<(ostream& ostream1, const SplayTree* splayTree){
+    ostream1 << "Size: " << splayTree->size << '\n';
+    if(splayTree->root)
+        splayTree->printTreeHelper(splayTree->root, "", true, ostream1);
+    else
+        ostream1 << "Tree is empty\n";
+    return ostream1;
 }

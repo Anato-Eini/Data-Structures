@@ -27,7 +27,7 @@ int main(){
                 tempNode = tree->search(input);
                 if(tempNode != tree->nullNode()) {
                     tree->deleteNode(tempNode);
-                    tree->printTree();
+                    cout << tree;
                 }else
                     cout << input << " does not exist\n";
                 break;
@@ -55,7 +55,7 @@ int main(){
                     cout << "Element not found" << endl;
                 break;
             case 7:
-                tree->printTree();
+                cout << tree;
                 break;
             default:
                 cout << "Invalid Operation";

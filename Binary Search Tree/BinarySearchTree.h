@@ -14,7 +14,7 @@ class BinarySearchTree {
     void insertNodeHelper(Node*, int);
     void deleteNodeHelper(Node*);
     void nodeTransplant(Node*, Node*);
-    void printTreeHelper(Node*, string, bool);
+    void printTreeHelper(Node*, string, bool, ostream&) const;
     void printInorderHelper(Node*);
     void printPostOrderHelper(Node*);
     void printPreOrderHelper(Node*);
@@ -29,12 +29,13 @@ public:
     int treeHeight();
     int heightNode(int);
     int depthNode(int);
-    void printTree();
     void printInorder();
     void printPostOrder();
     void printPreOrder();
     void printBFS();
+    friend ostream& operator<<(ostream&, const BinarySearchTree*);
 };
 
+ostream& operator<<(ostream&, const BinarySearchTree*);
 
 #endif //DATA_STRUCTURES_BINARYSEARCHTREE_H
