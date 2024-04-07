@@ -6,6 +6,16 @@ int main(){
     int num, result;
     char input;
     do{
+        cout << "-------------------------------\n"
+                "| + -> Insert a node          |\n"
+                "| - -> Delete a node          |\n"
+                "| H -> Max height of the tree |\n"
+                "| h -> Height of a given node |\n"
+                "| s -> Search a node          |\n"
+                "| p -> Print AVLTree          |\n"
+                "| d -> Depth of a given node  |\n"
+                "| X/x -> Exit                 |\n"
+                "-------------------------------\n";
         cout << "Enter an operation: ";
         cin >> input;
         switch (input) {
@@ -30,7 +40,7 @@ int main(){
                 cout << "Element " << num << (avlTree->searchNode(num) ? " exists" : " did not exists") << '\n';
                 break;
             case 'p':
-                avlTree->printTree();
+                cout << avlTree;
                 cout << '\n';
                 break;
             case 'd':

@@ -162,27 +162,20 @@ int AVLTree::getBalanceFactor(Node *node) {
     return nodeHeight(node->left) - nodeHeight(node->right);
 }
 
-void AVLTree::printTreeHelper(Node *node, string indent, bool isRight) {
+void AVLTree::printTreeHelper(Node *node, string indent, bool isRight, ostream& ostream1) const{
     if(node){
-        cout << indent;
-        if (isRight) {
-            cout << "R----";
-            indent += "    ";
-        } else {
-            cout << "L----";
-            indent += "|   ";
+        ostream1 << indent;
+        if(isRight){
+            ostream1 << "R----";
+            indent += "   ";
+        }else{
+            ostream1 << "L----";
+            indent += "|  ";
         }
-        cout << node->value << " Height(" << node->height << ")\n";
-        printTreeHelper(node->left, indent, false);
-        printTreeHelper(node->right, indent, true);
+        ostream1 << node->value << '\n';
+        printTreeHelper(node->left, indent, false, ostream1);
+        printTreeHelper(node->right, indent, true, ostream1);
     }
-}
-
-void AVLTree::printTree() {
-    cout << "Size: " << size << '\n';
-    if(size == 0)
-        cout << "Tree is empty.\n";
-    printTreeHelper(root, "", true);
 }
 
 int AVLTree::treeHeight() {
@@ -208,4 +201,13 @@ int AVLTree::height(int value) {
 
 bool AVLTree::isEmpty() {
     return size == 0;
+}
+
+ostream& operator<<(ostream& ostream1, const AVLTree* tree){
+    ostream1 << "Size: " << tree->size << '\n';
+    if(tree->root)
+        tree->printTreeHelper(tree->root, "", true, ostream1);
+    else
+        ostream1 << "Tree is empty\n";
+    return ostream1;
 }

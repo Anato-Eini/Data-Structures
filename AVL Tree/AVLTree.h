@@ -17,7 +17,7 @@ class AVLTree {
     void insertFix(Node*, int);
     void deleteFix(Node*);
     void nodeTransplant(Node*, Node*);
-    void printTreeHelper(Node*, string, bool);
+    void printTreeHelper(Node*, string, bool, ostream&) const;
     static int nodeHeight(Node*);
     static int getBalanceFactor(Node*);
 public:
@@ -26,11 +26,12 @@ public:
     bool isEmpty();
     void insertNode(int);
     void deleteNode(int);
-    void printTree();
     int depth(int);
     int height(int);
     int treeHeight();
+    friend ostream& operator<<(ostream&, const AVLTree*);
 };
 
+ostream& operator<<(ostream&, const AVLTree*);
 
 #endif //TREES_AND_HEAPS_AVLTREE_H
