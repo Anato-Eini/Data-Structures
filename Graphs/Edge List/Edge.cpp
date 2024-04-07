@@ -1,9 +1,11 @@
 #include "Edge.h"
 
-Edge::Edge(int weight, Vertex* vertex): weight(weight), destVertex(vertex){}
-int Edge::getWeight(){
-    return weight;
+std::ostream& operator<<(std::ostream& os, Edge* edge){
+    os << "Weight: "<< edge->weight << " - <" << edge->pairVertex.first << ", " << edge->pairVertex.second << ">";
+    return os;
 }
-Vertex* Edge::getDestVertex(){
-    return destVertex;
+
+std::ostream& operator<<(std::ostream& os, const Edge& edge){
+    os << "Weight: "<< edge.weight << " - <" << edge.pairVertex.first << ", " << edge.pairVertex.second << ">";
+    return os;
 }

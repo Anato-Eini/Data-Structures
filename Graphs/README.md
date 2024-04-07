@@ -1,5 +1,9 @@
 # Graph ADT
 
+* _addEdge(name, weight, vertex1, vertex2)_: Add edge with its name, weight and its two vertices
+
+* _addVertex(name)_: Add vertex with its name;
+
 • <i>numVertices ( )</i>: Returns the number of vertices of the graph.
 
 • <i>vertices ( )</i>: Returns an iteration of all the vertices of the graph.

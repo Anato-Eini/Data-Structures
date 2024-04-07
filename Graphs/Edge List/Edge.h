@@ -1,16 +1,16 @@
 #ifndef DATA_STRUCTURES_EDGE_H
 #define DATA_STRUCTURES_EDGE_H
 
-#include "Vertex.h"
+#include <ostream>
 
-class Edge {
+struct Edge{
+    std::pair<std::string, std::string> pairVertex;
     int weight;
-    Vertex* destVertex;
-public:
-    Edge(int, Vertex*);
-    int getWeight();
-    Vertex* getDestVertex();
+    friend std::ostream& operator<<(std::ostream&, Edge*);
+    friend std::ostream& operator<<(std::ostream&, const Edge&);
 };
 
+std::ostream& operator<<(std::ostream&, Edge*);
+std::ostream& operator<<(std::ostream&, const Edge&);
 
 #endif //DATA_STRUCTURES_EDGE_H
