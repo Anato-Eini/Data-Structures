@@ -12,9 +12,9 @@ int main(){
     char op;
     int weight, number;
     std::string name, vertex1, vertex2;
-    std::vector<std::string> vertices;
+    std::vector<std::string> vertices, oppositeEdges;
     std::vector<std::pair<std::string, Edge*>> edges;
-    std::vector<Edge*> outgoingEdges, incomingEdges;
+    std::vector<std::pair<std::string, Edge*>> outgoingEdges, incomingEdges;
     std::pair<std::string, std::string>* endVertices = nullptr;
     do{
         std::cout << "Enter operation: ";
@@ -60,7 +60,7 @@ int main(){
                 std::cin >> name;
                 endVertices = edgelist->endVertices(name);
                 if(endVertices)
-                    std::cout << "Vertex 1: " << endVertices->first << " Vertex 2: " << endVertices->second;
+                    std::cout << "Vertex 1: " << endVertices->first << "\nVertex 2: " << endVertices->second;
                 else
                     std::cout << name << " edge doesn't exist";
                 break;
@@ -70,9 +70,9 @@ int main(){
                 if(edgelist->containVertex(name)) {
                     outgoingEdges = edgelist->outgoingEdges(name);
                     if (!outgoingEdges.empty()) {
-                        std::cout << "Outgoing edges:\n";
-                        for (Edge *e: outgoingEdges)
-                            std::cout << e;
+                        std::cout << "Outgoing edges:";
+                        for (std::pair<std::string, Edge*>const & e: outgoingEdges)
+                            std::cout << ' ' << e.first;
                     } else
                         std::cout << name << " doesn't have outgoing edges";
                 }else
@@ -82,11 +82,11 @@ int main(){
                 std::cout << "Enter vertex: ";
                 std::cin >> name;
                 if(edgelist->containVertex(name)) {
-                    outgoingEdges = edgelist->incomingEdges(name);
+                    incomingEdges = edgelist->incomingEdges(name);
                     if (!incomingEdges.empty()) {
-                        std::cout << " edges:\n";
-                        for (Edge *e: incomingEdges)
-                            std::cout << e;
+                        std::cout << "Incoming edges:";
+                        for (std::pair<std::string, Edge*>const & e: incomingEdges)
+                            std::cout << ' ' << e.first;
                     } else
                         std::cout << name << " doesn't have incoming edges";
                 }else
@@ -106,11 +106,14 @@ int main(){
             case 'o':
                 std::cout << "Enter vertex: ";
                 std::cin >> vertex1;
-                name = edgelist->opposite(vertex1);
+                oppositeEdges = edgelist->opposite(vertex1);
                 if(name.empty())
                    std::cout << vertex1 << " doesn't exists";
-                else
-                    std::cout << "Opposite of " << vertex1 << ": " << name;
+                else {
+                    std::cout << "Opposite of " << vertex1 << ": ";
+                    for(const std::string& s: oppositeEdges)
+                        std::cout << s << ' ';
+                }
                 break;
             case 'R':
                 std::cout << "Enter vertex: ";
@@ -125,12 +128,12 @@ int main(){
             case 'C':
                 std::cout << "Enter edge : ";
                 std::cin >> name;
-                std::cout << name << (edgelist->containEdge(name) ? " " : " doesn't ") << "exists";
+                std::cout << name << " edge" << (edgelist->containEdge(name) ? " " : " doesn't ") << "exists";
                 break;
             case 'c':
                 std::cout << "Enter vertex: ";
                 std::cin >> vertex1;
-                std::cout << vertex1 << (edgelist->containVertex(vertex1) ? " " : " doesn't ") << "exists";
+                std::cout << vertex1 << " vertex" << (edgelist->containVertex(vertex1) ? " " : " doesn't ") << "exists";
                 break;
             case 'N':
                 std::cout << "Number of vertices: " << edgelist->numVertices();
@@ -142,7 +145,7 @@ int main(){
                 std::cout << "Enter vertex: ";
                 std::cin >> vertex1;
                 number = edgelist->outDegree(vertex1);
-                std::cout << vertex1 << " vertex " << (number == -1 ? " doesn't exist" : " incoming edges: " +
+                std::cout << vertex1 << " vertex" << (number == -1 ? " doesn't exist" : " incoming edges: " +
                                                                                         std::to_string(number));
                 break;
             case 'd':

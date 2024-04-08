@@ -18,7 +18,7 @@ public:
     std::vector<std::pair<std::string, Edge*>> outgoingEdges(const std::string&);
     std::vector<std::pair<std::string, Edge*>> incomingEdges(const std::string&);
     std::string getEdge(const std::string&, const std::string&);
-    std::string opposite(const std::string&);
+    std::vector<std::string> opposite(const std::string&);
     void addVertex(const std::string&);
     void addEdge(const std::string&, int, const std::string&, const std::string&);
     void removeVertex(const std::string&);

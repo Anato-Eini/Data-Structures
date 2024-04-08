@@ -10,8 +10,8 @@ std::vector<std::string> EdgeList::vertices() const{
 
 std::vector<std::pair<std::string, Edge*>> EdgeList::edges() const{
     std::vector<std::pair<std::string, Edge*>> edges;
-    for(const std::pair<std::string, Edge*> pair: Edges)
-        edges.push_back(pair);
+    for(const std::pair<const std::string, Edge*> &pair: Edges)
+        edges.emplace_back(pair);
     return edges;
 }
 
@@ -21,34 +21,35 @@ std::pair<std::string, std::string>* EdgeList::endVertices(const std::string& ed
     return nullptr;
 }
 
-std::vector<Edge*> EdgeList::outgoingEdges(const std::string& vertex){
-    std::vector<Edge*> outgoingEdges;
-    for(const std::pair<std::string, Edge*> pair: Edges)
+std::vector<std::pair<std::string, Edge*>> EdgeList::outgoingEdges(const std::string& vertex){
+    std::vector<std::pair<std::string, Edge*>> outgoingEdges;
+    for(const std::pair<const std::string, Edge*> &pair: Edges)
         if(pair.second->pairVertex.first == vertex || pair.second->pairVertex.second == vertex)
-            outgoingEdges.push_back(pair.second);
+            outgoingEdges.emplace_back(pair);
     return outgoingEdges;
 }
 
-std::vector<Edge*> EdgeList::incomingEdges(const std::string& vertex){
+std::vector<std::pair<std::string, Edge*>> EdgeList::incomingEdges(const std::string& vertex){
     return outgoingEdges(vertex);
 }
 
 std::string EdgeList::getEdge(const std::string& vertex1, const std::string& vertex2){
-    for(const std::pair<std::string, Edge*> pair: Edges)
+    for(const std::pair<const std::string, Edge*>& pair: Edges)
         if((pair.second->pairVertex.first == vertex1 || pair.second->pairVertex.first == vertex2) &&
             (pair.second->pairVertex.second == vertex1 || pair.second->pairVertex.second == vertex2))
             return pair.first;
     return "";
 }
 
-std::string EdgeList::opposite(const std::string& vertex){
-    for(const std::pair<std::string, Edge*> pair: Edges) {
+std::vector<std::string> EdgeList::opposite(const std::string& vertex){
+    std::vector<std::string> oppositeVertices;
+    for(const std::pair<const std::string, Edge*>& pair: Edges) {
         if (pair.second->pairVertex.first == vertex)
-            return pair.second->pairVertex.second;
+            oppositeVertices.emplace_back(pair.second->pairVertex.second);
         else if(pair.second->pairVertex.second == vertex)
-            return pair.second->pairVertex.first;
+            oppositeVertices.emplace_back(pair.second->pairVertex.first);
     }
-    return "";
+    return oppositeVertices;
 }
 
 void EdgeList::addVertex(const std::string& name){
@@ -70,7 +71,7 @@ void EdgeList::removeVertex(const std::string& vertex){
     auto iterator = Vertices.find(vertex);
     if(iterator != Vertices.end()){
         Vertices.erase(*iterator);
-        for(const std::pair<std::string, Edge*> pair: Edges){
+        for(const std::pair<const std::string, Edge*>& pair: Edges){
             if(pair.second->pairVertex.first == vertex || pair.second->pairVertex.second == vertex){
                 delete pair.second;
                 Edges.erase(pair.first);
@@ -99,7 +100,7 @@ int EdgeList::outDegree(const std::string& vertex){
     auto iterator = Vertices.find(vertex);
     if(iterator != Vertices.end()){
         int numOutDegree = 0;
-        for(const std::pair<std::string, Edge*> pair: Edges)
+        for(const std::pair<const std::string, Edge*>& pair: Edges)
             if(pair.second->pairVertex.first == vertex || pair.second->pairVertex.second == vertex)
                 numOutDegree++;
         return numOutDegree;
@@ -123,7 +124,7 @@ std::ostream& operator<<(std::ostream& os, EdgeList* edgeList){
     for(const std::string& s: edgeList->Vertices)
         os << " " << s;
     os << "\nEdges:\n";
-    for(const std::pair<std::string, Edge*> pair: edgeList->Edges)
+    for(const std::pair<const std::string, Edge*>& pair: edgeList->Edges)
         os << "Name: " << pair.first << "\t" << pair.second << '\n';
     return os;
 }
@@ -133,14 +134,14 @@ std::ostream& operator<<(std::ostream& os, EdgeList& edgeList){
     for(const std::string& s: edgeList.Vertices)
         os << " " << s;
     os << "\nEdges:\n";
-    for(const std::pair<std::string, Edge*> pair: edgeList.Edges)
+    for(const std::pair<const std::string, Edge*>& pair: edgeList.Edges)
         os << "Name: " << pair.first << "\t" << pair.second << '\n';
     return os;
 }
 
 EdgeList::~EdgeList(){
     Vertices.clear();
-    for(const std::pair<std::string, Edge*> pair: Edges)
+    for(const std::pair<const std::string, Edge*>& pair: Edges)
         delete pair.second;
     Edges.clear();
 }
