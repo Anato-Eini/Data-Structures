@@ -58,11 +58,11 @@ void EdgeList::addVertex(const std::string& name){
 
 void EdgeList::addEdge(const std::string& name, int weight, const std::string& vertex1, const std::string& vertex2){
     if(Edges.contains(name))
-        std::cout << name << " edge already exists\n";
+        throw std::logic_error(name + " edge already exists\n");
     else if(!Vertices.contains(vertex1))
-        std::cout << vertex1 << " vertex doesn't exist\n";
+        throw std::logic_error(vertex1 + " vertex doesn't exist\n");
     else if(!Vertices.contains(vertex2))
-        std::cout << vertex2 << " vertex doesn't exist\n";
+        throw std::logic_error(vertex2 + " vertex doesn't exist\n");
     else
         Edges.insert({name, new Edge{{vertex1, vertex2}, weight}});
 }
@@ -71,13 +71,12 @@ void EdgeList::removeVertex(const std::string& vertex){
     auto iterator = Vertices.find(vertex);
     if(iterator != Vertices.end()){
         Vertices.erase(*iterator);
-        for(const std::pair<const std::string, Edge*>& pair: Edges){
+        for(const std::pair<const std::string, Edge*>& pair: Edges)
             if(pair.second->pairVertex.first == vertex || pair.second->pairVertex.second == vertex){
                 delete pair.second;
                 Edges.erase(pair.first);
             }
-        }
-    }else std::cout << "Vertex doesn't exist\n";
+    }else throw std::logic_error("Vertex doesn't exist\n");
 }
 
 void EdgeList::removeEdge(const std::string& edge){
@@ -85,7 +84,8 @@ void EdgeList::removeEdge(const std::string& edge){
     if(iterator != Edges.end()){
         delete iterator->second;
         Edges.erase(iterator);
-    }else std::cout << "Edge doesn't exist\n";
+    }else
+        throw std::logic_error("Edge doesn't exist\n") ;
 }
 
 int EdgeList::numVertices(){
