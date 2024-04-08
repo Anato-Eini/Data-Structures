@@ -1,7 +1,3 @@
-/*
- * TODO delete the pair when using pairVertices function
- * TODO pair of vertices must be unique
-*/
 #include <iostream>
 
 #include "EdgeList.h"
