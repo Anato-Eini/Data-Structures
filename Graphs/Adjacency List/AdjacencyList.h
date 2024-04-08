@@ -1,19 +1,23 @@
 #ifndef DATA_STRUCTURES_ADJACENCYLIST_H
 #define DATA_STRUCTURES_ADJACENCYLIST_H
 
+#include <unordered_map>
+#include <unordered_set>
+
 #include "../Graph.h"
 
-class AdjacencyList : private Graph{
+class AdjacencyList : public Graph{
+    std::unordered_map<std::string, std::unordered_set<std::string>> list;
 public:
     std::vector<std::string> vertices() const override;
 
-    std::vector<std::pair<std::string, Edge *>> edges() const override;
+    std::vector<std::string> edges() const override;
 
-    std::pair<std::string, std::string> *endVertices(const std::string &edge) override;
+    std::pair<std::string, std::string> endVertices(const std::string &edge) override;
 
-    std::vector<std::pair<std::string, Edge *>> outgoingEdges(const std::string &vertex) override;
+    std::vector<std::string> outgoingEdges(const std::string &vertex) override;
 
-    std::vector<std::pair<std::string, Edge *>> incomingEdges(const std::string &vertex) override;
+    std::vector<std::string> incomingEdges(const std::string &vertex) override;
 
     std::string getEdge(const std::string &vertex1, const std::string &vertex2) override;
 
@@ -21,7 +25,7 @@ public:
 
     void addVertex(const std::string &vertex) override;
 
-    void addEdge(const std::string &edge, int weight, const std::string &vertex1, const std::string &vertex2) override;
+    void addEdge(const std::string &edge, const std::string &vertex1, const std::string &vertex2) override;
 
     void removeVertex(const std::string &vertex) override;
 

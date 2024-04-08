@@ -54,5 +54,5 @@ vertex v. For an undirected graph, this returns the same collection as
 does _outgoingEdges (v)_.
 
 
-**To showcase each core concepts of different strategies for implementing graphs, we'll implement them using weighted 
+**To showcase each core concepts of different strategies for implementing graphs, we'll implement them using 
 undirected graph**

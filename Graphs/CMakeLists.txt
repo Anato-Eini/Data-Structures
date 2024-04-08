@@ -13,9 +13,9 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_executable(Graph-Adjacency_List
         "Adjacency List/main.cpp"
-        Graph.h
         "Adjacency List/AdjacencyList.cpp"
         "Adjacency List/AdjacencyList.h"
+        Graph.h
 )
 
 add_executable(Graph-Adjacency_Map
@@ -29,10 +29,8 @@ add_executable(Graph-Adjacency_Matrix
 )
 
 add_executable(Graph-Edge_List
-        "Edge List/main.cpp"
+        "main.cpp"
         "Edge List/EdgeList.cpp"
         "Edge List/EdgeList.h"
-        "Edge List/Edge.h"
-        "Edge List/Edge.cpp"
         Graph.h
 )

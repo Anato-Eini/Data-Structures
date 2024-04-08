@@ -5,46 +5,46 @@
 #include <unordered_map>
 #include <vector>
 
-#include "Edge.h"
+#include "../Graph.h"
 
-
-class EdgeList{
+class EdgeList: public Graph{
     std::unordered_set<std::string> Vertices;
-    std::unordered_map<std::string, Edge*> Edges;
+    //unordered_map<edgeName, <vertex1, vertex2>>
+    std::unordered_map<std::string, std::pair<std::string, std::string>> Edges;
 public:
-    std::vector<std::string> vertices() const;
+    std::vector<std::string> vertices() const override;
 
-    std::vector<std::pair<std::string, Edge*>> edges() const;
+    std::vector<std::string> edges() const override;
 
-    std::pair<std::string, std::string>* endVertices(const std::string& edge);
+    std::pair<std::string, std::string> endVertices(const std::string& edge) override;
 
-    std::vector<std::pair<std::string, Edge*>> outgoingEdges(const std::string& vertex);
+    std::vector<std::string> outgoingEdges(const std::string& vertex) override;
 
-    std::vector<std::pair<std::string, Edge*>> incomingEdges(const std::string& vertex);
+    std::vector<std::string> incomingEdges(const std::string& vertex) override;
 
-    std::string getEdge(const std::string& vertex1, const std::string& vertex2);
+    std::string getEdge(const std::string& vertex1, const std::string& vertex2) override;
 
-    std::vector<std::string> opposite(const std::string& vertex);
+    std::vector<std::string> opposite(const std::string& vertex) override;
 
-    void addVertex(const std::string& vertex);
+    void addVertex(const std::string& vertex) override;
 
-    void addEdge(const std::string& edge, int weight, const std::string& vertex1, const std::string& vertex2);
+    void addEdge(const std::string& edge, const std::string& vertex1, const std::string& vertex2) override;
 
-    void removeVertex(const std::string& vertex);
+    void removeVertex(const std::string& vertex) override;
 
-    void removeEdge(const std::string& edge);
+    void removeEdge(const std::string& edge) override;
 
-    bool containEdge(const std::string& edge) const;
+    bool containEdge(const std::string& edge) const override;
 
-    bool containVertex(const std::string& vertex) const;
+    bool containVertex(const std::string& vertex) const override;
 
-    int numVertices();
+    int numVertices() override;
 
-    int numEdges();
+    int numEdges() override;
 
-    int outDegree(const std::string& vertex);
+    int outDegree(const std::string& vertex) override;
 
-    int inDegree(const std::string& vertex);
+    int inDegree(const std::string& vertex) override;
 
     ~EdgeList();
 

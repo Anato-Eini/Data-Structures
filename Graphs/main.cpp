@@ -1,17 +1,13 @@
 #include <iostream>
 
-#include "EdgeList.h"
+#include "Edge List/EdgeList.h"
 
 int main(){
-    //For testing graph edge list implementation
-    auto* edgelist = new EdgeList{};
+    //For testing different graphs implementation
+    Graph* edgelist = new EdgeList{};
     char op;
-    int weight, number;
+    int number;
     std::string name, vertex1, vertex2;
-    std::vector<std::string> vertices, oppositeEdges;
-    std::vector<std::pair<std::string, Edge*>> edges;
-    std::vector<std::pair<std::string, Edge*>> outgoingEdges, incomingEdges;
-    std::pair<std::string, std::string>* endVertices = nullptr;
     do{
         std::cout << "Enter operation: ";
         std::cin >> op;
@@ -20,8 +16,6 @@ int main(){
                 case 'E':
                     std::cout << "Enter edge name: ";
                 std::cin >> name;
-                std::cout << "Enter edge weight: ";
-                std::cin >> weight;
                 std::cout << "Enter the first vertex: ";
                 std::cin >> vertex1;
                 do {
@@ -30,7 +24,7 @@ int main(){
                     if (vertex1 == vertex2)
                         std::cout << "Second vertex must be unique from the first vertex\n";
                 } while (vertex1 == vertex2);
-                edgelist->addEdge(name, weight, vertex1, vertex2);
+                edgelist->addEdge(name, vertex1, vertex2);
                 break;
                 case 'V':
                     std::cout << "Enter vertex name: ";
@@ -160,8 +154,6 @@ int main(){
         } catch (const std::logic_error& e) {
             std::cerr << e.what();
         }
-        delete endVertices;
-        endVertices = nullptr;
         std::cout << '\n';
     }while(op != 'X' && op != 'x');
 }
