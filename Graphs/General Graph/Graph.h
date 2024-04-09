@@ -44,13 +44,13 @@ public:
 
     virtual int inDegree(const std::string &vertex) = 0;
 
-    friend std::ostream& operator<<(std::ostream&, const Graph* graph);
+    friend std::ostream& operator<<(std::ostream&, Graph* graph);
 
-//    friend std::ostream& operator<<(std::ostream&, Graph& graph);
+    friend std::ostream& operator<<(std::ostream&, Graph& graph);
 };
 
 std::ostream& operator<<(std::ostream&, Graph* graph);
 
-//std::ostream& operator<<(std::ostream&, Graph& graph);
+std::ostream& operator<<(std::ostream&, Graph& graph);
 
 #endif //DATA_STRUCTURES_GRAPH_H
