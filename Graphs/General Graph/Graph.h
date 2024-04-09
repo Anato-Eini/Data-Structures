@@ -4,6 +4,9 @@
 #include <vector>
 #include <string>
 
+class EdgeList;
+class AdjacencyList;
+
 class Graph{
 public:
     virtual std::vector<std::string> vertices() const = 0;
@@ -41,13 +44,13 @@ public:
 
     virtual int inDegree(const std::string &vertex) = 0;
 
-    friend std::ostream& operator<<(std::ostream&, Graph*);
+    friend std::ostream& operator<<(std::ostream&, const Graph* graph);
 
-    friend std::ostream& operator<<(std::ostream&, Graph&);
+//    friend std::ostream& operator<<(std::ostream&, Graph& graph);
 };
 
-//These two must be implemented by other subclass
-std::ostream& operator<<(std::ostream&, Graph*);
-std::ostream& operator<<(std::ostream&, Graph&);
+std::ostream& operator<<(std::ostream&, Graph* graph);
+
+//std::ostream& operator<<(std::ostream&, Graph& graph);
 
 #endif //DATA_STRUCTURES_GRAPH_H

@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "../Graph.h"
+#include "../General Graph/Graph.h"
 
 class EdgeList: public Graph{
     std::unordered_set<std::string> Vertices;
@@ -48,9 +48,9 @@ public:
 
     ~EdgeList();
 
-    friend std::ostream& operator<<(std::ostream&, Graph*);
+    friend std::ostream& operator<<(std::ostream&, EdgeList*);
 
-    friend std::ostream& operator<<(std::ostream&, Graph&);
+    friend std::ostream& operator<<(std::ostream&, EdgeList&);
 };
 
 #endif //DATA_STRUCTURES_EDGELIST_H

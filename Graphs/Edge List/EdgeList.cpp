@@ -122,19 +122,19 @@ bool EdgeList::containVertex(const std::string& vertex) const{
     return Vertices.contains(vertex);
 }
 
-std::ostream& operator<<(std::ostream& os, Graph* edgeList){
+std::ostream& operator<<(std::ostream& os, EdgeList* edgeList){
     os << "Vertices:";
     for(const std::string& s:((EdgeList*)edgeList)->Vertices)
         os << " " << s;
     os << "\nEdges:\n";
-    for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: ((EdgeList*)edgeList)->Edges)
+    for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: edgeList->Edges)
         os << "Name: " << pair.first << " <" << pair.second.first << ", " << pair.second.second << ">\n";
     return os;
 }
 
-std::ostream& operator<<(std::ostream& os, Graph& edgeList){
+std::ostream& operator<<(std::ostream& os, EdgeList& edgeList){
     os << "Vertices:";
-    for(const std::string& s: ((EdgeList&)edgeList).Vertices)
+    for(const std::string& s: edgeList.Vertices)
         os << " " << s;
     os << "\nEdges:\n";
     for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: ((EdgeList&)edgeList).Edges)

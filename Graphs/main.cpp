@@ -37,7 +37,6 @@ int main(){
                     std::cin >> vertex1;
                     std::cout << "Enter the second vertex: ";
                     std::cin >> vertex2;
-
                     graph->addEdge(name, vertex1, vertex2);
                     break;
                 case 'V':

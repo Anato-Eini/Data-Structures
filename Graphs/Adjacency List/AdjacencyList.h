@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "../Graph.h"
+#include "../General Graph/Graph.h"
 
 class AdjacencyList : public Graph{
     std::unordered_map<std::string, std::unordered_set<std::string>> list;
@@ -42,14 +42,6 @@ public:
     int outDegree(const std::string &vertex) override;
 
     int inDegree(const std::string &vertex) override;
-
-    friend std::ostream& operator<<(std::ostream&, AdjacencyList* adjacencyList);
-
-    friend std::ostream& operator<<(std::ostream&, AdjacencyList& adjacencyList);
 };
-
-std::ostream& operator<<(std::ostream&, AdjacencyList* adjacencyList);
-
-std::ostream& operator<<(std::ostream&, AdjacencyList& adjacencyList);
 
 #endif //DATA_STRUCTURES_ADJACENCYLIST_H
