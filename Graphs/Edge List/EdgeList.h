@@ -48,14 +48,9 @@ public:
 
     ~EdgeList();
 
-    friend std::ostream& operator<<(std::ostream&, EdgeList*);
+    friend std::ostream& operator<<(std::ostream&, Graph*);
 
-    friend std::ostream& operator<<(std::ostream&, EdgeList&);
-
+    friend std::ostream& operator<<(std::ostream&, Graph&);
 };
-
-std::ostream& operator<<(std::ostream&, EdgeList*);
-
-std::ostream& operator<<(std::ostream&, EdgeList&);
 
 #endif //DATA_STRUCTURES_EDGELIST_H

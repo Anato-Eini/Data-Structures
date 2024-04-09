@@ -23,6 +23,8 @@ std::pair<std::string, std::string> EdgeList::endVertices(const std::string& edg
 }
 
 std::vector<std::string> EdgeList::outgoingEdges(const std::string& vertex){
+    if(!Vertices.contains(vertex))
+        throw std::logic_error(vertex + " vertex doesn't exists");
     std::vector<std::string> outgoingEdges;
     for(const std::pair<const std::string, std::pair<std::string, std::string>> &pair: Edges)
         if(pair.second.first == vertex || pair.second.second == vertex)
@@ -71,10 +73,13 @@ void EdgeList::addEdge(const std::string& name, const std::string& vertex1, cons
 void EdgeList::removeVertex(const std::string& vertex){
     auto iterator = Vertices.find(vertex);
     if(iterator != Vertices.end()){
-        Vertices.erase(iterator);
-        for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: Edges)
-            if(pair.second.first == vertex || pair.second.second == vertex)
-                Edges.erase(pair.first);
+        Vertices.erase(*iterator);
+        std::vector<std::string> to_be_deleted;
+        for(std::pair<const std::string, std::pair<std::string, std::string>>& pair: Edges)
+            if (pair.second.first == vertex || pair.second.second == vertex)
+                to_be_deleted.emplace_back(pair.first);
+        for(const std::string& edge: to_be_deleted)
+            Edges.erase(edge);
     }else throw std::logic_error("Vertex doesn't exist\n");
 }
 
@@ -117,29 +122,27 @@ bool EdgeList::containVertex(const std::string& vertex) const{
     return Vertices.contains(vertex);
 }
 
-std::ostream& operator<<(std::ostream& os, EdgeList* edgeList){
+std::ostream& operator<<(std::ostream& os, Graph* edgeList){
     os << "Vertices:";
-    for(const std::string& s: edgeList->Vertices)
+    for(const std::string& s:((EdgeList*)edgeList)->Vertices)
         os << " " << s;
     os << "\nEdges:\n";
-    for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: edgeList->Edges)
-        os << "Name: " << pair.first << "\t" << pair.second << '\n';
+    for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: ((EdgeList*)edgeList)->Edges)
+        os << "Name: " << pair.first << " <" << pair.second.first << ", " << pair.second.second << ">\n";
     return os;
 }
 
-std::ostream& operator<<(std::ostream& os, EdgeList& edgeList){
+std::ostream& operator<<(std::ostream& os, Graph& edgeList){
     os << "Vertices:";
-    for(const std::string& s: edgeList.Vertices)
+    for(const std::string& s: ((EdgeList&)edgeList).Vertices)
         os << " " << s;
     os << "\nEdges:\n";
-    for(const std::pair<const std::string, Edge*>& pair: edgeList.Edges)
-        os << "Name: " << pair.first << "\t" << pair.second << '\n';
+    for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: ((EdgeList&)edgeList).Edges)
+        os << "Name: " << pair.first << " <" << pair.second.first << ", " << pair.second.second << ">\n";
     return os;
 }
 
 EdgeList::~EdgeList(){
     Vertices.clear();
-    for(const std::pair<const std::string, Edge*>& pair: Edges)
-        delete pair.second;
     Edges.clear();
 }

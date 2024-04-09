@@ -40,6 +40,14 @@ public:
     virtual int outDegree(const std::string &vertex) = 0;
 
     virtual int inDegree(const std::string &vertex) = 0;
+
+    friend std::ostream& operator<<(std::ostream&, Graph*);
+
+    friend std::ostream& operator<<(std::ostream&, Graph&);
 };
+
+//These two must be implemented by other subclass
+std::ostream& operator<<(std::ostream&, Graph*);
+std::ostream& operator<<(std::ostream&, Graph&);
 
 #endif //DATA_STRUCTURES_GRAPH_H
