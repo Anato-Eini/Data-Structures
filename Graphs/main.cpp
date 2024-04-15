@@ -2,6 +2,7 @@
 
 #include "Edge List/EdgeList.h"
 #include "Adjacency List/AdjacencyList.h"
+#include "Adjacency Map/AdjacencyMap.h"
 
 int main(){
     //For testing different graphs implementation
@@ -12,19 +13,22 @@ int main(){
     std::vector<std::string> array;
     std::pair<std::string, std::string> endVertices;
     do{
-        std::cout << "1-Edge List 2-Adjacency List: ";
+        std::cout << "1-Edge_List 2-Adjacency_List 3-Adjacency_Map: ";
         std::cin >> number;
         switch (number) {
             case 1:
-                graph = new EdgeList();
+                graph = new EdgeList{};
                 break;
             case 2:
-                graph = new AdjacencyList();
+                graph = new AdjacencyList{};
+                break;
+            case 3:
+                graph = new AdjacencyMap{};
                 break;
             default:
                 std::cout << "Invalid operation\n";
         }
-    } while (number < 1 || number > 2);
+    } while (number < 1 || number > 3);
     do{
         std::cout << "Enter operation: ";
         std::cin >> op;
@@ -157,11 +161,22 @@ int main(){
                 case 't':
                     delete graph;
                     do{
-                        std::cout << "1-Edge List 2-Adjacency List: ";
+                        std::cout << "1-Edge_List 2-Adjacency_List 3-Adjacency_Map: ";
                         std::cin >> number;
-                        if(number < 1 || number > 2)
-                            std::cout << "Invalid operation\n";
-                    } while (number < 1 || number > 2);
+                        switch (number) {
+                            case 1:
+                                graph = new EdgeList{};
+                                break;
+                            case 2:
+                                graph = new AdjacencyList{};
+                                break;
+                            case 3:
+                                graph = new AdjacencyMap{};
+                                break;
+                            default:
+                                std::cout << "Invalid operation\n";
+                        }
+                    } while (number < 1 || number > 3);
                     break;
                 default:
                     std::cout << "Invalid operation";
