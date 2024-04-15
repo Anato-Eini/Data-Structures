@@ -8,6 +8,8 @@
 
 class AdjacencyList : public Graph{
     std::unordered_map<std::string, std::unordered_set<std::string>> list;
+
+    void print(std::ostream &ostream) override;
 public:
     std::vector<std::string> vertices() const override;
 

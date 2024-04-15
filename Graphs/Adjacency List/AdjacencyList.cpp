@@ -136,30 +136,18 @@ int AdjacencyList::inDegree(const std::string &vertex) {
     return outDegree(vertex);
 }
 
-std::ostream& operator<<(std::ostream& os, AdjacencyList* adjacencyList){
+void AdjacencyList::print(std::ostream &ostream) {
     bool isFirst = true;
-    for(const std::pair<const std::string, std::unordered_set<std::string>> &p: adjacencyList->list) {
-        os << "Vertex - " << p.first << ":";
+    for(const std::pair<const std::string, std::unordered_set<std::string>> &p: list) {
+        ostream << "Vertex " << p.first << "\t";
         for(const std::string& edge: p.second) {
             if(isFirst) {
-                std::cout << " -> " << edge;
+                std::cout << " " << edge;
                 isFirst = false;
             }else
-                std::cout << " " << edge;
-        }
-    }
-}
-
-std::ostream& operator<<(std::ostream& os, AdjacencyList& adjacencyList){
-    bool isFirst = true;
-    for(const std::pair<const std::string, std::unordered_set<std::string>> &p: adjacencyList.list) {
-        os << "Vertex - " << p.first << ":";
-        for(const std::string& edge: p.second) {
-            if(isFirst) {
                 std::cout << " -> " << edge;
-                isFirst = false;
-            }else
-                std::cout << " " << edge;
         }
+        isFirst = true;
+        std::cout << '\n';
     }
 }

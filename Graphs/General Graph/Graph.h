@@ -8,6 +8,8 @@ class EdgeList;
 class AdjacencyList;
 
 class Graph{
+    virtual void print(std::ostream&) = 0;
+
 public:
     virtual std::vector<std::string> vertices() const = 0;
 
@@ -47,6 +49,8 @@ public:
     friend std::ostream& operator<<(std::ostream&, Graph* graph);
 
     friend std::ostream& operator<<(std::ostream&, Graph& graph);
+
+    ~Graph() = default;
 };
 
 std::ostream& operator<<(std::ostream&, Graph* graph);

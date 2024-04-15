@@ -11,6 +11,8 @@ class EdgeList: public Graph{
     std::unordered_set<std::string> Vertices;
     //unordered_map<edgeName, <vertex1, vertex2>>
     std::unordered_map<std::string, std::pair<std::string, std::string>> Edges;
+
+    void print(std::ostream &ostream) override;
 public:
     std::vector<std::string> vertices() const override;
 
@@ -45,12 +47,6 @@ public:
     int outDegree(const std::string& vertex) override;
 
     int inDegree(const std::string& vertex) override;
-
-    ~EdgeList();
-
-    friend std::ostream& operator<<(std::ostream&, EdgeList*);
-
-    friend std::ostream& operator<<(std::ostream&, EdgeList&);
 };
 
 #endif //DATA_STRUCTURES_EDGELIST_H

@@ -154,11 +154,19 @@ int main(){
                     std::cout << vertex1 << " vertex " << (number == -1 ? " doesn't exist" :
                                                                      " outgoing edges: " + std::to_string(number));
                     break;
+                case 't':
+                    delete graph;
+                    do{
+                        std::cout << "1-Edge List 2-Adjacency List: ";
+                        std::cin >> number;
+                        if(number < 1 || number > 2)
+                            std::cout << "Invalid operation\n";
+                    } while (number < 1 || number > 2);
+                    break;
                 default:
                     std::cout << "Invalid operation";
-
             }
-        } catch (const std::logic_error& e) {
+        } catch (const std::exception& e) {
             std::cerr << e.what();
         }
         std::cout << '\n';

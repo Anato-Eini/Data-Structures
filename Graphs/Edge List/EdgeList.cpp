@@ -92,11 +92,11 @@ void EdgeList::removeEdge(const std::string& edge){
 }
 
 int EdgeList::numVertices(){
-    return Vertices.size();
+    return (int)Vertices.size();
 }
 
 int EdgeList::numEdges(){
-    return Edges.size();
+    return (int)Edges.size();
 }
 
 int EdgeList::outDegree(const std::string& vertex){
@@ -122,27 +122,11 @@ bool EdgeList::containVertex(const std::string& vertex) const{
     return Vertices.contains(vertex);
 }
 
-std::ostream& operator<<(std::ostream& os, EdgeList* edgeList){
-    os << "Vertices:";
-    for(const std::string& s:((EdgeList*)edgeList)->Vertices)
-        os << " " << s;
-    os << "\nEdges:\n";
-    for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: edgeList->Edges)
-        os << "Name: " << pair.first << " <" << pair.second.first << ", " << pair.second.second << ">\n";
-    return os;
-}
-
-std::ostream& operator<<(std::ostream& os, EdgeList& edgeList){
-    os << "Vertices:";
-    for(const std::string& s: edgeList.Vertices)
-        os << " " << s;
-    os << "\nEdges:\n";
-    for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: ((EdgeList&)edgeList).Edges)
-        os << "Name: " << pair.first << " <" << pair.second.first << ", " << pair.second.second << ">\n";
-    return os;
-}
-
-EdgeList::~EdgeList(){
-    Vertices.clear();
-    Edges.clear();
+void EdgeList::print(std::ostream &ostream) {
+    ostream << "Vertices:";
+    for(const std::string& s: Vertices)
+        ostream << " " << s;
+    ostream << "\nEdges:\n";
+    for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: Edges)
+        ostream << "Name: " << pair.first << " <" << pair.second.first << ", " << pair.second.second << ">\n";
 }
