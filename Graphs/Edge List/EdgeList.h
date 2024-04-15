@@ -1,10 +1,6 @@
 #ifndef DATA_STRUCTURES_EDGELIST_H
 #define DATA_STRUCTURES_EDGELIST_H
 
-#include <unordered_set>
-#include <unordered_map>
-#include <vector>
-
 #include "../General Graph/Graph.h"
 
 class EdgeList: public Graph{

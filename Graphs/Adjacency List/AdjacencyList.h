@@ -1,9 +1,6 @@
 #ifndef DATA_STRUCTURES_ADJACENCYLIST_H
 #define DATA_STRUCTURES_ADJACENCYLIST_H
 
-#include <unordered_map>
-#include <unordered_set>
-
 #include "../General Graph/Graph.h"
 
 class AdjacencyList : public Graph{

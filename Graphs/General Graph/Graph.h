@@ -2,6 +2,8 @@
 #define DATA_STRUCTURES_GRAPH_H
 
 #include <vector>
+#include <unordered_map>
+#include <unordered_set>
 #include <string>
 
 class EdgeList;
