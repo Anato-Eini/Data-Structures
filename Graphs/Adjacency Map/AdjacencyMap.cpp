@@ -113,7 +113,12 @@ void AdjacencyMap::removeVertex(const std::string &vertex) {
 }
 
 void AdjacencyMap::removeEdge(const std::string &edge) {
-
+    for(std::pair<std::string, std::unordered_map<std::string, std::string>> edges: Vertices){
+        if(edges.second.contains(edge)){
+            edges.second.erase(edge);
+            break;
+        }
+    }
 }
 
 bool AdjacencyMap::containEdge(const std::string &edge) const {
@@ -128,21 +133,28 @@ bool AdjacencyMap::containVertex(const std::string &vertex) const {
 }
 
 int AdjacencyMap::numVertices() {
-    return 0;
+    return Vertices.size();
 }
 
 int AdjacencyMap::numEdges() {
-    return 0;
+    std::unordered_set<std::string> edges;
+    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &pair: Vertices)
+        for(const std::pair<const std::string, std::string> &pair1 : pair.second)
+            edges.insert(pair1.first);
+    return edges.size();
 }
 
 int AdjacencyMap::outDegree(const std::string &vertex) {
-    return 0;
+    if(!containVertex(vertex))
+        throw std::logic_error(vertex + " vertex doesn't exist\n");
+    return Vertices[vertex].size();
 }
 
 int AdjacencyMap::inDegree(const std::string &vertex) {
-    return 0;
+    return outDegree(vertex);
 }
 
 void AdjacencyMap::print(std::ostream &ostream) {
-
+    ostream << "Size: " << Vertices.size() << '\n';
+    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &pair: Vertices)
 }
