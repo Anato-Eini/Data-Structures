@@ -4,6 +4,7 @@
 #include "../General Graph/Graph.h"
 
 class AdjacencyList : public Graph{
+    //<vertex, edges>
     std::unordered_map<std::string, std::unordered_set<std::string>> list;
 
     void print(std::ostream &ostream) override;

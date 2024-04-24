@@ -18,13 +18,17 @@ std::vector<std::string> AdjacencyList::edges() const {
 }
 
 std::pair<std::string, std::string> AdjacencyList::endVertices(const std::string &edge) {
-    std::pair<std::string, std::string> pairVertices("", "");
+    if(!containEdge(edge))
+        throw std::logic_error(edge + " edge doesn't exist\n");
+    std::pair<std::string, std::string> pairVertices({}, {});
     for(const std::pair<const std::string, std::unordered_set<std::string>>& pair: list)
         for(const std::string& e: pair.second){
-            if(pairVertices.first.empty() && e == edge)
-                pairVertices.first = pair.first;
-            else if(e == edge)
-                pairVertices.second = pair.first;
+            if(e == edge){
+                if(pairVertices.first.empty())
+                    pairVertices.first = pair.first;
+                else
+                    pairVertices.second = pair.first;
+            }
         }
     return pairVertices;
 }
@@ -42,6 +46,10 @@ std::vector<std::string> AdjacencyList::incomingEdges(const std::string &vertex)
 }
 
 std::string AdjacencyList::getEdge(const std::string &vertex1, const std::string &vertex2) {
+    if(!containVertex(vertex1))
+        throw std::logic_error(vertex1 + " vertex doesn't exist\n");
+    else if(!containVertex(vertex2))
+        throw std::logic_error(vertex2 + " vertex doesn't exist\n");
     std::unordered_set<std::string> edgeV1, edgeV2;
     for(const std::pair<const std::string, std::unordered_set<std::string>>& pair: list){
         if(pair.first == vertex1)
@@ -62,6 +70,8 @@ std::string AdjacencyList::getEdge(const std::string &vertex1, const std::string
 }
 
 std::vector<std::string> AdjacencyList::opposite(const std::string &vertex) {
+    if(!containVertex(vertex))
+        throw std::logic_error(vertex + " vertex doesn't exist\n");
     std::vector<std::string> oppositeVertices;
     for(const std::pair<const std::string, std::unordered_set<std::string>> &pair: list)
         if(pair.first != vertex){
@@ -75,17 +85,19 @@ std::vector<std::string> AdjacencyList::opposite(const std::string &vertex) {
 }
 
 void AdjacencyList::addVertex(const std::string &vertex) {
+    if(list.contains(vertex))
+        throw std::logic_error(vertex + " vertex already exists\n");
     list.insert({vertex, {}});
 }
 
 void
 AdjacencyList::addEdge(const std::string &edge, const std::string &vertex1, const std::string &vertex2) {
     if(!list.contains(vertex1))
-        throw std::logic_error(vertex1 + " doesn't exists");
+        throw std::logic_error(vertex1 + " vertex doesn't exists\n");
     else if(!list.contains(vertex2))
-        throw std::logic_error(vertex2 + " doesn't exists");
+        throw std::logic_error(vertex2 + " vertex doesn't exists\n");
     else if(list[vertex1].contains(edge) || list[vertex2].contains(edge))
-        throw std::logic_error (edge + " edge already exists");
+        throw std::logic_error (edge + " edge already exists\n");
     else{
         list[vertex1].insert(edge);
         list[vertex2].insert(edge);
@@ -94,11 +106,13 @@ AdjacencyList::addEdge(const std::string &edge, const std::string &vertex1, cons
 
 void AdjacencyList::removeVertex(const std::string &vertex) {
     if(!list.contains(vertex))
-        throw std::logic_error(vertex + " vertex doesn't exist");
+        throw std::logic_error(vertex + " vertex doesn't exist\n");
     list.erase(vertex);
 }
 
 void AdjacencyList::removeEdge(const std::string &edge) {
+    if(!containEdge(edge))
+        throw std::logic_error(edge + " edge doesn't exist\n");
     for(std::pair<const std::string, std::unordered_set<std::string>> &p: list)
         if(p.second.contains(edge))
             p.second.erase(edge);
@@ -142,12 +156,12 @@ void AdjacencyList::print(std::ostream &ostream) {
         ostream << "Vertex " << p.first << "\t";
         for(const std::string& edge: p.second) {
             if(isFirst) {
-                std::cout << " " << edge;
+                ostream << " " << edge;
                 isFirst = false;
             }else
-                std::cout << " -> " << edge;
+                ostream << " -> " << edge;
         }
         isFirst = true;
-        std::cout << '\n';
+        ostream << '\n';
     }
 }

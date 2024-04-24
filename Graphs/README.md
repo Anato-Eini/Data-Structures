@@ -1,6 +1,6 @@
 # Graph ADT
 
-* _addEdge (name, weight, vertex1, vertex2)_: Add edge with its name, weight and its two vertices
+* _addEdge (name, vertex1, vertex2)_: Add edge with its name and its two vertices
 
 
 * _addVertex (name)_: Add vertex with its name

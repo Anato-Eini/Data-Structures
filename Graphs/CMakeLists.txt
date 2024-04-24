@@ -11,7 +11,6 @@ add_executable(Graph
         "Edge List/EdgeList.cpp"
         "Edge List/EdgeList.h"
         "main.cpp"
-        "General Graph/Graph.cpp"
         "Adjacency Map/AdjacencyMap.cpp"
         "Adjacency Map/AdjacencyMap.h"
 )

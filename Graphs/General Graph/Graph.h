@@ -17,7 +17,7 @@ public:
 
     virtual std::vector<std::string> edges() const = 0;
 
-    //Returns a pair of empty strings if none
+    ///Returns a pair of empty strings if none
     virtual std::pair<std::string, std::string> endVertices(const std::string &edge) = 0;
 
     virtual std::vector<std::string> outgoingEdges(const std::string &vertex) = 0;
@@ -28,7 +28,10 @@ public:
 
     virtual std::vector<std::string> opposite(const std::string &vertex) = 0;
 
+    ///Must be unique
     virtual void addVertex(const std::string &vertex) = 0;
+
+    ///Must be unique
 
     virtual void addEdge(const std::string &edge, const std::string &vertex1, const std::string &vertex2) = 0;
 
@@ -55,8 +58,14 @@ public:
     ~Graph() = default;
 };
 
-std::ostream& operator<<(std::ostream&, Graph* graph);
+std::ostream& operator<<(std::ostream& os, Graph* graph){
+    graph->print(os);
+    return os;
+}
 
-std::ostream& operator<<(std::ostream&, Graph& graph);
+std::ostream& operator<<(std::ostream& os, Graph& graph){
+    graph.print(os);
+    return os;
+}
 
 #endif //DATA_STRUCTURES_GRAPH_H

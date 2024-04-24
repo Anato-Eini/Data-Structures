@@ -18,13 +18,13 @@ std::vector<std::string> EdgeList::edges() const{
 std::pair<std::string, std::string> EdgeList::endVertices(const std::string& edge){
     auto it = Edges.find(edge);
     if(it == Edges.end())
-        throw std::logic_error(edge + " edge doesn't exist");
+        throw std::logic_error(edge + " edge doesn't exist\n");
     return it->second;
 }
 
 std::vector<std::string> EdgeList::outgoingEdges(const std::string& vertex){
     if(!Vertices.contains(vertex))
-        throw std::logic_error(vertex + " vertex doesn't exists");
+        throw std::logic_error(vertex + " vertex doesn't exists\n");
     std::vector<std::string> outgoingEdges;
     for(const std::pair<const std::string, std::pair<std::string, std::string>> &pair: Edges)
         if(pair.second.first == vertex || pair.second.second == vertex)
@@ -37,6 +37,10 @@ std::vector<std::string> EdgeList::incomingEdges(const std::string& vertex){
 }
 
 std::string EdgeList::getEdge(const std::string& vertex1, const std::string& vertex2){
+    if(!containVertex(vertex1))
+        throw std::logic_error(vertex1 + " vertex doesn't exist\n");
+    else if(!containVertex(vertex2))
+        throw std::logic_error(vertex2 + " vertex doesn't exist\n");
     for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: Edges)
         if((pair.second.first == vertex1 || pair.second.first == vertex2) &&
             (pair.second.second == vertex1 || pair.second.second == vertex2))
@@ -45,6 +49,8 @@ std::string EdgeList::getEdge(const std::string& vertex1, const std::string& ver
 }
 
 std::vector<std::string> EdgeList::opposite(const std::string& vertex){
+    if(!containVertex(vertex))
+        throw std::logic_error(vertex + " vertex doesn't exist\n");
     std::vector<std::string> oppositeVertices;
     for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: Edges) {
         if (pair.second.first == vertex)
@@ -55,8 +61,10 @@ std::vector<std::string> EdgeList::opposite(const std::string& vertex){
     return oppositeVertices;
 }
 
-void EdgeList::addVertex(const std::string& name){
-    Vertices.insert(name);
+void EdgeList::addVertex(const std::string& vertex){
+    if(Vertices.contains(vertex))
+        throw std::logic_error(vertex + " vertex already exists\n");
+    Vertices.insert(vertex);
 }
 
 void EdgeList::addEdge(const std::string& name, const std::string& vertex1, const std::string& vertex2){
@@ -80,7 +88,7 @@ void EdgeList::removeVertex(const std::string& vertex){
                 to_be_deleted.emplace_back(pair.first);
         for(const std::string& edge: to_be_deleted)
             Edges.erase(edge);
-    }else throw std::logic_error("Vertex doesn't exist\n");
+    }else throw std::logic_error(vertex + " vertex doesn't exist\n");
 }
 
 void EdgeList::removeEdge(const std::string& edge){
@@ -88,7 +96,7 @@ void EdgeList::removeEdge(const std::string& edge){
     if(iterator != Edges.end())
         Edges.erase(iterator);
     else
-        throw std::logic_error("Edge doesn't exist\n") ;
+        throw std::logic_error(edge + " edge doesn't exist\n") ;
 }
 
 int EdgeList::numVertices(){
@@ -100,6 +108,8 @@ int EdgeList::numEdges(){
 }
 
 int EdgeList::outDegree(const std::string& vertex){
+    if(!containVertex(vertex))
+        throw std::logic_error(vertex + " vertex doesn't exist\n");
     auto iterator = Vertices.find(vertex);
     if(iterator != Vertices.end()){
         int numOutDegree = 0;

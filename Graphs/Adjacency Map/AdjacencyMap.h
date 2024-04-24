@@ -4,6 +4,7 @@
 #include "../General Graph/Graph.h"
 
 class AdjacencyMap : public Graph{
+    //<vertex, <edge, vertex>>
     std::unordered_map<std::string, std::unordered_map<std::string, std::string>> Vertices;
 
     void print(std::ostream &ostream) override;
