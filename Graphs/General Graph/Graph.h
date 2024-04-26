@@ -4,6 +4,8 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include <iostream>
+#include <algorithm>
 #include <string>
 
 class EdgeList;
@@ -58,14 +60,8 @@ public:
     ~Graph() = default;
 };
 
-std::ostream& operator<<(std::ostream& os, Graph* graph){
-    graph->print(os);
-    return os;
-}
+std::ostream& operator<<(std::ostream& os, Graph* graph);
 
-std::ostream& operator<<(std::ostream& os, Graph& graph){
-    graph.print(os);
-    return os;
-}
+std::ostream& operator<<(std::ostream& os, Graph& graph);
 
 #endif //DATA_STRUCTURES_GRAPH_H

@@ -1,5 +1,3 @@
-#include <iostream>
-#include <algorithm>
 #include "AdjacencyList.h"
 
 std::vector<std::string> AdjacencyList::vertices() const {

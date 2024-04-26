@@ -1,5 +1,3 @@
-#include <stdexcept>
-#include <algorithm>
 #include "AdjacencyMap.h"
 
 std::vector<std::string> AdjacencyMap::vertices() const {
@@ -13,7 +11,7 @@ std::vector<std::string> AdjacencyMap::edges() const {
     std::vector<std::string> edges;
     for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &p : Vertices)
         for(const std::pair<const std::string, std::string> &vertexEdge: p.second)
-            edges.emplace_back(vertexEdge.second);
+            edges.emplace_back(vertexEdge.first);
     return edges;
 }
 
@@ -103,22 +101,20 @@ void AdjacencyMap::removeVertex(const std::string &vertex) {
     if(!containVertex(vertex))
         throw std::logic_error(vertex + " vertex doesn't exists\n");
     Vertices.erase(vertex);
-    for(std::pair<std::string, std::unordered_map<std::string, std::string>> vertex1 : Vertices){
-        for(const std::pair<const std::string, std::string> &pair1 : vertex1.second)
-            if(pair1.second == vertex) {
-                vertex1.second.erase(pair1.first);
-                break;
-            }
+    for(std::pair<const std::string, std::unordered_map<std::string, std::string>> & vertex1 : Vertices){
+        auto it = std::ranges::find_if(
+                vertex1.second, [&vertex](const std::pair<const std::string, std::string> &edgeVertex) -> bool {
+            return edgeVertex.second == vertex;
+        });
+        if(it != vertex1.second.end())
+            vertex1.second.erase(it->first);
     }
 }
 
 void AdjacencyMap::removeEdge(const std::string &edge) {
-    for(std::pair<std::string, std::unordered_map<std::string, std::string>> edges: Vertices){
-        if(edges.second.contains(edge)){
+    for(std::pair<const std::string, std::unordered_map<std::string, std::string>> & edges: Vertices)
+        if(edges.second.contains(edge))
             edges.second.erase(edge);
-            break;
-        }
-    }
 }
 
 bool AdjacencyMap::containEdge(const std::string &edge) const {
@@ -156,5 +152,9 @@ int AdjacencyMap::inDegree(const std::string &vertex) {
 
 void AdjacencyMap::print(std::ostream &ostream) {
     ostream << "Size: " << Vertices.size() << '\n';
-    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &pair: Vertices)
+    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &pair: Vertices) {
+        ostream << "Vertex " << pair.first << "\nEdges:\n";
+        for (const std::pair<const std::string, std::string> &edgeVertex: pair.second)
+            ostream << edgeVertex.first << " -> " << edgeVertex.second << '\n';
+    }
 }

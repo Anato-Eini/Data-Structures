@@ -1,4 +1,3 @@
-#include <iostream>
 #include "EdgeList.h"
 
 std::vector<std::string> EdgeList::vertices() const{
