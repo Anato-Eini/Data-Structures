@@ -14,4 +14,6 @@ add_executable(Graph
         "Adjacency Map/AdjacencyMap.cpp"
         "Adjacency Map/AdjacencyMap.h"
         "General Graph/Graph.cpp"
+        "Adjacency Matrix/AdjacencyMatrix.cpp"
+        "Adjacency Matrix/AdjacencyMatrix.h"
 )
