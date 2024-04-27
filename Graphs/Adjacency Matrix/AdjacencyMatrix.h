@@ -6,6 +6,8 @@
 class AdjacencyMatrix : public Graph{
     void print(std::ostream &ostream) override;
 
+    //<rowVertex, <colVertex, edge>>
+    std::unordered_map<std::string, std::unordered_map<std::string, std::string>> matrix;
 public:
     std::vector<std::string> vertices() const override;
 

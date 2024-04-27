@@ -1,6 +1,11 @@
 #include "AdjacencyMatrix.h"
 
 std::vector<std::string> AdjacencyMatrix::vertices() const {
+    std::vector<std::string> arrOfVertices;
+    std::transform(matrix.begin(), matrix.end(), std::back_inserter(arrOfVertices),
+                   [](const std::pair<const std::string, std::unordered_map<std::string, std::string>> & pair) -> std::string {
+        return pair.first;
+    });
     return std::vector<std::string>();
 }
 
