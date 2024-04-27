@@ -10,8 +10,13 @@ std::vector<std::string> AdjacencyList::vertices() const {
 std::vector<std::string> AdjacencyList::edges() const {
     std::vector<std::string> edges;
     for(const std::pair<const std::string, std::unordered_set<std::string>>& pair: list)
-        for(const std::string &edge : pair.second)
-            edges.emplace_back(edge);
+        for(const std::string &s : pair.second) {
+            if (std::any_of(edges.begin(), edges.end(), [&s](const std::string &string) -> bool {
+                return s == string;
+            }))
+                continue;
+            edges.emplace_back(s);
+        }
     return edges;
 }
 

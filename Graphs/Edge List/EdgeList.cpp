@@ -12,8 +12,8 @@ std::vector<std::string> EdgeList::vertices() const{
 std::vector<std::string> EdgeList::edges() const{
     std::vector<std::string> edges;
     std::transform(Edges.begin(), Edges.end(), std::back_inserter(edges),
-                   [](const std::pair<const std::string, std::pair<std::string, std::string>> & edges) -> std::string {
-        return edges.first;
+                   [](const std::pair<const std::string, std::pair<std::string, std::string>> & edge) -> std::string{
+        return edge.first;
     });
     return edges;
 }
