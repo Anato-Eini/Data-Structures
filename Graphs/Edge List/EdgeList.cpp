@@ -2,15 +2,19 @@
 
 std::vector<std::string> EdgeList::vertices() const{
     std::vector<std::string> vertices;
-    for(const std::string &s: Vertices)
-        vertices.push_back(s);
+    std::transform(Vertices.begin(), Vertices.end(), std::back_inserter(vertices),
+                   [](const std::string& s) -> std::string{
+        return s;
+    });
     return vertices;
 }
 
 std::vector<std::string> EdgeList::edges() const{
     std::vector<std::string> edges;
-    for(const std::pair<const std::string, std::pair<std::string, std::string>> &pair: Edges)
-        edges.emplace_back(pair.first);
+    std::transform(Edges.begin(), Edges.end(), std::back_inserter(edges),
+                   [](const std::pair<const std::string, std::pair<std::string, std::string>> & edges) -> std::string {
+        return edges.first;
+    });
     return edges;
 }
 
