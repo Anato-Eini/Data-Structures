@@ -10,8 +10,13 @@ std::vector<std::string> AdjacencyMap::vertices() const {
 std::vector<std::string> AdjacencyMap::edges() const {
     std::vector<std::string> edges;
     for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &p : Vertices)
-        for(const std::pair<const std::string, std::string> &vertexEdge: p.second)
+        for(const std::pair<const std::string, std::string> &vertexEdge: p.second) {
+            if(std::any_of(edges.begin(), edges.end(), [&p](const std::string& string) -> bool {
+                return p.second.contains(string);
+            }))
+                continue;
             edges.emplace_back(vertexEdge.first);
+        }
     return edges;
 }
 
@@ -25,7 +30,6 @@ std::pair<std::string, std::string> AdjacencyMap::endVertices(const std::string 
                 pairOfVertices.first = vertexEdge.first;
             else
                 pairOfVertices.second = vertexEdge.first;
-            continue;
         }
     return pairOfVertices;
 }
@@ -34,8 +38,10 @@ std::vector<std::string> AdjacencyMap::outgoingEdges(const std::string &vertex) 
     if(!containVertex(vertex))
         throw std::logic_error(vertex + " vertex doesn't exist\n");
     std::vector<std::string> edges;
-    for(const std::pair<const std::string, std::string> &edge : Vertices[vertex])
-        edges.emplace_back(edge.first);
+    std::transform(Vertices[vertex].begin(), Vertices[vertex].end(), std::back_inserter(edges),
+                   [](const std::pair<const std::string, std::string> &edge) -> std::string {
+        return edge.first;
+    });
     return edges;
 }
 
@@ -48,20 +54,23 @@ std::string AdjacencyMap::getEdge(const std::string &vertex1, const std::string 
         throw std::logic_error(vertex1 + " vertex doesn't exist\n");
     else if(!containVertex(vertex2))
         throw std::logic_error(vertex2 + " vertex doesn't exist\n");
-    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &pair : Vertices){
-        if(pair.first == vertex1){
-            auto it= std::ranges::find_if(pair.second.begin(), pair.second.end(),
-                                           [&vertex2](const std::pair<const std::string, std::string> &pair1) -> bool {
-                return pair1.second == vertex2;
-            });
-            return it != pair.second.end() ? it->first : "";
-        }else if(pair.first == vertex2){
-            auto it = std::ranges::find_if(pair.second.begin(), pair.second.end(),
-                                           [&vertex1](const std::pair<const std::string, std::string> &pair1) -> bool {
-                return pair1.second == vertex1;
-            });
-            return it != pair.second.end() ? it->first : "";
-        }
+    //TODO Minimize codes here
+    if(Vertices[vertex1].size() < Vertices[vertex2].size()){
+        auto it =
+                std::find_if(Vertices[vertex1].begin(), Vertices[vertex1].end(),
+                               [&vertex2](const std::pair<const std::string, std::string> &edgeVertex) -> bool {
+                                   return edgeVertex.second == vertex2;
+                               });
+        if(it != Vertices[vertex1].end())
+            return it->first;
+    }else{
+        auto it =
+                std::find_if(Vertices[vertex2].begin(), Vertices[vertex2].end(),
+                               [&vertex1](const std::pair<const std::string, std::string> &edgeVertex) -> bool {
+                                   return edgeVertex.second == vertex1;
+                               });
+        if(it != Vertices[vertex2].end())
+            return it->first;
     }
     return {};
 }
