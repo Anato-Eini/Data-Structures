@@ -6,10 +6,14 @@ std::vector<std::string> AdjacencyMatrix::vertices() const {
                    [](const std::pair<const std::string, std::unordered_map<std::string, std::string>> & pair) -> std::string {
         return pair.first;
     });
-    return std::vector<std::string>();
+    return arrOfVertices;
 }
 
 std::vector<std::string> AdjacencyMatrix::edges() const {
+    std::vector<std::string> arrOfEdges;
+    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &pair : matrix){
+
+    }
     return std::vector<std::string>();
 }
 
