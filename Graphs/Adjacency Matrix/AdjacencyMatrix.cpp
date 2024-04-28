@@ -9,20 +9,15 @@ std::vector<std::string> AdjacencyMatrix::vertices() const {
 }
 
 std::vector<std::string> AdjacencyMatrix::edges() const {
-    std::unordered_set<std::string> edgeSet;
+    std::unordered_set<std::string> edgeSet; // For faster look-up
     std::vector<std::string> arrOfEdges;
-    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &row : matrix){
-        for(const std::pair<const std::string, std::string> &column : row.second){
-            if(!std::any_of(arrOfEdges.begin(), arrOfEdges.end(),
-                            [&row](const std::string &edge) -> bool {
-                return std::any_of(row.second.begin(), row.second.end(),
-                                   [&edge](const std::pair<const std::string, std::string> &cell) -> bool {
-                    return cell.second == edge;
-                });
-            }))
-                arrOfEdges.emplace_back(column.second);
-        }
-    }
+    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &row : matrix)
+        for(const std::pair<const std::string, std::string> &column : row.second)
+            if(!edgeSet.contains(column.second))
+                edgeSet.insert(column.second);
+    edgeSet.erase("");
+    std::transform(edgeSet.begin(), edgeSet.end(), std::back_inserter(arrOfEdges),
+                   [](const std::string &s) -> std::string { return s; });
     return arrOfEdges;
 }
 
@@ -42,10 +37,9 @@ std::vector<std::string> AdjacencyMatrix::outgoingEdges(const std::string &verte
     if(!containVertex(vertex))
         throw std::logic_error(vertex + " vertex doesn't exist\n");
     std::vector<std::string> edges;
-    std::transform(matrix[vertex].begin(), matrix[vertex].end(), std::back_inserter(edges),
-                   [](const std::pair<std::string, std::string> &cell) -> std::string {
-        return cell.second;
-    });
+    for(const std::pair<const std::string, std::string> &cell : matrix[vertex])
+        if(!cell.second.empty())
+            edges.push_back(cell.second);
     return edges;
 }
 
@@ -65,10 +59,9 @@ std::vector<std::string> AdjacencyMatrix::opposite(const std::string &vertex) {
     if(!containVertex(vertex))
         throw std::logic_error(vertex + " vertex doesn't exist\n");
     std::vector<std::string> vertices;
-    for(const std::pair<const std::string, std::string> &row : matrix[vertex]){
-        if(row.first != vertex)
-            vertices.push_back(row.second);
-    }
+    for(const std::pair<const std::string, std::string> &row : matrix[vertex])
+        if(!row.second.empty())
+            vertices.push_back(row.first);
     return vertices;
 }
 
@@ -76,6 +69,8 @@ void AdjacencyMatrix::addVertex(const std::string &vertex) {
     if(containVertex(vertex))
         throw std::logic_error(vertex + " vertex already exists\n");
     matrix[vertex] = {};
+    for(std::pair<const std::string, std::unordered_map<std::string, std::string>> &row : matrix)
+        matrix[vertex][row.first] = row.second[vertex] = "";
 }
 
 void AdjacencyMatrix::addEdge(const std::string &edge, const std::string &vertex1, const std::string &vertex2) {
@@ -94,8 +89,7 @@ void AdjacencyMatrix::removeEdge(const std::string &edge) {
     for(std::pair<const std::string, std::unordered_map<std::string, std::string>> &row : matrix)
         for(std::pair<const std::string, std::string> &cell : row.second)
             if(cell.second == edge){
-                matrix[row.first].erase(cell.first);
-                matrix[cell.first].erase(row.first);
+                matrix[cell.first][row.first] = matrix[row.first][cell.first] = "";
                 return;
             }
     throw std::logic_error(edge + " edge doesn't exist\n");
@@ -132,12 +126,17 @@ int AdjacencyMatrix::inDegree(const std::string &vertex) {
 }
 
 void AdjacencyMatrix::print(std::ostream &ostream) {
-    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &row : matrix)
+    //For printing elements in unordered_map by order ;
+    std::vector<std::string> vertices;
+    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &row : matrix) {
         ostream << '\t' << row.first;
+        vertices.push_back(row.first);
+    }
     ostream << '\n';
-    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &row : matrix){
-        ostream << row.first << '\t';
-        for(const std::pair<const std::string, std::string> &cell : row.second)
-            ostream << cell.second << '\t';
+    for(const std::string &vertex1 : vertices){
+        ostream << vertex1 << '\t';
+        for(const std::string &vertex2 : vertices)
+            ostream << matrix[vertex1][vertex2] << '\t';
+        ostream << '\n';
     }
 }

@@ -159,7 +159,7 @@ int main(){
                     std::cout << "Enter vertex: ";
                     std::cin >> vertex1;
                     number = graph->outDegree(vertex1);
-                    std::cout << vertex1 << " vertex " << (number == -1 ? " doesn't exist" :
+                    std::cout << vertex1 << " vertex" << (number == -1 ? " doesn't exist" :
                                                                      " outgoing edges: " + std::to_string(number));
                     break;
                 case 't':
