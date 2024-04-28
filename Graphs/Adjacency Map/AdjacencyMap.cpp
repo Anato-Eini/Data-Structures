@@ -9,14 +9,18 @@ std::vector<std::string> AdjacencyMap::vertices() const {
 
 std::vector<std::string> AdjacencyMap::edges() const {
     std::vector<std::string> edges;
-    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &p : Vertices)
-        for(const std::pair<const std::string, std::string> &vertexEdge: p.second) {
-            if(std::any_of(edges.begin(), edges.end(), [&p](const std::string& string) -> bool {
-                return p.second.contains(string);
-            }))
-                continue;
-            edges.emplace_back(vertexEdge.first);
-        }
+    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &p : Vertices) {
+        auto it =
+                std::find_if_not(p.second.begin(), p.second.end(),
+                                   [&edges](const std::pair<const std::string, std::string> &edgeVertices) -> bool {
+                                       return std::any_of(edges.begin(), edges.end(),
+                                                          [edgeVertices](const std::string &s) -> bool {
+                                           return edgeVertices.first == s;
+                                       });
+                                   });
+        if(it != p.second.end())
+            edges.emplace_back(it->first);
+    }
     return edges;
 }
 
@@ -54,24 +58,15 @@ std::string AdjacencyMap::getEdge(const std::string &vertex1, const std::string 
         throw std::logic_error(vertex1 + " vertex doesn't exist\n");
     else if(!containVertex(vertex2))
         throw std::logic_error(vertex2 + " vertex doesn't exist\n");
-    //TODO Minimize codes here
-    if(Vertices[vertex1].size() < Vertices[vertex2].size()){
-        auto it =
-                std::find_if(Vertices[vertex1].begin(), Vertices[vertex1].end(),
-                               [&vertex2](const std::pair<const std::string, std::string> &edgeVertex) -> bool {
-                                   return edgeVertex.second == vertex2;
-                               });
-        if(it != Vertices[vertex1].end())
-            return it->first;
-    }else{
-        auto it =
-                std::find_if(Vertices[vertex2].begin(), Vertices[vertex2].end(),
-                               [&vertex1](const std::pair<const std::string, std::string> &edgeVertex) -> bool {
-                                   return edgeVertex.second == vertex1;
-                               });
-        if(it != Vertices[vertex2].end())
-            return it->first;
-    }
+    std::string large = Vertices[vertex1].size() > Vertices[vertex2].size() ? vertex1 : vertex2
+            , small = Vertices[vertex1].size() > Vertices[vertex2].size() ? vertex2 : vertex1;
+    auto it =
+            std::find_if(Vertices[small].begin(), Vertices[small].end(),
+                         [&large](const std::pair<const std::string, std::string> &edgeVertex) -> bool {
+                             return edgeVertex.second == large;
+                         });
+    if(it != Vertices[small].end())
+        return it->first;
     return {};
 }
 
@@ -79,14 +74,11 @@ std::vector<std::string> AdjacencyMap::opposite(const std::string &vertex) {
     if(!containVertex(vertex))
         throw std::logic_error(vertex + " vertex doesn't exists\n");
     std::vector<std::string> vertices;
-    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &pair : Vertices){
-        if(pair.first == vertex){
-            for(const std::pair<const std::string, std::string> &edges : pair.second)
-                vertices.emplace_back(edges.second);
-            return vertices;
-        }
-    }
-    return {};
+    std::transform(Vertices[vertex].begin(), Vertices[vertex].end(), std::back_inserter(vertices),
+                   [](const std::pair<const std::string, std::string> &edges) -> std::string{
+        return edges.second;
+    });
+    return vertices;
 }
 
 void AdjacencyMap::addVertex(const std::string &vertex) {
@@ -121,9 +113,10 @@ void AdjacencyMap::removeVertex(const std::string &vertex) {
 }
 
 void AdjacencyMap::removeEdge(const std::string &edge) {
+    if(!containEdge(edge))
+        throw std::logic_error(edge + " edge doesn't exists\n");
     for(std::pair<const std::string, std::unordered_map<std::string, std::string>> & edges: Vertices)
-        if(edges.second.contains(edge))
-            edges.second.erase(edge);
+        edges.second.erase(edge);
 }
 
 bool AdjacencyMap::containEdge(const std::string &edge) const {
@@ -142,11 +135,7 @@ int AdjacencyMap::numVertices() {
 }
 
 int AdjacencyMap::numEdges() {
-    std::unordered_set<std::string> edges;
-    for(const std::pair<const std::string, std::unordered_map<std::string, std::string>> &pair: Vertices)
-        for(const std::pair<const std::string, std::string> &pair1 : pair.second)
-            edges.insert(pair1.first);
-    return edges.size();
+    return edges().size();
 }
 
 int AdjacencyMap::outDegree(const std::string &vertex) {
