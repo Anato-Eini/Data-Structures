@@ -53,20 +53,13 @@ std::string AdjacencyList::getEdge(const std::string &vertex1, const std::string
         throw std::logic_error(vertex1 + " vertex doesn't exist\n");
     else if(!containVertex(vertex2))
         throw std::logic_error(vertex2 + " vertex doesn't exist\n");
-    std::unordered_set<std::string> edgeV1, edgeV2;
-    for(const std::pair<const std::string, std::unordered_set<std::string>>& pair: list){
-        if(pair.first == vertex1)
-            edgeV1 = pair.second;
-        else if(pair.first == vertex2)
-            edgeV2 = pair.second;
-    }
-    if(edgeV1.size() > edgeV2.size()) {
-        for(const std::string& edge: edgeV2)
-            if(edgeV1.contains(edge))
+    if(list[vertex1].size() > list[vertex2].size()) {
+        for(const std::string& edge: list[vertex2])
+            if(list[vertex1].contains(edge))
                 return edge;
     }else{
-        for(const std::string& edge: edgeV1)
-            if(edgeV2.contains(edge))
+        for(const std::string& edge: list[vertex1])
+            if(list[vertex2].contains(edge))
                 return edge;
     }
     return {};
@@ -77,13 +70,12 @@ std::vector<std::string> AdjacencyList::opposite(const std::string &vertex) {
         throw std::logic_error(vertex + " vertex doesn't exist\n");
     std::vector<std::string> oppositeVertices;
     for(const std::pair<const std::string, std::unordered_set<std::string>> &pair: list)
-        if(pair.first != vertex){
+        if(pair.first != vertex)
             for(const std::string& edge: list[vertex])
                 if(pair.second.contains(edge)){
                     oppositeVertices.emplace_back(pair.first);
                     break;
                 }
-        }
     return oppositeVertices;
 }
 
