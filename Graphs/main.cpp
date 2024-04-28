@@ -3,6 +3,7 @@
 #include "Edge List/EdgeList.h"
 #include "Adjacency List/AdjacencyList.h"
 #include "Adjacency Map/AdjacencyMap.h"
+#include "Adjacency Matrix/AdjacencyMatrix.h"
 
 int main(){
     //For testing different graphs implementation
@@ -13,7 +14,7 @@ int main(){
     std::vector<std::string> array;
     std::pair<std::string, std::string> endVertices;
     do{
-        std::cout << "1-Edge_List 2-Adjacency_List 3-Adjacency_Map: ";
+        std::cout << "1-Edge_List 2-Adjacency_List 3-Adjacency_Map 4-Adjacency_Matrix: ";
         std::cin >> number;
         switch (number) {
             case 1:
@@ -25,10 +26,13 @@ int main(){
             case 3:
                 graph = new AdjacencyMap{};
                 break;
+            case 4:
+                graph = new AdjacencyMatrix{};
+                break;
             default:
                 std::cout << "Invalid operation\n";
         }
-    } while (number < 1 || number > 3);
+    } while (number < 1 || number > 4);
     do{
         std::cout << "Enter operation: ";
         std::cin >> op;
