@@ -4,14 +4,14 @@
 #include "../General Graph/Graph.h"
 
 class AdjacencyMatrix : public Graph{
-    void print(std::ostream &ostream) override;
-
     /*
      * <rowVertex, <colVertex, edge>>
      * The reason this is implemented this way it to get a particular edges by matrix[vertex1][vertex2] based on
      * the visualization given that that particular edge really exists
     */
     std::unordered_map<std::string, std::unordered_map<std::string, std::string>> matrix;
+
+    void print(std::ostream &ostream) override;
 public:
     std::vector<std::string> vertices() const override;
 
