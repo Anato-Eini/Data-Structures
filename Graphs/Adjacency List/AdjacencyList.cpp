@@ -25,13 +25,11 @@ std::pair<std::string, std::string> AdjacencyList::endVertices(const std::string
         throw std::logic_error(edge + " edge doesn't exist\n");
     std::pair<std::string, std::string> pairVertices({}, {});
     for(const std::pair<const std::string, std::unordered_set<std::string>>& pair: list)
-        for(const std::string& e: pair.second){
-            if(e == edge){
-                if(pairVertices.first.empty())
-                    pairVertices.first = pair.first;
-                else
-                    pairVertices.second = pair.first;
-            }
+        if(pair.second.contains(edge)){
+            if(pairVertices.first.empty())
+                pairVertices.first = pair.first;
+            else
+                pairVertices.second = pair.first;
         }
     return pairVertices;
 }
