@@ -16,10 +16,10 @@ add_executable(AVL_Tree
 
 add_executable(B_Tree
         "B Tree/main.cpp"
-        "B Tree/BTreeNode.cpp"
-        "B Tree/BTreeNode.h"
         "B Tree/BTree.cpp"
         "B Tree/BTree.h"
+        "B Tree/BTreeNode.cpp"
+        "B Tree/BTreeNode.h"
 )
 
 add_executable(Expression_Tree

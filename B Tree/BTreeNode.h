@@ -1,34 +1,35 @@
 #ifndef DATA_STRUCTURES_BTREENODE_H
 #define DATA_STRUCTURES_BTREENODE_H
 
-#include <iostream>
-using namespace std;
+#include <ostream>
+
 class BTreeNode {
-    int *keys;
-    int t;
-    BTreeNode **C;
-    int n;
-    bool leaf;
-
+    int size, capacity;
 public:
-    BTreeNode(int t1, bool leaf1);
+    int* elem;
+    BTreeNode **children, *parent;
 
-    void traverse();
+    explicit BTreeNode(int capacity);
+    explicit BTreeNode(int capacity, BTreeNode* parent);
+    void insertElem(int key);
+    void splitNode();
+    bool isFull();
+    int getCapacity() const;
 
-    int findKey(int k);
-    void insertNonFull(int k);
-    void splitChild(int i, BTreeNode *y);
-    void deletion(int k);
-    void removeFromLeaf(int idx);
-    void removeFromNonLeaf(int idx);
-    int getPredecessor(int idx);
-    int getSuccessor(int idx);
-    void fill(int idx);
-    void borrowFromPrev(int idx);
-    void borrowFromNext(int idx);
-    void merge(int idx);
-    friend class BTree;
+    /// This will return a child of this node from a key.
+    /// \param key
+    /// \return child
+    BTreeNode* getChild(int key);
+
+    /// Remove an element by its index.
+    /// \param index
+    /// \return
+    int removeElem(int index);
+    int getSize() const;
+
+    friend std::ostream& operator<<(std::ostream& os, BTreeNode* node);
 };
 
+std::ostream& operator<<(std::ostream& os, BTreeNode* node);
 
 #endif //DATA_STRUCTURES_BTREENODE_H

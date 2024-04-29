@@ -1,25 +1,22 @@
 #ifndef DATA_STRUCTURES_BTREE_H
 #define DATA_STRUCTURES_BTREE_H
+
+#include <cstddef>
+#include <ostream>
 #include "BTreeNode.h"
+
 class BTree {
-    BTreeNode *root;
-    int t;
-
+    size_t size;
+    int capacityElemNode;
+    BTreeNode* createNode(BTreeNode* parent);
 public:
-    explicit BTree(int _t) {
-        root = nullptr;
-        t = _t;
-    }
+    BTreeNode* root;
+    explicit BTree(int maxChildren);
+    void insert(int key);
 
-    void traverse() {
-        if (root != nullptr)
-            root->traverse();
-    }
-
-    void insertion(int k);
-
-    void deletion(int k);
+    friend std::ostream& operator<<(std::ostream&, BTree*);
 };
 
+std::ostream& operator<<(std::ostream&, BTree*);
 
 #endif //DATA_STRUCTURES_BTREE_H
