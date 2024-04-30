@@ -25,6 +25,13 @@ public:
     /// \param index
     /// \return
     int removeElem(int index);
+
+    /// Insert
+    /// \param child
+    void insertLastChild(BTreeNode* child);
+
+    BTreeNode* removeChild(int index);
+
     int getSize() const;
 
     friend std::ostream& operator<<(std::ostream& os, BTreeNode* node);

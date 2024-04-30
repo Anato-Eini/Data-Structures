@@ -1,6 +1,6 @@
 #include "BTree.h"
 
-BTree::BTree(int maxChildren) : size(0), capacityElemNode(maxChildren), root(nullptr) {}
+BTree::BTree(int maxChildren) : size(0), capacityElemNode(maxChildren + 1), root(nullptr) {}
 
 BTreeNode *BTree::createNode(BTreeNode *parent) {
     return new BTreeNode(capacityElemNode, parent);

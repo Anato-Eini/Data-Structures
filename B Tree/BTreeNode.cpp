@@ -41,9 +41,10 @@ BTreeNode* BTreeNode::getChild(int key) {
 }
 
 void BTreeNode::splitNode() {
-    if(parent)
+    if(parent) {
         parent->insertElem(removeElem(capacity / 2));
-    else{
+
+    }else{
         BTreeNode* newRoot = new BTreeNode(capacity), *newSibling = new BTreeNode(capacity, newRoot);
         newRoot->insertElem(removeElem(capacity / 2));
         int i = capacity / 2;
@@ -64,6 +65,10 @@ int BTreeNode::removeElem(int index) {
 std::ostream &operator<<(std::ostream &os, BTreeNode *node) {
 
     return os;
+}
+
+void BTreeNode::insertLastChild(BTreeNode *child) {
+
 }
 
 
