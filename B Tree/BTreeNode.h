@@ -5,36 +5,24 @@
 
 class BTreeNode {
     int size, capacity;
-public:
     int* elem;
     BTreeNode **children, *parent;
-
+    void printInorder(std::ostream& os, BTreeNode* node);
+public:
     explicit BTreeNode(int capacity);
     explicit BTreeNode(int capacity, BTreeNode* parent);
-    void insertElem(int key);
+    void insertNonLeaf(int key, BTreeNode* node);
+    void moveHalf(BTreeNode* node);
+    BTreeNode* getChild(int key);
+    BTreeNode* removeChild(int index);
     void splitNode();
     bool isFull();
+    bool isEmpty();
     int getCapacity() const;
-
-    /// This will return a child of this node from a key.
-    /// \param key
-    /// \return child
-    BTreeNode* getChild(int key);
-
-    /// Remove an element by its index.
-    /// \param index
-    /// \return
     int removeElem(int index);
-
-    /// Insert
-    /// \param child
-    void insertLastChild(BTreeNode* child);
-
-    BTreeNode* removeChild(int index);
-
     int getSize() const;
-
     friend std::ostream& operator<<(std::ostream& os, BTreeNode* node);
+    friend class BTree;
 };
 
 std::ostream& operator<<(std::ostream& os, BTreeNode* node);

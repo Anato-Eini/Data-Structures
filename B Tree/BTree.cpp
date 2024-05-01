@@ -2,20 +2,16 @@
 
 BTree::BTree(int maxChildren) : size(0), capacityElemNode(maxChildren + 1), root(nullptr) {}
 
-BTreeNode *BTree::createNode(BTreeNode *parent) {
-    return new BTreeNode(capacityElemNode, parent);
-}
-
 void BTree::insert(int key) {
     if(!root) {
         root = new BTreeNode{capacityElemNode};
-        root->insertElem(key);
+        root->insertNonLeaf(key, nullptr);
     }else{
         BTreeNode* curr = root;
         while(true){
             BTreeNode* child = curr->getChild(key);
             if(!child) {
-                curr->insertElem(key);
+                curr->insertNonLeaf(key, nullptr);
                 break;
             }else
                 curr = child;
@@ -23,4 +19,10 @@ void BTree::insert(int key) {
         while(root->parent)
             root = root->parent;
     }
+    size++;
+}
+
+std::ostream& operator<<(std::ostream& os, BTree* tree){
+    os << tree->root;
+    return os;
 }
