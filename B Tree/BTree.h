@@ -12,8 +12,10 @@ public:
     BTreeNode* root;
     explicit BTree(int maxChildren);
     void insert(int key);
-
+    void deleteKey(int key);
     friend std::ostream& operator<<(std::ostream& os, BTree* tree);
+
+    BTreeNode *getGroupNode(int key) const;
 };
 
 std::ostream& operator<<(std::ostream& os, BTree* tree);

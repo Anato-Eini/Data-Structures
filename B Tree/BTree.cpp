@@ -7,22 +7,36 @@ void BTree::insert(int key) {
         root = new BTreeNode{capacityElemNode};
         root->insertNonLeaf(key, nullptr);
     }else{
-        BTreeNode* curr = root;
-        while(true){
-            BTreeNode* child = curr->getChild(key);
-            if(!child) {
-                curr->insertNonLeaf(key, nullptr);
-                break;
-            }else
-                curr = child;
-        }
+        BTreeNode *curr = getGroupNode(key);
+        curr->insertNonLeaf(key, nullptr);
         while(root->parent)
             root = root->parent;
     }
     size++;
 }
 
+BTreeNode *BTree::getGroupNode(int key) const {
+    BTreeNode* curr = root;
+    while(true){
+        BTreeNode* child = curr->getChild(key);
+        if(!child)
+            break;
+        else
+            curr = child;
+    }
+    return curr;
+}
+
+void BTree::deleteKey(int key) {
+    BTreeNode* curr = getGroupNode(key);
+
+    size--;
+}
+
 std::ostream& operator<<(std::ostream& os, BTree* tree){
+    os << "Size: " << tree->size << "\n";
     os << tree->root;
     return os;
 }
+
+

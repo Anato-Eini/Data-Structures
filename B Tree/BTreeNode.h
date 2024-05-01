@@ -11,13 +11,16 @@ class BTreeNode {
 public:
     explicit BTreeNode(int capacity);
     explicit BTreeNode(int capacity, BTreeNode* parent);
-    void insertNonLeaf(int key, BTreeNode* node);
-    void moveHalf(BTreeNode* node);
     BTreeNode* getChild(int key);
     BTreeNode* removeChild(int index);
+    void insertNonLeaf(int key, BTreeNode* node);
+    void moveHalf(BTreeNode* node);
     void splitNode();
+    void deleteElem(int key);
     bool isFull();
     bool isEmpty();
+    int getPosFromParent();//Only applicable in deleting nodes
+    std::pair<BTreeNode*, BTreeNode*> getSiblings();
     int getCapacity() const;
     int removeElem(int index);
     int getSize() const;
