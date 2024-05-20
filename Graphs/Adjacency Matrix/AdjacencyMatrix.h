@@ -3,49 +3,50 @@
 
 #include "../General Graph/Graph.h"
 
+template<typename V, typename E>
 class AdjacencyMatrix : public Graph{
     /*
      * <rowVertex, <colVertex, edge>>
      * The reason this is implemented this way it to get a particular edges by matrix[vertex1][vertex2] based on
      * the visualization given that that particular edge really exists
     */
-    std::unordered_map<std::string, std::unordered_map<std::string, std::string>> matrix;
+    std::unordered_map<V, std::unordered_map<V, E>> matrix;
 
     void print(std::ostream &ostream) override;
 public:
-    std::vector<std::string> vertices() const override;
+    std::vector<V> vertices() const override;
 
-    std::vector<std::string> edges() const override;
+    std::vector<E> edges() const override;
 
-    std::pair<std::string, std::string> endVertices(const std::string &edge) override;
+    std::pair<V, V> endVertices(const E &edge) override;
 
-    std::vector<std::string> outgoingEdges(const std::string &vertex) override;
+    std::vector<E> outgoingEdges(const V &vertex) override;
 
-    std::vector<std::string> incomingEdges(const std::string &vertex) override;
+    std::vector<E> incomingEdges(const V &vertex) override;
 
-    std::string getEdge(const std::string &vertex1, const std::string &vertex2) override;
+    E getEdge(const V &vertex1, const V &vertex2) override;
 
-    std::vector<std::string> opposite(const std::string &vertex) override;
+    std::vector<V> opposite(const V &vertex) override;
 
-    void addVertex(const std::string &vertex) override;
+    void addVertex(const V &vertex) override;
 
-    void addEdge(const std::string &edge, const std::string &vertex1, const std::string &vertex2) override;
+    void addEdge(const E &edge, const V &vertex1, const V &vertex2) override;
 
-    void removeVertex(const std::string &vertex) override;
+    void removeVertex(const V &vertex) override;
 
-    void removeEdge(const std::string &edge) override;
+    void removeEdge(const E &edge) override;
 
-    bool containEdge(const std::string &edge) const override;
+    bool containEdge(const E &edge) const override;
 
-    bool containVertex(const std::string &vertex) const override;
+    bool containVertex(const V &vertex) const override;
 
     int numVertices() override;
 
     int numEdges() override;
 
-    int outDegree(const std::string &vertex) override;
+    int outDegree(const V &vertex) override;
 
-    int inDegree(const std::string &vertex) override;
+    int inDegree(const V &vertex) override;
 };
 
 

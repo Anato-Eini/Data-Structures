@@ -7,7 +7,7 @@
 
 int main(){
     //For testing different graphs implementation
-    Graph* graph;
+    Graph<std::string, int>* graph;
     char op;
     int number;
     std::string name, vertex1, vertex2;
