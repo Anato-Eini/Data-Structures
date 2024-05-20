@@ -122,22 +122,22 @@ Graph<V, E>& EdgeList<V, E>::removeEdge(const E& edge){
 }
 
 template <typename V, typename E>
-int EdgeList<V, E>::numVertices(){
-    return (int)Vertices.size();
+size_t EdgeList<V, E>::numVertices(){
+    return Vertices.size();
 }
 
 template <typename V, typename E>
-int EdgeList<V, E>::numEdges(){
-    return (int)Edges.size();
+size_t EdgeList<V, E>::numEdges(){
+    return Edges.size();
 }
 
 template <typename V, typename E>
-int EdgeList<V, E>::outDegree(const V& vertex){
+size_t EdgeList<V, E>::outDegree(const V& vertex){
     if(!containVertex(vertex))
         throw std::logic_error(vertex + " vertex doesn't exist\n");
     auto iterator = Vertices.find(vertex);
     if(iterator != Vertices.end()){
-        int numOutDegree = 0;
+        size_t numOutDegree = 0;
         for(const std::pair<const E,std::pair<V, V> >& pair: Edges)
             if(pair.second.first == vertex || pair.second.second == vertex)
                 numOutDegree++;
@@ -147,7 +147,7 @@ int EdgeList<V, E>::outDegree(const V& vertex){
 }
 
 template <typename V, typename E>
-int EdgeList<V, E>::inDegree(const V& vertex){
+size_t EdgeList<V, E>::inDegree(const V& vertex){
     return outDegree(vertex);
 }
 

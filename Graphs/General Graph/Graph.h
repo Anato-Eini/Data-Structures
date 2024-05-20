@@ -43,13 +43,13 @@ public:
 
     virtual bool containVertex(const V &vertex) const = 0;
 
-    virtual int numVertices() = 0;
+    virtual size_t numVertices() = 0;
 
-    virtual int numEdges() = 0;
+    virtual size_t numEdges() = 0;
 
-    virtual int outDegree(const V &vertex) = 0;
+    virtual size_t outDegree(const V &vertex) = 0;
 
-    virtual int inDegree(const V &vertex) = 0;
+    virtual size_t inDegree(const V &vertex) = 0;
 
     friend std::ostream& operator<<(std::ostream&, Graph<V, E>* graph);
 

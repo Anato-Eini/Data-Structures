@@ -152,24 +152,24 @@ bool AdjacencyMap<V, E>::containVertex(const V &vertex) const {
 }
 
 template <typename V, typename E>
-int AdjacencyMap<V, E>::numVertices() {
+size_t AdjacencyMap<V, E>::numVertices() {
     return Vertices.size();
 }
 
 template <typename V, typename E>
-int AdjacencyMap<V, E>::numEdges() {
+size_t AdjacencyMap<V, E>::numEdges() {
     return edges().size();
 }
 
 template <typename V, typename E>
-int AdjacencyMap<V, E>::outDegree(const V &vertex) {
+size_t AdjacencyMap<V, E>::outDegree(const V &vertex) {
     if(!containVertex(vertex))
         throw std::logic_error(vertex + " vertex doesn't exist\n");
     return Vertices[vertex].size();
 }
 
 template <typename V, typename E>
-int AdjacencyMap<V, E>::inDegree(const V &vertex) {
+size_t AdjacencyMap<V, E>::inDegree(const V &vertex) {
     return outDegree(vertex);
 }
 

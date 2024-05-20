@@ -131,22 +131,22 @@ bool AdjacencyMatrix<V, E>::containVertex(const V &vertex) const {
 }
 
 template<typename V, typename E>
-int AdjacencyMatrix<V, E>::numVertices() {
+size_t AdjacencyMatrix<V, E>::numVertices() {
     return matrix.size();
 }
 
 template<typename V, typename E>
-int AdjacencyMatrix<V, E>::numEdges() {
+size_t AdjacencyMatrix<V, E>::numEdges() {
     return edges().size();
 }
 
 template<typename V, typename E>
-int AdjacencyMatrix<V, E>::outDegree(const V &vertex) {
+size_t AdjacencyMatrix<V, E>::outDegree(const V &vertex) {
     return outgoingEdges(vertex).size();
 }
 
 template<typename V, typename E>
-int AdjacencyMatrix<V, E>::inDegree(const V &vertex) {
+size_t AdjacencyMatrix<V, E>::inDegree(const V &vertex) {
     return outDegree(vertex);
 }
 

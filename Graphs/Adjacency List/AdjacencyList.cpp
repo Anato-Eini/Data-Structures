@@ -145,27 +145,27 @@ bool AdjacencyList<V, E>::containVertex(const V &vertex) const {
 }
 
 template <typename V, typename E>
-int AdjacencyList<V, E>::numVertices() {
+size_t AdjacencyList<V, E>::numVertices() {
     return list.size();
 }
 
 template <typename V, typename E>
-int AdjacencyList<V, E>::numEdges() {
-    int numEdges = 0;
+size_t AdjacencyList<V, E>::numEdges() {
+    size_t numEdges = 0;
     for(const std::pair<const V, std::unordered_set<E>> &p: list)
         numEdges += p.second.size();
     return numEdges;
 }
 
 template <typename V, typename E>
-int AdjacencyList<V, E>::outDegree(const V &vertex) {
+size_t AdjacencyList<V, E>::outDegree(const V &vertex) {
     if(!list.contains(vertex))
         throw std::logic_error(vertex + " vertex doesn't exist");
     return list[vertex].size();
 }
 
 template <typename V, typename E>
-int AdjacencyList<V, E>::inDegree(const V &vertex) {
+size_t AdjacencyList<V, E>::inDegree(const V &vertex) {
     return outDegree(vertex);
 }
 

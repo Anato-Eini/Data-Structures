@@ -36,13 +36,13 @@ public:
 
     bool containVertex(const V &vertex) const override;
 
-    int numVertices() override;
+    size_t numVertices() override;
 
-    int numEdges() override;
+    size_t numEdges() override;
 
-    int outDegree(const V &vertex) override;
+    size_t outDegree(const V &vertex) override;
 
-    int inDegree(const V &vertex) override;
+    size_t inDegree(const V &vertex) override;
 };
 
 #endif //DATA_STRUCTURES_ADJACENCYLIST_H
