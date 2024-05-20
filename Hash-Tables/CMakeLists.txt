@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.27.8)
+cmake_minimum_required(VERSION 3.28.1)
 project(Hash-Tables)
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 26)
 
 add_executable(HashTable__Double_Hashing_
         "Open Addressing (Double Hashing)/HashTable.cpp"

@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.27.8)
+cmake_minimum_required(VERSION 3.28.1)
 
 project(Graphs)
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 26)
 
 add_executable(Graph
         "General Graph/Graph.h"
