@@ -2,66 +2,66 @@
 #define DATA_STRUCTURES_GRAPH_H
 
 #include <vector>
+#include <iostream>
 #include <unordered_map>
 #include <unordered_set>
-#include <iostream>
 #include <algorithm>
 #include <string>
 
-class EdgeList;
-class AdjacencyList;
-
-class Graph{
+template <typename V, typename E>
+class Graph<V, E>{
     virtual void print(std::ostream&) = 0;
 
 public:
-    virtual std::vector<std::string> vertices() const = 0;
+    virtual std::vector<V> vertices() const = 0;
 
-    virtual std::vector<std::string> edges() const = 0;
+    virtual std::vector<E> edges() const = 0;
 
     ///Returns a pair of empty strings if none
-    virtual std::pair<std::string, std::string> endVertices(const std::string &edge) = 0;
+    virtual std::pair<V, V> endVertices(const E &edge) = 0;
 
-    virtual std::vector<std::string> outgoingEdges(const std::string &vertex) = 0;
+    virtual std::vector<E> outgoingEdges(const V &vertex) = 0;
 
-    virtual std::vector<std::string> incomingEdges(const std::string &vertex) = 0;
+    virtual std::vector<E> incomingEdges(const V &vertex) = 0;
 
-    virtual std::string getEdge(const std::string &vertex1, const std::string &vertex2) = 0;
+    virtual E getEdge(const V &vertex1, const V &vertex2) = 0;
 
-    virtual std::vector<std::string> opposite(const std::string &vertex) = 0;
-
-    ///Must be unique
-    virtual void addVertex(const std::string &vertex) = 0;
+    virtual std::vector<V> opposite(const V &vertex) = 0;
 
     ///Must be unique
+    virtual void addVertex(const V &vertex) = 0;
 
-    virtual void addEdge(const std::string &edge, const std::string &vertex1, const std::string &vertex2) = 0;
+    ///Must be unique
 
-    virtual void removeVertex(const std::string &vertex) = 0;
+    virtual void addEdge(const E &edge, const V &vertex1, const V &vertex2) = 0;
 
-    virtual void removeEdge(const std::string &edge) = 0;
+    virtual void removeVertex(const V &vertex) = 0;
 
-    virtual bool containEdge(const std::string &edge) const = 0;
+    virtual void removeEdge(const E &edge) = 0;
 
-    virtual bool containVertex(const std::string &vertex) const = 0;
+    virtual bool containEdge(const E &edge) const = 0;
+
+    virtual bool containVertex(const V &vertex) const = 0;
 
     virtual int numVertices() = 0;
 
     virtual int numEdges() = 0;
 
-    virtual int outDegree(const std::string &vertex) = 0;
+    virtual int outDegree(const V &vertex) = 0;
 
-    virtual int inDegree(const std::string &vertex) = 0;
+    virtual int inDegree(const V &vertex) = 0;
 
     friend std::ostream& operator<<(std::ostream&, Graph* graph);
 
     friend std::ostream& operator<<(std::ostream&, Graph& graph);
 
-    ~Graph() = default;
+    virtual ~Graph() = default;
 };
 
-std::ostream& operator<<(std::ostream& os, Graph* graph);
+template <typename V, typename E>
+std::ostream& operator<<(std::ostream& os, Graph<V, E>* graph);
 
-std::ostream& operator<<(std::ostream& os, Graph& graph);
+template <typename V, typename E>
+std::ostream& operator<<(std::ostream& os, Graph<V, E>& graph);
 
 #endif //DATA_STRUCTURES_GRAPH_H

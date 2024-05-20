@@ -1,11 +1,13 @@
 #include "Graph.h"
 
-std::ostream& operator<<(std::ostream& os, Graph* graph){
+template <typename V, typename E>
+std::ostream& operator<<(std::ostream& os, Graph<V, E>* graph){
     graph->print(os);
     return os;
 }
 
-std::ostream& operator<<(std::ostream& os, Graph& graph){
+template <typename V, typename E>
+std::ostream& operator<<(std::ostream& os, Graph<V, E>& graph){
     graph.print(os);
     return os;
 }
