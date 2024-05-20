@@ -54,7 +54,7 @@ E EdgeList<V, E>::getEdge(const V& vertex1, const V& vertex2){
         if((pair.second.first == vertex1 || pair.second.first == vertex2) &&
             (pair.second.second == vertex1 || pair.second.second == vertex2))
             return pair.first;
-    return "";
+    return {};
 }
 
 template <typename V, typename E>
@@ -72,14 +72,16 @@ std::vector<V> EdgeList<V, E>::opposite(const V& vertex){
 }
 
 template <typename V, typename E>
-void EdgeList<V, E>::addVertex(const V& vertex){
+Graph<V, E>& EdgeList<V, E>::addVertex(const V& vertex){
     if(Vertices.contains(vertex))
         throw std::logic_error(vertex + " vertex already exists\n");
     Vertices.insert(vertex);
+
+    return *this;
 }
 
 template <typename V, typename E>
-void EdgeList<V, E>::addEdge(const E& edge, const V& vertex1, const V& vertex2){
+Graph<V, E>& EdgeList<V, E>::addEdge(const E& edge, const V& vertex1, const V& vertex2){
     if(Edges.contains(edge))
         throw std::logic_error(edge + " edge already exists\n");
     else if(!Vertices.contains(vertex1))
@@ -88,10 +90,12 @@ void EdgeList<V, E>::addEdge(const E& edge, const V& vertex1, const V& vertex2){
         throw std::logic_error(vertex2 + " vertex doesn't exist\n");
     else
         Edges.insert({edge, {vertex1, vertex2}});
+
+    return *this;
 }
 
 template <typename V, typename E>
-void EdgeList<V, E>::removeVertex(const V& vertex){
+Graph<V, E>& EdgeList<V, E>::removeVertex(const V& vertex){
     auto iterator = Vertices.find(vertex);
     if(iterator != Vertices.end()){
         Vertices.erase(*iterator);
@@ -102,15 +106,19 @@ void EdgeList<V, E>::removeVertex(const V& vertex){
         for(const E& edge: to_be_deleted)
             Edges.erase(edge);
     }else throw std::logic_error(vertex + " vertex doesn't exist\n");
+
+    return *this;
 }
 
 template <typename V, typename E>
-void EdgeList<V, E>::removeEdge(const E& edge){
+Graph<V, E>& EdgeList<V, E>::removeEdge(const E& edge){
     auto iterator = Edges.find(edge);
     if(iterator != Edges.end())
         Edges.erase(iterator);
     else
         throw std::logic_error(edge + " edge doesn't exist\n") ;
+
+    return *this;
 }
 
 template <typename V, typename E>
@@ -154,11 +162,13 @@ bool EdgeList<V, E>::containVertex(const V& vertex) const{
 }
 
 template <typename V, typename E>
-void EdgeList<V, E>::print(std::ostream &ostream) {
+Graph<V, E>& EdgeList<V, E>::print(std::ostream &ostream) {
     ostream << "Vertices:";
     for(const V& s: Vertices)
         ostream << " " << s;
     ostream << "\nEdges:\n";
     for(const std::pair<const E, std::pair<V, V>>& pair: Edges)
         ostream << "Name: " << pair.first << " <" << pair.second.first << ", " << pair.second.second << ">\n";
+
+    return *this;
 }

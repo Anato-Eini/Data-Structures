@@ -27,7 +27,7 @@ std::vector<E> AdjacencyMap<V, E>::edges() const {
 }
 
 template <typename V, typename E>
-std::pair<V, E> AdjacencyMap<V, E>::endVertices(const E &edge) {
+std::pair<V, V> AdjacencyMap<V, E>::endVertices(const E &edge) {
     if(!containEdge(edge))
         throw std::logic_error(edge + " edge doesn't exist\n");
     std::pair<V, V> pairOfVertices{{}, {}};
@@ -89,14 +89,16 @@ std::vector<V> AdjacencyMap<V, E>::opposite(const V &vertex) {
 }
 
 template <typename V, typename E>
-void AdjacencyMap<V, E>::addVertex(const V &vertex) {
+Graph<V, E>& AdjacencyMap<V, E>::addVertex(const V &vertex) {
     if(containVertex(vertex))
         throw std::logic_error(vertex + " vertex already exists\n");
     Vertices.insert({vertex, {}});
+
+    return *this;
 }
 
 template <typename V, typename E>
-void AdjacencyMap<V, E>::addEdge(const E &edge, const V &vertex1, const V &vertex2) {
+Graph<V, E>& AdjacencyMap<V, E>::addEdge(const E &edge, const V &vertex1, const V &vertex2) {
     if(containEdge(edge))
         throw std::logic_error(edge + " edge already exists\n");
     else if(!containVertex(vertex1))
@@ -105,10 +107,12 @@ void AdjacencyMap<V, E>::addEdge(const E &edge, const V &vertex1, const V &verte
         throw std::logic_error(vertex2 + " vertex doesn't exists\n");
     Vertices[vertex1].insert({edge, vertex2});
     Vertices[vertex2].insert({edge, vertex1});
+
+    return *this;
 }
 
 template <typename V, typename E>
-void AdjacencyMap<V, E>::removeVertex(const V &vertex) {
+Graph<V, E>& AdjacencyMap<V, E>::removeVertex(const V &vertex) {
     if(!containVertex(vertex))
         throw std::logic_error(vertex + " vertex doesn't exists\n");
     Vertices.erase(vertex);
@@ -120,14 +124,18 @@ void AdjacencyMap<V, E>::removeVertex(const V &vertex) {
         if(it != vertex1.second.end())
             vertex1.second.erase(it->first);
     }
+
+    return *this;
 }
 
 template <typename V, typename E>
-void AdjacencyMap<V, E>::removeEdge(const E &edge) {
+Graph<V, E>& AdjacencyMap<V, E>::removeEdge(const E &edge) {
     if(!containEdge(edge))
         throw std::logic_error(edge + " edge doesn't exists\n");
     for(std::pair<const V, std::unordered_map<E, V>> & edges: Vertices)
         edges.second.erase(edge);
+
+    return *this;
 }
 
 template <typename V, typename E>
@@ -166,11 +174,13 @@ int AdjacencyMap<V, E>::inDegree(const V &vertex) {
 }
 
 template <typename V, typename E>
-void AdjacencyMap<V, E>::print(std::ostream &ostream) {
+Graph<V, E>& AdjacencyMap<V, E>::print(std::ostream &ostream) {
     ostream << "Size: " << Vertices.size() << '\n';
     for(const std::pair<const V, std::unordered_map<E, V>> &pair: Vertices) {
         ostream << "Vertex " << pair.first << "\nEdges:\n";
         for (const std::pair<const E, V> &edgeVertex: pair.second)
             ostream << edgeVertex.first << " -> " << edgeVertex.second << '\n';
     }
+
+    return *this;
 }

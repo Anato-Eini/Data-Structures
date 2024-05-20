@@ -87,14 +87,16 @@ std::vector<V> AdjacencyList<V, E>::opposite(const V &vertex) {
 }
 
 template <typename V, typename E>
-void AdjacencyList<V, E>::addVertex(const V &vertex) {
+Graph<V, E>& AdjacencyList<V, E>::addVertex(const V &vertex) {
     if(list.contains(vertex))
         throw std::logic_error(vertex + " vertex already exists\n");
     list.insert({vertex, {}});
+
+    return *this;
 }
 
 template <typename V, typename E>
-void AdjacencyList<V, E>::addEdge(const E &edge, const V &vertex1, const V &vertex2) {
+Graph<V, E>& AdjacencyList<V, E>::addEdge(const E &edge, const V &vertex1, const V &vertex2) {
     if(!list.contains(vertex1))
         throw std::logic_error(vertex1 + " vertex doesn't exists\n");
     else if(!list.contains(vertex2))
@@ -105,22 +107,28 @@ void AdjacencyList<V, E>::addEdge(const E &edge, const V &vertex1, const V &vert
         list[vertex1].insert(edge);
         list[vertex2].insert(edge);
     }
+
+    return *this;
 }
 
 template <typename V, typename E>
-void AdjacencyList<V, E>::removeVertex(const V &vertex) {
+Graph<V, E>& AdjacencyList<V, E>::removeVertex(const V &vertex) {
     if(!list.contains(vertex))
         throw std::logic_error(vertex + " vertex doesn't exist\n");
     list.erase(vertex);
+
+    return *this;
 }
 
 template <typename V, typename E>
-void AdjacencyList<V, E>::removeEdge(const E &edge) {
+Graph<V, E>& AdjacencyList<V, E>::removeEdge(const E &edge) {
     if(!containEdge(edge))
         throw std::logic_error(edge + " edge doesn't exist\n");
     for(std::pair<const V, std::unordered_set<E>> &p: list)
         if(p.second.contains(edge))
             p.second.erase(edge);
+
+    return *this;
 }
 
 template <typename V, typename E>
@@ -162,7 +170,7 @@ int AdjacencyList<V, E>::inDegree(const V &vertex) {
 }
 
 template <typename V, typename E>
-void AdjacencyList<V, E>::print(std::ostream &ostream) {
+Graph<V, E>& AdjacencyList<V, E>::print(std::ostream &ostream) {
     bool isFirst = true;
     for(const std::pair<const V, std::unordered_set<E>> &p: list) {
         ostream << "Vertex " << p.first << "\t";
@@ -176,4 +184,5 @@ void AdjacencyList<V, E>::print(std::ostream &ostream) {
         isFirst = true;
         ostream << '\n';
     }
+    return *this;
 }

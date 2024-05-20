@@ -10,7 +10,7 @@
 
 template <typename V, typename E>
 class Graph{
-    virtual void print(std::ostream&) = 0;
+    virtual Graph& print(std::ostream&) = 0;
 
 public:
     virtual std::vector<V> vertices() const = 0;
@@ -29,15 +29,15 @@ public:
     virtual std::vector<V> opposite(const V &vertex) = 0;
 
     ///Must be unique
-    virtual void addVertex(const V &vertex) = 0;
+    virtual Graph& addVertex(const V &vertex) = 0;
 
     ///Must be unique
 
-    virtual void addEdge(const E &edge, const V &vertex1, const V &vertex2) = 0;
+    virtual Graph& addEdge(const E &edge, const V &vertex1, const V &vertex2) = 0;
 
-    virtual void removeVertex(const V &vertex) = 0;
+    virtual Graph& removeVertex(const V &vertex) = 0;
 
-    virtual void removeEdge(const E &edge) = 0;
+    virtual Graph& removeEdge(const E &edge) = 0;
 
     virtual bool containEdge(const E &edge) const = 0;
 
