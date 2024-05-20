@@ -1,61 +1,68 @@
 #include "EdgeList.h"
 
-std::vector<std::string> EdgeList::vertices() const{
-    std::vector<std::string> vertices;
+template <typename V, typename E>
+std::vector<V> EdgeList<V, E>::vertices() const{
+    std::vector<V> vertices;
     std::transform(Vertices.begin(), Vertices.end(), std::back_inserter(vertices),
-                   [](const std::string& s) -> std::string{
+                   [](const V& s) -> V{
         return s;
     });
     return vertices;
 }
 
-std::vector<std::string> EdgeList::edges() const{
-    std::vector<std::string> edges;
+template <typename V, typename E>
+std::vector<E> EdgeList<V, E>::edges() const{
+    std::vector<E> edges;
     std::transform(Edges.begin(), Edges.end(), std::back_inserter(edges),
-                   [](const std::pair<const std::string, std::pair<std::string, std::string>> & edge) -> std::string{
+                   [](const std::pair<const E, std::pair<V, V>> & edge) -> E{
         return edge.first;
     });
     return edges;
 }
 
-std::pair<std::string, std::string> EdgeList::endVertices(const std::string& edge){
+template <typename V, typename E>
+std::pair<V, V> EdgeList<V, E>::endVertices(const E& edge){
     auto it = Edges.find(edge);
     if(it == Edges.end())
         throw std::logic_error(edge + " edge doesn't exist\n");
     return it->second;
 }
 
-std::vector<std::string> EdgeList::outgoingEdges(const std::string& vertex){
+template <typename V, typename E>
+std::vector<E> EdgeList<V, E>::outgoingEdges(const V& vertex){
     if(!Vertices.contains(vertex))
         throw std::logic_error(vertex + " vertex doesn't exists\n");
-    std::vector<std::string> outgoingEdges;
-    for(const std::pair<const std::string, std::pair<std::string, std::string>> &pair: Edges)
+    std::vector<E> outgoingEdges;
+    for(const std::pair<const E, std::pair<V, V>> &pair: Edges)
         if(pair.second.first == vertex || pair.second.second == vertex)
             outgoingEdges.emplace_back(pair.first);
     return outgoingEdges;
 }
 
-std::vector<std::string> EdgeList::incomingEdges(const std::string& vertex){
+template <typename V, typename E>
+std::vector<E> EdgeList<V, E>::incomingEdges(const V& vertex){
     return outgoingEdges(vertex);
 }
 
-std::string EdgeList::getEdge(const std::string& vertex1, const std::string& vertex2){
+template <typename V, typename E>
+E EdgeList<V, E>::getEdge(const V& vertex1, const V& vertex2){
     if(!containVertex(vertex1))
         throw std::logic_error(vertex1 + " vertex doesn't exist\n");
     else if(!containVertex(vertex2))
         throw std::logic_error(vertex2 + " vertex doesn't exist\n");
-    for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: Edges)
+    for(const std::pair<const E, std::pair<V, V>>& pair: Edges)
         if((pair.second.first == vertex1 || pair.second.first == vertex2) &&
             (pair.second.second == vertex1 || pair.second.second == vertex2))
             return pair.first;
     return "";
 }
 
-std::vector<std::string> EdgeList::opposite(const std::string& vertex){
+template <typename V, typename E>
+std::vector<V> EdgeList<V, E>::opposite(const V& vertex){
     if(!containVertex(vertex))
         throw std::logic_error(vertex + " vertex doesn't exist\n");
-    std::vector<std::string> oppositeVertices;
-    for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: Edges) {
+    std::vector<V> oppositeVertices;
+    for(const std::pair<const E, std::pair<V, V>>& pair: Edges) {
         if (pair.second.first == vertex)
             oppositeVertices.emplace_back(pair.second.second);
         else if(pair.second.second == vertex)
@@ -64,37 +71,41 @@ std::vector<std::string> EdgeList::opposite(const std::string& vertex){
     return oppositeVertices;
 }
 
-void EdgeList::addVertex(const std::string& vertex){
+template <typename V, typename E>
+void EdgeList<V, E>::addVertex(const V& vertex){
     if(Vertices.contains(vertex))
         throw std::logic_error(vertex + " vertex already exists\n");
     Vertices.insert(vertex);
 }
 
-void EdgeList::addEdge(const std::string& name, const std::string& vertex1, const std::string& vertex2){
-    if(Edges.contains(name))
-        throw std::logic_error(name + " edge already exists\n");
+template <typename V, typename E>
+void EdgeList<V, E>::addEdge(const E& edge, const V& vertex1, const V& vertex2){
+    if(Edges.contains(edge))
+        throw std::logic_error(edge + " edge already exists\n");
     else if(!Vertices.contains(vertex1))
         throw std::logic_error(vertex1 + " vertex doesn't exist\n");
     else if(!Vertices.contains(vertex2))
         throw std::logic_error(vertex2 + " vertex doesn't exist\n");
     else
-        Edges.insert({name, {vertex1, vertex2}});
+        Edges.insert({edge, {vertex1, vertex2}});
 }
 
-void EdgeList::removeVertex(const std::string& vertex){
+template <typename V, typename E>
+void EdgeList<V, E>::removeVertex(const V& vertex){
     auto iterator = Vertices.find(vertex);
     if(iterator != Vertices.end()){
         Vertices.erase(*iterator);
-        std::vector<std::string> to_be_deleted;
-        for(std::pair<const std::string, std::pair<std::string, std::string>>& pair: Edges)
+        std::vector<E> to_be_deleted;
+        for(std::pair<const E, std::pair<V, V>>& pair: Edges)
             if (pair.second.first == vertex || pair.second.second == vertex)
                 to_be_deleted.emplace_back(pair.first);
-        for(const std::string& edge: to_be_deleted)
+        for(const E& edge: to_be_deleted)
             Edges.erase(edge);
     }else throw std::logic_error(vertex + " vertex doesn't exist\n");
 }
 
-void EdgeList::removeEdge(const std::string& edge){
+template <typename V, typename E>
+void EdgeList<V, E>::removeEdge(const E& edge){
     auto iterator = Edges.find(edge);
     if(iterator != Edges.end())
         Edges.erase(iterator);
@@ -102,21 +113,24 @@ void EdgeList::removeEdge(const std::string& edge){
         throw std::logic_error(edge + " edge doesn't exist\n") ;
 }
 
-int EdgeList::numVertices(){
+template <typename V, typename E>
+int EdgeList<V, E>::numVertices(){
     return (int)Vertices.size();
 }
 
-int EdgeList::numEdges(){
+template <typename V, typename E>
+int EdgeList<V, E>::numEdges(){
     return (int)Edges.size();
 }
 
-int EdgeList::outDegree(const std::string& vertex){
+template <typename V, typename E>
+int EdgeList<V, E>::outDegree(const V& vertex){
     if(!containVertex(vertex))
         throw std::logic_error(vertex + " vertex doesn't exist\n");
     auto iterator = Vertices.find(vertex);
     if(iterator != Vertices.end()){
         int numOutDegree = 0;
-        for(const std::pair<const std::string,std::pair<std::string, std::string> >& pair: Edges)
+        for(const std::pair<const E,std::pair<V, V> >& pair: Edges)
             if(pair.second.first == vertex || pair.second.second == vertex)
                 numOutDegree++;
         return numOutDegree;
@@ -124,22 +138,27 @@ int EdgeList::outDegree(const std::string& vertex){
     return -1;
 }
 
-int EdgeList::inDegree(const std::string& vertex){
+template <typename V, typename E>
+int EdgeList<V, E>::inDegree(const V& vertex){
     return outDegree(vertex);
 }
 
-bool EdgeList::containEdge(const std::string& edge) const{
+template <typename V, typename E>
+bool EdgeList<V, E>::containEdge(const E& edge) const{
     return Edges.contains(edge);
 }
-bool EdgeList::containVertex(const std::string& vertex) const{
+
+template <typename V, typename E>
+bool EdgeList<V, E>::containVertex(const V& vertex) const{
     return Vertices.contains(vertex);
 }
 
-void EdgeList::print(std::ostream &ostream) {
+template <typename V, typename E>
+void EdgeList<V, E>::print(std::ostream &ostream) {
     ostream << "Vertices:";
-    for(const std::string& s: Vertices)
+    for(const V& s: Vertices)
         ostream << " " << s;
     ostream << "\nEdges:\n";
-    for(const std::pair<const std::string, std::pair<std::string, std::string>>& pair: Edges)
+    for(const std::pair<const E, std::pair<V, V>>& pair: Edges)
         ostream << "Name: " << pair.first << " <" << pair.second.first << ", " << pair.second.second << ">\n";
 }

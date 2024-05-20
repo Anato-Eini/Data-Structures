@@ -9,7 +9,7 @@
 #include <string>
 
 template <typename V, typename E>
-class Graph<V, E>{
+class Graph{
     virtual void print(std::ostream&) = 0;
 
 public:
@@ -51,9 +51,9 @@ public:
 
     virtual int inDegree(const V &vertex) = 0;
 
-    friend std::ostream& operator<<(std::ostream&, Graph* graph);
+    friend std::ostream& operator<<(std::ostream&, Graph<V, E>* graph);
 
-    friend std::ostream& operator<<(std::ostream&, Graph& graph);
+    friend std::ostream& operator<<(std::ostream&, Graph<V, E>& graph);
 
     virtual ~Graph() = default;
 };

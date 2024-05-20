@@ -9,25 +9,26 @@ int main(){
     //For testing different graphs implementation
     Graph<std::string, int>* graph;
     char op;
-    int number;
-    std::string name, vertex1, vertex2;
-    std::vector<std::string> array;
+    int number, edge;
+    std::string vertex1, vertex2;
+    std::vector<int> edges;
+    std::vector<std::string> vertices;
     std::pair<std::string, std::string> endVertices;
     do{
         std::cout << "1-Edge_List 2-Adjacency_List 3-Adjacency_Map 4-Adjacency_Matrix: ";
         std::cin >> number;
         switch (number) {
             case 1:
-                graph = new EdgeList{};
+                graph = new EdgeList<std::string, int>{};
                 break;
             case 2:
-                graph = new AdjacencyList{};
+                graph = new AdjacencyList<std::string, int>{};
                 break;
             case 3:
-                graph = new AdjacencyMap{};
+                graph = new AdjacencyMap<std::string, int>{};
                 break;
             case 4:
-                graph = new AdjacencyMatrix{};
+                graph = new AdjacencyMatrix<std::string, int>{};
                 break;
             default:
                 std::cout << "Invalid operation\n";
@@ -40,84 +41,84 @@ int main(){
             switch (op) {
                 case 'E':
                     std::cout << "Enter edge name: ";
-                    std::cin >> name;
+                    std::cin >> edge;
                     std::cout << "Enter the first vertex: ";
                     std::cin >> vertex1;
                     std::cout << "Enter the second vertex: ";
                     std::cin >> vertex2;
-                    graph->addEdge(name, vertex1, vertex2);
+                    graph->addEdge(edge, vertex1, vertex2);
                     break;
                 case 'V':
                     std::cout << "Enter vertex name: ";
-                    std::cin >> name;
-                    graph->addVertex(name);
+                    std::cin >> vertex1;
+                    graph->addVertex(vertex1);
                     break;
                 case 'P':
                     std::cout << graph;
                     break;
                 case 'v':
-                    array = graph->vertices();
+                    vertices = graph->vertices();
                     std::cout << "Vertices:";
-                    for (const std::string &s: array)
+                    for (const std::string &s: vertices)
                         std::cout << " " << s;
                     break;
                 case 'e':
-                    array = graph->edges();
+                    edges = graph->edges();
                     std::cout << "Edges:";
-                    for (const std::string &pair: array)
+                    for (const int &pair: edges)
                         std::cout << "\nName: " << pair;
                     break;
                 case 'Q':
                     std::cout << "Enter edge: ";
-                    std::cin >> name;
-                    endVertices = graph->endVertices(name);
+                    std::cin >> edge;
+                    endVertices = graph->endVertices(edge);
                     if (!endVertices.second.empty() && !endVertices.first.empty())
                         std::cout << "Vertex 1: " << endVertices.first << "\nVertex 2: " << endVertices.second;
                     else
-                        std::cout << name << " edge doesn't exist";
+                        std::cout << edge << " edge doesn't exist";
                     break;
                 case 'q':
                     std::cout << "Enter vertex: ";
-                    std::cin >> name;
-                    array = graph->outgoingEdges(name);
-                    if (!array.empty()) {
+                    std::cin >> vertex1;
+                    edges = graph->outgoingEdges(vertex1);
+                    if (!edges.empty()) {
                         std::cout << "Outgoing edges:";
-                        for (std::string const &e: array)
+                        for (int const &e: edges)
                             std::cout << ' ' << e;
                     } else
-                        std::cout << name << " doesn't have outgoing edges";
+                        std::cout << edge << " doesn't have outgoing edges";
                     break;
                 case 'I':
                     std::cout << "Enter vertex: ";
-                    std::cin >> name;
-                    array = graph->incomingEdges(name);
-                    if (!array.empty()) {
+                    std::cin >> vertex1;
+                    edges = graph->incomingEdges(vertex1);
+                    if (!edges.empty()) {
                         std::cout << "Incoming edges:";
-                        for (std::string const &e: array)
+                        for (int const &e: edges)
                             std::cout << ' ' << e;
                     } else
-                        std::cout << name << " doesn't have incoming edges";
+                        std::cout << edge << " doesn't have incoming edges";
                     break;
                 case 'G':
                     std::cout << "Enter vertex 1: ";
                     std::cin >> vertex1;
                     std::cout << "Enter vertex 2: ";
                     std::cin >> vertex2;
-                    name = graph->getEdge(vertex1, vertex2);
-                    if (!name.empty())
-                        std::cout << "Edge: " << name;
+                    edge = graph->getEdge(vertex1, vertex2);
+                    if (edge == 0)
+                        std::cout << "Edge: " << edge;
                     else
                         std::cout << "Edge doesn't exist";
                     break;
                 case 'o':
                     std::cout << "Enter vertex: ";
                     std::cin >> vertex1;
-                    array = graph->opposite(vertex1);
-                    if (array.empty())
+                    vertices = graph->opposite(vertex1);
+                    if (vertices.empty())
                         std::cout << vertex1 << " doesn't exists";
                     else {
                         std::cout << "Opposite of " << vertex1 << ": ";
-                        for (const std::string &s: array)
+                        for (const std::string &s: vertices)
                             std::cout << s << ' ';
                     }
                     break;
@@ -128,13 +129,13 @@ int main(){
                     break;
                 case 'r':
                     std::cout << "Enter edge : ";
-                    std::cin >> name;
-                    graph->removeEdge(name);
+                    std::cin >> edge;
+                    graph->removeEdge(edge);
                     break;
                 case 'C':
                     std::cout << "Enter edge : ";
-                    std::cin >> name;
-                    std::cout << name << " edge" << (graph->containEdge(name) ? " " : " doesn't ") << "exists";
+                    std::cin >> edge;
+                    std::cout << edge << " edge" << (graph->containEdge(edge) ? " " : " doesn't ") << "exists";
                     break;
                 case 'c':
                     std::cout << "Enter vertex: ";
@@ -169,13 +170,16 @@ int main(){
                         std::cin >> number;
                         switch (number) {
                             case 1:
-                                graph = new EdgeList{};
+                                graph = new EdgeList<std::string, int>{};
                                 break;
                             case 2:
-                                graph = new AdjacencyList{};
+                                graph = new AdjacencyList<std::string, int>{};
                                 break;
                             case 3:
-                                graph = new AdjacencyMap{};
+                                graph = new AdjacencyMap<std::string, int>{};
+                                break;
+                            case 4:
+                                graph = new AdjacencyMatrix<std::string, int>{};
                                 break;
                             default:
                                 std::cout << "Invalid operation\n";

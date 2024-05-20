@@ -1,18 +1,20 @@
 #include "AdjacencyList.h"
 
-std::vector<std::string> AdjacencyList::vertices() const {
-    std::vector<std::string> vertices;
-    for(const std::pair<const std::string, std::unordered_set<std::string>>& pair: list)
+template <typename V, typename E>
+std::vector<V> AdjacencyList<V, E>::vertices() const {
+    std::vector<V> vertices;
+    for(const std::pair<const V, std::unordered_set<E>>& pair: list)
         vertices.emplace_back(pair.first);
     return vertices;
 }
 
-std::vector<std::string> AdjacencyList::edges() const {
-    std::vector<std::string> edges;
-    for(const std::pair<const std::string, std::unordered_set<std::string>>& pair: list)
-        for(const std::string &s : pair.second) {
-            if (std::any_of(edges.begin(), edges.end(), [&s](const std::string &string) -> bool {
-                return s == string;
+template <typename V, typename E>
+std::vector<E> AdjacencyList<V, E>::edges() const {
+    std::vector<E> edges;
+    for(const std::pair<const V, std::unordered_set<E>>& pair: list)
+        for(const E &s : pair.second) {
+            if (std::any_of(edges.begin(), edges.end(), [&s](const E &edge) -> bool {
+                return s == edge;
             }))
                 continue;
             edges.emplace_back(s);
@@ -20,11 +22,13 @@ std::vector<std::string> AdjacencyList::edges() const {
     return edges;
 }
 
-std::pair<std::string, std::string> AdjacencyList::endVertices(const std::string &edge) {
+template <typename V, typename E>
+std::pair<V, V> AdjacencyList<V, E>::endVertices(const E &edge) {
     if(!containEdge(edge))
         throw std::logic_error(edge + " edge doesn't exist\n");
-    std::pair<std::string, std::string> pairVertices({}, {});
-    for(const std::pair<const std::string, std::unordered_set<std::string>>& pair: list)
+
+    std::pair<V, V> pairVertices({}, {});
+    for(const std::pair<const V, std::unordered_set<E>>& pair: list)
         if(pair.second.contains(edge)){
             if(pairVertices.first.empty())
                 pairVertices.first = pair.first;
@@ -34,42 +38,47 @@ std::pair<std::string, std::string> AdjacencyList::endVertices(const std::string
     return pairVertices;
 }
 
-std::vector<std::string> AdjacencyList::outgoingEdges(const std::string &vertex) {
-    std::vector<std::string> outgoingEdges;
+template <typename V, typename E>
+std::vector<E> AdjacencyList<V, E>::outgoingEdges(const V &vertex) {
+    std::vector<E> outgoingEdges;
     if(list.contains(vertex))
-        for(const std::string& edges: list[vertex])
+        for(const E& edges: list[vertex])
             outgoingEdges.emplace_back(edges);
     return outgoingEdges;
 }
 
-std::vector<std::string> AdjacencyList::incomingEdges(const std::string &vertex) {
+template <typename V, typename E>
+std::vector<E> AdjacencyList<V, E>::incomingEdges(const V &vertex) {
     return outgoingEdges(vertex);
 }
 
-std::string AdjacencyList::getEdge(const std::string &vertex1, const std::string &vertex2) {
+template <typename V, typename E>
+E AdjacencyList<V, E>::getEdge(const V &vertex1, const V &vertex2) {
     if(!containVertex(vertex1))
         throw std::logic_error(vertex1 + " vertex doesn't exist\n");
     else if(!containVertex(vertex2))
         throw std::logic_error(vertex2 + " vertex doesn't exist\n");
+
     if(list[vertex1].size() > list[vertex2].size()) {
-        for(const std::string& edge: list[vertex2])
+        for(const E& edge: list[vertex2])
             if(list[vertex1].contains(edge))
                 return edge;
     }else{
-        for(const std::string& edge: list[vertex1])
+        for(const E& edge: list[vertex1])
             if(list[vertex2].contains(edge))
                 return edge;
     }
     return {};
 }
 
-std::vector<std::string> AdjacencyList::opposite(const std::string &vertex) {
+template <typename V, typename E>
+std::vector<V> AdjacencyList<V, E>::opposite(const V &vertex) {
     if(!containVertex(vertex))
         throw std::logic_error(vertex + " vertex doesn't exist\n");
-    std::vector<std::string> oppositeVertices;
-    for(const std::pair<const std::string, std::unordered_set<std::string>> &pair: list)
+    std::vector<V> oppositeVertices;
+    for(const std::pair<const V, std::unordered_set<E>> &pair: list)
         if(pair.first != vertex)
-            for(const std::string& edge: list[vertex])
+            for(const E& edge: list[vertex])
                 if(pair.second.contains(edge)){
                     oppositeVertices.emplace_back(pair.first);
                     break;
@@ -77,14 +86,15 @@ std::vector<std::string> AdjacencyList::opposite(const std::string &vertex) {
     return oppositeVertices;
 }
 
-void AdjacencyList::addVertex(const std::string &vertex) {
+template <typename V, typename E>
+void AdjacencyList<V, E>::addVertex(const V &vertex) {
     if(list.contains(vertex))
         throw std::logic_error(vertex + " vertex already exists\n");
     list.insert({vertex, {}});
 }
 
-void
-AdjacencyList::addEdge(const std::string &edge, const std::string &vertex1, const std::string &vertex2) {
+template <typename V, typename E>
+void AdjacencyList<V, E>::addEdge(const E &edge, const V &vertex1, const V &vertex2) {
     if(!list.contains(vertex1))
         throw std::logic_error(vertex1 + " vertex doesn't exists\n");
     else if(!list.contains(vertex2))
@@ -97,57 +107,66 @@ AdjacencyList::addEdge(const std::string &edge, const std::string &vertex1, cons
     }
 }
 
-void AdjacencyList::removeVertex(const std::string &vertex) {
+template <typename V, typename E>
+void AdjacencyList<V, E>::removeVertex(const V &vertex) {
     if(!list.contains(vertex))
         throw std::logic_error(vertex + " vertex doesn't exist\n");
     list.erase(vertex);
 }
 
-void AdjacencyList::removeEdge(const std::string &edge) {
+template <typename V, typename E>
+void AdjacencyList<V, E>::removeEdge(const E &edge) {
     if(!containEdge(edge))
         throw std::logic_error(edge + " edge doesn't exist\n");
-    for(std::pair<const std::string, std::unordered_set<std::string>> &p: list)
+    for(std::pair<const V, std::unordered_set<E>> &p: list)
         if(p.second.contains(edge))
             p.second.erase(edge);
 }
 
-bool AdjacencyList::containEdge(const std::string &edge) const {
+template <typename V, typename E>
+bool AdjacencyList<V, E>::containEdge(const E &edge) const {
     return std::ranges::any_of(list, [&edge]
-        (const std::pair<const std::string, std::unordered_set<std::string>> &p) -> bool {
+        (const std::pair<const V, std::unordered_set<E>> &p) -> bool {
         return p.second.contains(edge);
     });
 }
 
-bool AdjacencyList::containVertex(const std::string &vertex) const {
+template <typename V, typename E>
+bool AdjacencyList<V, E>::containVertex(const V &vertex) const {
     return list.contains(vertex);
 }
 
-int AdjacencyList::numVertices() {
+template <typename V, typename E>
+int AdjacencyList<V, E>::numVertices() {
     return list.size();
 }
 
-int AdjacencyList::numEdges() {
+template <typename V, typename E>
+int AdjacencyList<V, E>::numEdges() {
     int numEdges = 0;
-    for(const std::pair<const std::string, std::unordered_set<std::string>> &p: list)
+    for(const std::pair<const V, std::unordered_set<E>> &p: list)
         numEdges += p.second.size();
     return numEdges;
 }
 
-int AdjacencyList::outDegree(const std::string &vertex) {
+template <typename V, typename E>
+int AdjacencyList<V, E>::outDegree(const V &vertex) {
     if(!list.contains(vertex))
         throw std::logic_error(vertex + " vertex doesn't exist");
     return list[vertex].size();
 }
 
-int AdjacencyList::inDegree(const std::string &vertex) {
+template <typename V, typename E>
+int AdjacencyList<V, E>::inDegree(const V &vertex) {
     return outDegree(vertex);
 }
 
-void AdjacencyList::print(std::ostream &ostream) {
+template <typename V, typename E>
+void AdjacencyList<V, E>::print(std::ostream &ostream) {
     bool isFirst = true;
-    for(const std::pair<const std::string, std::unordered_set<std::string>> &p: list) {
+    for(const std::pair<const V, std::unordered_set<E>> &p: list) {
         ostream << "Vertex " << p.first << "\t";
-        for(const std::string& edge: p.second) {
+        for(const E& edge: p.second) {
             if(isFirst) {
                 ostream << " " << edge;
                 isFirst = false;
