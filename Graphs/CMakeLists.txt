@@ -5,7 +5,7 @@ project(Graphs)
 set(CMAKE_CXX_STANDARD 26)
 
 add_executable(Graph
-        "General Graph/Graph.h"
+        "General Graph/GraphAbstract.h"
         "Adjacency List/AdjacencyList.cpp"
         "Adjacency List/AdjacencyList.h"
         "Edge List/EdgeList.cpp"
@@ -13,7 +13,7 @@ add_executable(Graph
         "main.cpp"
         "Adjacency Map/AdjacencyMap.cpp"
         "Adjacency Map/AdjacencyMap.h"
-        "General Graph/Graph.cpp"
+        "General Graph/GraphAbstract.cpp"
         "Adjacency Matrix/AdjacencyMatrix.cpp"
         "Adjacency Matrix/AdjacencyMatrix.h"
 )

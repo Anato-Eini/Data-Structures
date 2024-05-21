@@ -5,9 +5,10 @@
 #include "Adjacency Map/AdjacencyMap.h"
 #include "Adjacency Matrix/AdjacencyMatrix.h"
 
+using namespace Graph;
 int main(){
     //For testing different graphs implementation
-    Graph<std::string, int>* graph;
+    Graph::GraphAbstract<std::string, int>* graph;
     char op;
     int number, edge;
     std::string vertex1, vertex2;
@@ -159,7 +160,7 @@ int main(){
                 case 'd':
                     std::cout << "Enter vertex: ";
                     std::cin >> vertex1;
-                    number = graph->outDegree(vertex1);
+                    number = graph->inDegree(vertex1);
                     std::cout << vertex1 << " vertex" << (number == -1 ? " doesn't exist" :
                                                                      " outgoing edges: " + std::to_string(number));
                     break;

@@ -1,49 +1,52 @@
 #ifndef DATA_STRUCTURES_ADJACENCYMAP_H
 #define DATA_STRUCTURES_ADJACENCYMAP_H
 
-#include "../General Graph/Graph.h"
+#include "../General Graph/GraphAbstract.h"
 
-template <typename V, typename E>
-class AdjacencyMap : public Graph<V, E>{
-    //<vertex, <edge, vertex>>
-    std::unordered_map<std::string, std::unordered_map<std::string, std::string>> Vertices;
+namespace Graph {
 
-    Graph<V, E>& print(std::ostream &ostream) override;
-public:
-    std::vector<V> vertices() const override;
+    template<typename V, typename E>
+    class AdjacencyMap : public GraphAbstract<V, E> {
+        //<vertex, <edge, vertex>>
+        std::unordered_map<std::string, std::unordered_map<std::string, std::string>> Vertices;
 
-    std::vector<E> edges() const override;
+        GraphAbstract<V, E> &print(std::ostream &ostream) override;
 
-    std::pair<V, V> endVertices(const E &edge) override;
+    public:
+        std::vector<V> vertices() const override;
 
-    std::vector<E> outgoingEdges(const V &vertex) override;
+        std::vector<E> edges() const override;
 
-    std::vector<E> incomingEdges(const V &vertex) override;
+        std::pair<V, V> endVertices(const E &edge) override;
 
-    E getEdge(const V &vertex1, const V &vertex2) override;
+        std::vector<E> outgoingEdges(const V &vertex) override;
 
-    std::vector<V> opposite(const V &vertex) override;
+        std::vector<E> incomingEdges(const V &vertex) override;
 
-    Graph<V, E>& addVertex(const V &vertex) override;
+        E getEdge(const V &vertex1, const V &vertex2) override;
 
-    Graph<V, E>& addEdge(const E &edge, const V &vertex1, const V &vertex2) override;
+        std::vector<V> opposite(const V &vertex) override;
 
-    Graph<V, E>& removeVertex(const V &vertex) override;
+        GraphAbstract<V, E> &addVertex(const V &vertex) override;
 
-    Graph<V, E>& removeEdge(const E &edge) override;
+        GraphAbstract<V, E> &addEdge(const E &edge, const V &vertex1, const V &vertex2) override;
 
-    bool containEdge(const E &edge) const override;
+        GraphAbstract<V, E> &removeVertex(const V &vertex) override;
 
-    bool containVertex(const V &vertex) const override;
+        GraphAbstract<V, E> &removeEdge(const E &edge) override;
 
-    size_t numVertices() override;
+        bool containEdge(const E &edge) const override;
 
-    size_t numEdges() override;
+        bool containVertex(const V &vertex) const override;
 
-    size_t outDegree(const V &vertex) override;
+        size_t numVertices() override;
 
-    size_t inDegree(const V &vertex) override;
-};
+        size_t numEdges() override;
 
+        size_t outDegree(const V &vertex) override;
+
+        size_t inDegree(const V &vertex) override;
+    };
+}
 
 #endif //DATA_STRUCTURES_ADJACENCYMAP_H
