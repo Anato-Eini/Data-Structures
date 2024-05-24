@@ -1,3 +1,6 @@
+#ifndef DATA_STRUCTURES_ADJACENCYMAP_CPP
+#define DATA_STRUCTURES_ADJACENCYMAP_CPP
+
 #include "AdjacencyMap.h"
 
 namespace Graph {
@@ -188,3 +191,5 @@ namespace Graph {
         return *this;
     }
 }
+
+#endif

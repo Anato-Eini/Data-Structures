@@ -6,14 +6,14 @@ set(CMAKE_CXX_STANDARD 26)
 
 add_executable(Graph
         "General Graph/GraphAbstract.h"
-        "Adjacency List/AdjacencyList.cpp"
-        "Adjacency List/AdjacencyList.h"
-        "Edge List/EdgeList.cpp"
-        "Edge List/EdgeList.h"
-        "main.cpp"
-        "Adjacency Map/AdjacencyMap.cpp"
-        "Adjacency Map/AdjacencyMap.h"
         "General Graph/GraphAbstract.cpp"
-        "Adjacency Matrix/AdjacencyMatrix.cpp"
+        "Adjacency List/AdjacencyList.h"
+        "Adjacency List/AdjacencyList.cpp"
+        "Edge List/EdgeList.h"
+        "Edge List/EdgeList.cpp"
+        "Adjacency Map/AdjacencyMap.h"
+        "Adjacency Map/AdjacencyMap.cpp"
         "Adjacency Matrix/AdjacencyMatrix.h"
+        "Adjacency Matrix/AdjacencyMatrix.cpp"
+        "main.cpp"
 )

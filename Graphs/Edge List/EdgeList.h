@@ -49,4 +49,7 @@ namespace Graph {
         size_t inDegree(const V &vertex) override;
     };
 }
+
+#include "EdgeList.cpp"
+
 #endif //DATA_STRUCTURES_EDGELIST_H

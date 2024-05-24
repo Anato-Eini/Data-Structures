@@ -48,4 +48,7 @@ namespace Graph {
         size_t inDegree(const V &vertex) override;
     };
 }
+
+#include "AdjacencyList.cpp"
+
 #endif //DATA_STRUCTURES_ADJACENCYLIST_H

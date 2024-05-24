@@ -49,4 +49,6 @@ namespace Graph {
     };
 }
 
+#include "AdjacencyMap.cpp"
+
 #endif //DATA_STRUCTURES_ADJACENCYMAP_H

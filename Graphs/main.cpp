@@ -8,11 +8,11 @@
 using namespace Graph;
 int main(){
     //For testing different graphs implementation
-    Graph::GraphAbstract<std::string, int>* graph;
+    Graph::GraphAbstract<std::string, std::string>* graph;
     char op;
-    int number, edge;
-    std::string vertex1, vertex2;
-    std::vector<int> edges;
+    int number;
+    std::string vertex1, vertex2, edge;
+    std::vector<std::string> edges;
     std::vector<std::string> vertices;
     std::pair<std::string, std::string> endVertices;
     do{
@@ -20,16 +20,16 @@ int main(){
         std::cin >> number;
         switch (number) {
             case 1:
-                graph = new EdgeList<std::string, int>{};
+                graph = new EdgeList<std::string, std::string>{};
                 break;
             case 2:
-                graph = new AdjacencyList<std::string, int>{};
+                graph = new AdjacencyList<std::string, std::string>{};
                 break;
             case 3:
-                graph = new AdjacencyMap<std::string, int>{};
+                graph = new AdjacencyMap<std::string, std::string>{};
                 break;
             case 4:
-                graph = new AdjacencyMatrix<std::string, int>{};
+                graph = new AdjacencyMatrix<std::string, std::string>{};
                 break;
             default:
                 std::cout << "Invalid operation\n";
@@ -66,7 +66,7 @@ int main(){
                 case 'e':
                     edges = graph->edges();
                     std::cout << "Edges:";
-                    for (const int &pair: edges)
+                    for (const std::string &pair: edges)
                         std::cout << "\nName: " << pair;
                     break;
                 case 'Q':
@@ -84,7 +84,7 @@ int main(){
                     edges = graph->outgoingEdges(vertex1);
                     if (!edges.empty()) {
                         std::cout << "Outgoing edges:";
-                        for (int const &e: edges)
+                        for (const std::string &e: edges)
                             std::cout << ' ' << e;
                     } else
                         std::cout << edge << " doesn't have outgoing edges";
@@ -95,7 +95,7 @@ int main(){
                     edges = graph->incomingEdges(vertex1);
                     if (!edges.empty()) {
                         std::cout << "Incoming edges:";
-                        for (int const &e: edges)
+                        for (const std::string &e: edges)
                             std::cout << ' ' << e;
                     } else
                         std::cout << edge << " doesn't have incoming edges";
@@ -106,7 +106,7 @@ int main(){
                     std::cout << "Enter vertex 2: ";
                     std::cin >> vertex2;
                     edge = graph->getEdge(vertex1, vertex2);
-                    if (edge == 0)
+                    if (!edge.empty())
                         std::cout << "Edge: " << edge;
                     else
                         std::cout << "Edge doesn't exist";
@@ -171,16 +171,16 @@ int main(){
                         std::cin >> number;
                         switch (number) {
                             case 1:
-                                graph = new EdgeList<std::string, int>{};
+                                graph = new EdgeList<std::string, std::string>{};
                                 break;
                             case 2:
-                                graph = new AdjacencyList<std::string, int>{};
+                                graph = new AdjacencyList<std::string, std::string>{};
                                 break;
                             case 3:
-                                graph = new AdjacencyMap<std::string, int>{};
+                                graph = new AdjacencyMap<std::string, std::string>{};
                                 break;
                             case 4:
-                                graph = new AdjacencyMatrix<std::string, int>{};
+                                graph = new AdjacencyMatrix<std::string, std::string>{};
                                 break;
                             default:
                                 std::cout << "Invalid operation\n";

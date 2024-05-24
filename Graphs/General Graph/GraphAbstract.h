@@ -61,11 +61,14 @@ namespace Graph {
 
         virtual size_t inDegree(const V &vertex) = 0;
 
-        friend std::ostream &operator<< <>(std::ostream &, GraphAbstract<V, E> *graph);
+        friend std::ostream &operator<< <V, E>(std::ostream &, GraphAbstract<V, E> *graph);
 
-        friend std::ostream &operator<< <>(std::ostream &, GraphAbstract<V, E> &graph);
+        friend std::ostream &operator<< <V, E>(std::ostream &, GraphAbstract<V, E> &graph);
 
         virtual ~GraphAbstract() = default;
     };
 }
+
+#include "GraphAbstract.cpp"
+
 #endif //DATA_STRUCTURES_GRAPHABSTRACT_H

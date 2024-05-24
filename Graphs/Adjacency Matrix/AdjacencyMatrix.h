@@ -53,4 +53,6 @@ namespace Graph {
     };
 }
 
+#include "AdjacencyMatrix.cpp"
+
 #endif //DATA_STRUCTURES_ADJACENCYMATRIX_H

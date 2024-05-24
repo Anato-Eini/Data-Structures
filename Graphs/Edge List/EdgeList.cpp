@@ -1,3 +1,5 @@
+#ifndef GRAPHS_EDGELIST_CPP
+#define GRAPHS_EDGELIST_CPP
 #include "EdgeList.h"
 
 namespace Graph {
@@ -175,3 +177,5 @@ namespace Graph {
         return *this;
     }
 }
+
+#endif
