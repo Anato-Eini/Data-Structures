@@ -57,3 +57,6 @@ does _**outgoingEdges** (v)_.
 
 **To showcase each core concepts of different strategies for implementing graphs, we'll implement them using 
 undirected graph**
+
+TODO:
+Implement various templates specified for different data types
