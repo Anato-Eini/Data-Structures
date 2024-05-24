@@ -39,7 +39,7 @@ namespace Graph {
                                        {}};
         for (const std::pair<const V, std::unordered_map<E, V>> &vertexEdge: Vertices)
             if (vertexEdge.second.contains(edge)) {
-                if (pairOfVertices.first.empty())
+                if (pairOfVertices.first == (V) {})
                     pairOfVertices.first = vertexEdge.first;
                 else
                     pairOfVertices.second = vertexEdge.first;

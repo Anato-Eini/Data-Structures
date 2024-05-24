@@ -35,7 +35,7 @@ namespace Graph {
         std::pair<V, V> pairVertices({}, {});
         for (const std::pair<const V, std::unordered_set<E>> &pair: list)
             if (pair.second.contains(edge)) {
-                if (pairVertices.first.empty())
+                if (pairVertices.first == (V) {})
                     pairVertices.first = pair.first;
                 else
                     pairVertices.second = pair.first;

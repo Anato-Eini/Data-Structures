@@ -45,7 +45,7 @@ namespace Graph {
             throw std::logic_error(vertex + " vertex doesn't exist\n");
         std::vector<E> edges;
         for (const std::pair<const V, E> &cell: matrix[vertex])
-            if (!cell.second.empty())
+            if (cell.second != (E){})
                 edges.push_back(cell.second);
         return edges;
     }
@@ -70,7 +70,7 @@ namespace Graph {
             throw std::logic_error(vertex + " vertex doesn't exist\n");
         std::vector<V> vertices;
         for (const std::pair<const V, E> &row: matrix[vertex])
-            if (!row.second.empty())
+            if (row.second != (E) {})
                 vertices.push_back(row.first);
         return vertices;
     }
