@@ -21,6 +21,7 @@ namespace Graph {
             for (const std::pair<const V, E> &column: row.second)
                 if (!edgeSet.contains(column.second))
                     edgeSet.insert(column.second);
+        edgeSet.erase((E){});
         std::transform(edgeSet.begin(), edgeSet.end(), std::back_inserter(arrOfEdges),
                        [](const E &e) -> E { return e; });
         return arrOfEdges;
