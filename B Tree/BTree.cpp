@@ -3,15 +3,16 @@
 BTree::BTree(int maxChildren) : size(0), capacityElemNode(maxChildren + 1), root(nullptr) {}
 
 void BTree::insert(int key) {
+    BTreeNode* curr;
     if(!root) {
-        root = new BTreeNode{capacityElemNode};
+        curr = root = new BTreeNode{capacityElemNode};
         root->insertNonLeaf(key, nullptr);
     }else{
-        BTreeNode *curr = getGroupNode(key);
-        curr->insertNonLeaf(key, nullptr);
+        curr = getGroupNode(key);
         while(root->parent)
             root = root->parent;
     }
+    curr->insertNonLeaf(key, nullptr);
     size++;
 }
 

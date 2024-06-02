@@ -134,7 +134,7 @@ int BTreeNode::getPosFromParent() {
 std::pair<BTreeNode *, BTreeNode *> BTreeNode::getSiblings() {
     std::pair<BTreeNode *, BTreeNode *> sibling;
     int index = getPosFromParent();
-    if(index + 1 == 5){
+    if(index + 1 == capacity + 1){
     }
     return std::pair<BTreeNode *, BTreeNode *>();
 }
