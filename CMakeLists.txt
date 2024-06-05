@@ -74,3 +74,6 @@ add_executable(Binary_Search_Tree
         "Binary Search Tree/BinarySearchTree.cpp"
         "Binary Search Tree/BinarySearchTree.h"
 )
+add_executable(Vector
+        "Vector/Vector.h"
+)
