@@ -88,12 +88,8 @@ namespace Graph {
     GraphAbstract<V, E> &EdgeList<V, E>::addEdge(const E &edge, const V &vertex1, const V &vertex2) {
         if (Edges.contains(edge))
             throw std::logic_error(edge + " edge already exists\n");
-        else if (!Vertices.contains(vertex1))
-            throw std::logic_error(vertex1 + " vertex doesn't exist\n");
-        else if (!Vertices.contains(vertex2))
-            throw std::logic_error(vertex2 + " vertex doesn't exist\n");
-        else
-            Edges.insert({edge, {vertex1, vertex2}});
+
+        Edges.insert({edge, {vertex1, vertex2}});
 
         return *this;
     }

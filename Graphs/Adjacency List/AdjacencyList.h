@@ -6,7 +6,7 @@
 namespace Graph {
 
     template<typename V, typename E>
-    class AdjacencyList : public GraphAbstract<V, E> {
+    class AdjacencyList final: public GraphAbstract<V, E> {
         //<vertex, edges>
         std::unordered_map<V, std::unordered_set<E>> list;
 

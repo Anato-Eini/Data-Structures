@@ -6,7 +6,7 @@
 namespace Graph {
 
     template<typename V, typename E>
-    class EdgeList : public GraphAbstract<V, E> {
+    class EdgeList final : public GraphAbstract<V, E> {
         std::unordered_set<V> Vertices;
         //unordered_map<Edge, <vertex1, vertex2>>
         std::unordered_map<E, std::pair<V, V>> Edges;

@@ -68,7 +68,7 @@ namespace Graph {
     E AdjacencyMap<V, E>::getEdge(const V &vertex1, const V &vertex2) {
         if (!containVertex(vertex1))
             throw std::logic_error(vertex1 + " vertex doesn't exist\n");
-        else if (!containVertex(vertex2))
+        if (!containVertex(vertex2))
             throw std::logic_error(vertex2 + " vertex doesn't exist\n");
         V large = Vertices[vertex1].size() > Vertices[vertex2].size() ? vertex1 : vertex2
         , small = Vertices[vertex1].size() > Vertices[vertex2].size() ? vertex2 : vertex1;
@@ -107,10 +107,7 @@ namespace Graph {
     GraphAbstract<V, E> &AdjacencyMap<V, E>::addEdge(const E &edge, const V &vertex1, const V &vertex2) {
         if (containEdge(edge))
             throw std::logic_error(edge + " edge already exists\n");
-        else if (!containVertex(vertex1))
-            throw std::logic_error(vertex1 + " vertex doesn't exists\n");
-        else if (!containVertex(vertex2))
-            throw std::logic_error(vertex2 + " vertex doesn't exists\n");
+
         Vertices[vertex1].insert({edge, vertex2});
         Vertices[vertex2].insert({edge, vertex1});
 

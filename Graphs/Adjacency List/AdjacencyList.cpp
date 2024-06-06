@@ -104,14 +104,9 @@ namespace Graph {
     GraphAbstract<V, E> &AdjacencyList<V, E>::addEdge(const E &edge, const V &vertex1, const V &vertex2) {
         if (!list.contains(vertex1))
             throw std::logic_error(vertex1 + " vertex doesn't exists\n");
-        else if (!list.contains(vertex2))
-            throw std::logic_error(vertex2 + " vertex doesn't exists\n");
-        else if (list[vertex1].contains(edge) || list[vertex2].contains(edge))
-            throw std::logic_error(edge + " edge already exists\n");
-        else {
-            list[vertex1].insert(edge);
-            list[vertex2].insert(edge);
-        }
+
+        list[vertex1].insert(edge);
+        list[vertex2].insert(edge);
 
         return *this;
     }
@@ -120,6 +115,7 @@ namespace Graph {
     GraphAbstract<V, E> &AdjacencyList<V, E>::removeVertex(const V &vertex) {
         if (!list.contains(vertex))
             throw std::logic_error(vertex + " vertex doesn't exist\n");
+
         list.erase(vertex);
 
         return *this;

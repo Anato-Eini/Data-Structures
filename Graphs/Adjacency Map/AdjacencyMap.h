@@ -6,9 +6,9 @@
 namespace Graph {
 
     template<typename V, typename E>
-    class AdjacencyMap : public GraphAbstract<V, E> {
+    class AdjacencyMap final : public GraphAbstract<V, E> {
         //<vertex, <edge, vertex>>
-        std::unordered_map<std::string, std::unordered_map<std::string, std::string>> Vertices;
+        std::unordered_map<V, std::unordered_map<E, V>> Vertices;
 
         GraphAbstract<V, E> &print(std::ostream &ostream) override;
 

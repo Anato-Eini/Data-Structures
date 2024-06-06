@@ -60,7 +60,7 @@ namespace Graph {
     E AdjacencyMatrix<V, E>::getEdge(const V &vertex1, const V &vertex2) {
         if (!containVertex(vertex1))
             throw std::logic_error(vertex1 + " vertex doesn't exist\n");
-        else if (!containVertex(vertex2))
+        if (!containVertex(vertex2))
             throw std::logic_error(vertex2 + " vertex doesn't exist\n");
         return matrix[vertex1][vertex2];
     }

@@ -6,7 +6,7 @@
 namespace Graph {
 
     template<typename V, typename E>
-    class AdjacencyMatrix : public GraphAbstract<V, E> {
+    class AdjacencyMatrix final : public GraphAbstract<V, E> {
         /*
          * <rowVertex, <colVertex, edge>>
          * The reason this is implemented this way it to get a particular edges by matrix[vertex1][vertex2] based on
