@@ -105,6 +105,8 @@ public:
    protected:
        explicit iterator(Node* p) : const_iterator(p){}
 
+       explicit iterator(const List & list, Node * p) : const_iterator(list, p){}
+
        friend class List;
    };
 
@@ -156,7 +158,7 @@ public:
 
     iterator begin()
     {
-        return {head->next};
+        return {*this, head->next};
     }
 
     const_iterator begin() const
@@ -167,12 +169,12 @@ public:
 
     iterator end()
     {
-        return {tail};
+        return {*this, tail};
     }
 
     const_iterator end() const
     {
-        return {tail};
+        return {*this, tail};
     }
 
     [[nodiscard]]size_t size() const
@@ -249,20 +251,20 @@ public:
 
         Node * p = itr.current;
         theSize++;
-        return {p->prev = p->prev->next = new Node{x, p->prev, p}};
+        return {*this, p->prev = p->prev->next = new Node{x, p->prev, p}};
     }
 
     iterator insert(iterator itr, const Object && x)
     {
         Node * p = itr.current;
         theSize++;
-        return {p->prev = p->prev->next = new Node{std::move(x), p->prev, p}};
+        return {*this, p->prev = p->prev->next = new Node{std::move(x), p->prev, p}};
     }
 
     iterator erase(iterator itr)
     {
         Node* p = itr.current;
-        iterator retVal{p->next};
+        iterator retVal{*this, p->next};
         p->prev->next = p->next;
         p->next->prev = p->prev;
         delete p;
