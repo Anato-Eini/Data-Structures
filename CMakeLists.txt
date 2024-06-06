@@ -36,13 +36,6 @@ add_executable(PriorityQueueMaxHeap
         "Implementing Priority Queues with Max Heap/node.h"
 )
 
-add_executable(LinkedLists
-        "Linked-Lists/Abstract.h"
-        "Linked-Lists/main.cpp"
-        "Linked-Lists/Implement.h"
-        "Linked-Lists/Node.h"
-)
-
 add_executable(MinHeap
         "Min Heap Operations/abstract.h"
         "Min Heap Operations/main.cpp"
@@ -73,7 +66,4 @@ add_executable(Binary_Search_Tree
         "Binary Search Tree/Node.h"
         "Binary Search Tree/BinarySearchTree.cpp"
         "Binary Search Tree/BinarySearchTree.h"
-)
-add_executable(Vector
-        "Vector/Vector.h"
 )
