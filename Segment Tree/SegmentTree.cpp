@@ -20,7 +20,6 @@ Node* SegmentTree::generateTreeHelper(int array[], const int left, const int rig
     return newNode;
 }
 
-
 SegmentTree& SegmentTree::generateTree(int array[], const int & n)
 {
     if(root)
@@ -100,6 +99,35 @@ int SegmentTree::query(const int & left, const int & right) const
         std::__throw_out_of_range("Out of range");
 
     return queryHelper(root, left, right, 0, size - 1);
+}
+
+void SegmentTree::updateValueHelper(Node* node, const int& left, const int& right, const int & value, const int & index)
+{
+    if(left > index || right < index)
+        return;
+
+    if(left == index && right == index)
+    {
+        node->value += value;
+        return;
+    }
+
+    node->value += value;
+
+    if(const int middle = (right + left) / 2; middle < index)
+        updateValueHelper(node->right, middle + 1, right, value, index);
+    else
+        updateValueHelper(node->left, left, middle, value, index);
+}
+
+
+SegmentTree& SegmentTree::updateValue(int array[], const int& index, const int& value)
+{
+    const int prev = array[index];
+    array[index] = value;
+    updateValueHelper(root, 0, size - 1, value - prev, index);
+
+    return *this;
 }
 
 

@@ -75,3 +75,7 @@ add_executable(Segment_Tree
         "Segment Tree/SegmentTree.h"
         "Segment Tree/Node.h"
 )
+add_executable(Fenwick_Tree
+        "Fenwick Tree/FenwickTree.cpp"
+        "Fenwick Tree/FenwickTree.h"
+)

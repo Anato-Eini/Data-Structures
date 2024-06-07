@@ -19,6 +19,8 @@ class SegmentTree final {
 
     static void print(std::ostream & ostream, bool isLeft, std::string string, const Node* node);
 
+    static void updateValueHelper(Node* node, const int & left, const int & right, const int & value, const int & index);
+
     static int queryHelper(const Node* node, const int & left, const int & right, int rangeLeft, int rangeRight);
 
 public:
@@ -29,6 +31,8 @@ public:
     SegmentTree & generateTree(std::vector<int> & array);
 
     SegmentTree & clearTree();
+
+    SegmentTree & updateValue(int array[], const int & index, const int & value);
 
     /**
      * @param left starting index
