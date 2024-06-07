@@ -67,6 +67,6 @@ add_executable(Binary_Search_Tree
         "Binary Search Tree/BinarySearchTree.cpp"
         "Binary Search Tree/BinarySearchTree.h"
 )
-add_executable(Trie Trie/Trie.cpp Trie/Trie.h
-        Trie/Node.h
-        Trie/main.cpp)
+add_executable(Trie "Trie Tree/Trie.cpp" "Trie Tree/Trie.h"
+        "Trie Tree/Node.h"
+        "Trie Tree/main.cpp")
