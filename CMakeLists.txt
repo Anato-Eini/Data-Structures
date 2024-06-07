@@ -70,3 +70,8 @@ add_executable(Binary_Search_Tree
 add_executable(Trie "Trie Tree/Trie.cpp" "Trie Tree/Trie.h"
         "Trie Tree/Node.h"
         "Trie Tree/main.cpp")
+add_executable(Segment_Tree
+        "Segment Tree/SegmentTree.cpp"
+        "Segment Tree/SegmentTree.h"
+        "Segment Tree/Node.h"
+)
