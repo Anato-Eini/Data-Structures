@@ -67,13 +67,6 @@ add_executable(Binary_Search_Tree
         "Binary Search Tree/BinarySearchTree.cpp"
         "Binary Search Tree/BinarySearchTree.h"
 )
-add_executable(List
-        List/main.cpp
-        List/DoublyLinkedList.h
-        List/Exception.h
-        List/SinglyLinkedList.h
-        List/Node.h
-        List/Iterator.h
-
-)
-add_executable(Trie Trie/Trie.cpp Trie/Trie.h)
+add_executable(Trie Trie/Trie.cpp Trie/Trie.h
+        Trie/Node.h
+        Trie/main.cpp)
