@@ -7,10 +7,9 @@ Trie &Trie::insert(const std::string &text)
     Node* current = root;
     for(const char & c : text)
     {
-        if(!current->node[c - 'a']) {
+        if(!current->node[c - 'a'])
             current->node[c - 'a'] = new Node{current};
-            current->endWord = false;
-        }
+
         current = current->node[c - 'a'];
     }
 
@@ -35,12 +34,12 @@ bool Trie::search(const std::string &text) const
 
 void Trie::print(std::ostream &os, Node *node, std::string &&text)
 {
+    if(node->endWord)
+        os << text + '\n';
+
     for(int i = 0; i < 26; i++)
         if(node->node[i])
             print(os, node->node[i], text + (char)(i + 'a'));
-
-    if(node->endWord)
-        os << text + '\n';
 }
 std::ostream & operator<<(std::ostream & os, Trie* tree)
 {
