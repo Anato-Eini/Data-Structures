@@ -78,4 +78,5 @@ add_executable(Segment_Tree
 add_executable(Fenwick_Tree
         "Fenwick Tree/FenwickTree.cpp"
         "Fenwick Tree/FenwickTree.h"
+        "Fenwick Tree/main.cpp"
 )
