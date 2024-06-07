@@ -76,3 +76,4 @@ add_executable(List
         List/Iterator.h
 
 )
+add_executable(Trie Trie/Trie.cpp Trie/Trie.h)
