@@ -4,150 +4,51 @@
 #include <algorithm>
 
 #include "Exception.h"
+#include "Node.h"
+#include "Iterator.h"
 
 template <typename Object>
-class List
+class DoublyLinkedList
 {
-    struct Node
-    {
-        Object data;
-        Node *prev;
-        Node *next;
-
-        explicit Node(const Object & d = Object{}, Node * p = nullptr, Node *n = nullptr) : data(d), prev(p), next(n) {}
-
-        explicit Node(Object && d, Node * p = nullptr, Node * n = nullptr) : data(d), prev(p), next(n) {}
-    };
-
 public:
-
-    class const_iterator
-    {
-    public:
-        const_iterator() : current(nullptr), theList(nullptr) {}
-
-        const Object & operator*() const
-        {
-            return retrive();
-        }
-
-        const_iterator & operator++()
-        {
-            current = current->next;
-            return *this;
-        }
-
-        const_iterator operator++(int)
-        {
-            const_iterator old = *this;
-            ++*this;
-            return old;
-        }
-
-        bool operator==(const const_iterator& rhs) const
-        {
-            return current == rhs.current;
-        }
-
-        bool operator!=(const const_iterator & rhs) const
-        {
-            return *this != rhs;
-        }
-
-    protected:
-        Node* current;
-        const List * theList;
-
-        Object & retrive() const
-        {
-            return current->data;
-        }
-
-        explicit const_iterator(const List & lst, Node* p) : current(p), theList(&lst){}
-
-        void assertIsValid() const
-        {
-            if(theList == nullptr || current == nullptr || current == theList->head )
-                throw IteratorOutOfBoundsException{"Out Of Bounds"};
-        }
-
-        friend class List;
-    };
-
-   class iterator : public const_iterator
-   {
-   public:
-       iterator() = default;
-
-       Object & operator*()
-       {
-           return const_iterator::retrive();
-       }
-
-       const Object & operator*() const
-       {
-           return const_iterator::operator*();
-       }
-
-       iterator & operator++()
-       {
-           this->current = this->current->next;
-           return *this;
-       }
-
-       iterator operator++(int)
-       {
-           iterator old = *this;
-           ++*this;
-           return old;
-       }
-
-   protected:
-       explicit iterator(Node* p) : const_iterator(p){}
-
-       explicit iterator(const List & list, Node * p) : const_iterator(list, p){}
-
-       friend class List;
-   };
-
-    List() : head(new Node), tail(new Node)
+    DoublyLinkedList() : head(new Node<Object>), tail(new Node<Object>)
     {
         head->next = tail;
         tail->prev = head;
     }
 
-    List(const List & rhs)
+    DoublyLinkedList(const DoublyLinkedList & rhs)
     {
         this();
         for (auto & x : rhs)
             push_back(x);
     }
 
-    ~List()
+    ~DoublyLinkedList()
     {
         clear();
         delete head;
         delete tail;
     }
 
-    List & operator=(const List & rhs)
+    DoublyLinkedList & operator=(const DoublyLinkedList & rhs)
     {
         if(this != rhs)
         {
-            List copy = rhs;
+            DoublyLinkedList copy = rhs;
             std::swap(*this, copy);
         }
         return *this;
     }
 
-    List(List && rhs)  noexcept : theSize(rhs.theSize), head(rhs.head), tail(rhs.tail)
+    DoublyLinkedList(DoublyLinkedList && rhs)  noexcept : theSize(rhs.theSize), head(rhs.head), tail(rhs.tail)
     {
         rhs.theSize = 0;
         rhs.tail = nullptr;
         rhs.head = nullptr;
     }
 
-    List & operator=(List && rhs) noexcept
+    DoublyLinkedList & operator=(DoublyLinkedList && rhs) noexcept
     {
         std::swap(head, rhs.head);
         std::swap(tail, rhs.tail);
