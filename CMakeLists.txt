@@ -7,6 +7,8 @@ add_subdirectory(Hash-Tables)
 
 add_subdirectory(Graphs)
 
+add_subdirectory(Stack)
+
 add_executable(AVL_Tree
         "AVL Tree/AVLTree.cpp"
         "AVL Tree/Node.h"
