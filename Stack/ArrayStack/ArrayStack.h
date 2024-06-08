@@ -9,7 +9,12 @@ template <typename Object>
 class ArrayStack final : public AbstractStack<Object>
 {
    std::pmr::vector<Object> vector_;
+
+    size_t index;
 public:
+
+    ArrayStack();
+
     void push(Object&& object) override;
 
     void push(Object& object) override;
@@ -18,8 +23,13 @@ public:
 
     Object& peek() override;
 
+    [[nodiscard]] bool isEmpty() override;
+
+    [[nodiscard]] size_t size() override;
+
+    ~ArrayStack() override = default;
 };
 
-
+#include "ArrayStack.cpp"
 
 #endif //ARRAYSTACK_H
