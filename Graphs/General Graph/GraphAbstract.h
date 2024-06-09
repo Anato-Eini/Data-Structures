@@ -21,6 +21,7 @@ namespace Graph {
 
     template<typename V, typename E>
     class GraphAbstract {
+
         virtual GraphAbstract &print(std::ostream &) = 0;
 
     public:
@@ -28,8 +29,7 @@ namespace Graph {
 
         virtual std::vector<E> edges() const = 0;
 
-        ///Returns a pair of empty strings if none
-        virtual std::pair<V, V> endVertices(const E &edge) = 0;
+        virtual std::pmr::vector<std::pair<V, V>> endVertices(const E &edge) = 0;
 
         virtual std::vector<E> outgoingEdges(const V &vertex) = 0;
 
@@ -42,7 +42,6 @@ namespace Graph {
         ///Must be unique
         virtual GraphAbstract &addVertex(const V &vertex) = 0;
 
-        ///Must be unique
         virtual GraphAbstract &addEdge(const E &edge, const V &vertex1, const V &vertex2) = 0;
 
         virtual GraphAbstract &removeVertex(const V &vertex) = 0;
