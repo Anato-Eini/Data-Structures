@@ -18,7 +18,7 @@ namespace Graph {
 
         std::vector<E> edges() const override;
 
-        std::pair<V, V> endVertices(const E &edge) override;
+        std::pmr::vector<std::pair<V, V>> endVertices(const E &edge) override;
 
         std::vector<E> outgoingEdges(const V &vertex) override;
 

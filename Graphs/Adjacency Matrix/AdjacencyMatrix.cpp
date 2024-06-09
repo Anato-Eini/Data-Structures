@@ -28,16 +28,17 @@ namespace Graph {
     }
 
     template<typename V, typename E>
-    std::pair<V, V> AdjacencyMatrix<V, E>::endVertices(const E &edge) {
+    std::pmr::vector<std::pair<V, V>> AdjacencyMatrix<V, E>::endVertices(const E &edge) {
+        std::pmr::vector<std::pair<V, V>> vector;
         for (const std::pair<const V, std::unordered_map<V, E>> &row: matrix) {
             auto it = std::find_if(row.second.begin(), row.second.end(),
                                    [&edge](const std::pair<const V, E> &cell) -> bool {
                                        return cell.second == edge;
                                    });
             if (it != row.second.end())
-                return {row.first, it->first};
+                return vector.emplace_back({row.first, it->first});
         }
-        throw std::logic_error(edge + " edge doesn't exist\n");
+        return vector;
     }
 
     template<typename V, typename E>
@@ -89,6 +90,11 @@ namespace Graph {
 
     template<typename V, typename E>
     GraphAbstract<V, E> &AdjacencyMatrix<V, E>::addEdge(const E &edge, const V &vertex1, const V &vertex2) {
+        if(!containVertex(vertex1))
+            throw std::logic_error(vertex1 + " vertex doesn't exists\n");
+        if(!containVertex(vertex2))
+            throw std::logic_error(vertex2 + " vertex doesn't exists\n");
+
         matrix[vertex2][vertex1] = matrix[vertex1][vertex2] = edge;
 
         return *this;

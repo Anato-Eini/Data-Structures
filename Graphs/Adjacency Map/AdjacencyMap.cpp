@@ -32,19 +32,17 @@ namespace Graph {
     }
 
     template<typename V, typename E>
-    std::pair<V, V> AdjacencyMap<V, E>::endVertices(const E &edge) {
+    std::pmr::vector<std::pair<V, V>> AdjacencyMap<V, E>::endVertices(const E &edge) {
         if (!containEdge(edge))
             throw std::logic_error(edge + " edge doesn't exist\n");
-        std::pair<V, V> pairOfVertices{{},
-                                       {}};
+
+        V firstVertex{};
+        std::pmr::vector<std::pair<V, V>> vector;
         for (const std::pair<const V, std::unordered_map<E, V>> &vertexEdge: Vertices)
-            if (vertexEdge.second.contains(edge)) {
-                if (pairOfVertices.first == (V) {})
-                    pairOfVertices.first = vertexEdge.first;
-                else
-                    pairOfVertices.second = vertexEdge.first;
-            }
-        return pairOfVertices;
+            if (vertexEdge.second.contains(edge))
+                vector.emplace_back({vertexEdge.first, vertexEdge.second[edge]});
+
+        return vector;
     }
 
     template<typename V, typename E>
@@ -105,8 +103,10 @@ namespace Graph {
 
     template<typename V, typename E>
     GraphAbstract<V, E> &AdjacencyMap<V, E>::addEdge(const E &edge, const V &vertex1, const V &vertex2) {
-        if (containEdge(edge))
-            throw std::logic_error(edge + " edge already exists\n");
+        if(!containVertex(vertex1))
+            throw std::logic_error(vertex1 + " vertex doesn't exists\n");
+        if(!containVertex(vertex2))
+            throw std::logic_error(vertex2 + " vertex doesn't exists\n");
 
         Vertices[vertex1].insert({edge, vertex2});
         Vertices[vertex2].insert({edge, vertex1});

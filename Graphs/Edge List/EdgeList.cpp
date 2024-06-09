@@ -25,11 +25,16 @@ namespace Graph {
     }
 
     template<typename V, typename E>
-    std::pair<V, V> EdgeList<V, E>::endVertices(const E &edge) {
-        auto it = Edges.find(edge);
-        if (it == Edges.end())
-            throw std::logic_error(edge + " edge doesn't exist\n");
-        return it->second;
+    std::pmr::vector<std::pair<V, V>> EdgeList<V, E>::endVertices(const E &edge) {
+        std::pmr::vector<std::pair<V, V>> vector;
+
+        std::transform(Edges.begin(), Edges.end(), std::back_inserter(vector),
+            [&edge](const std::pair<const E, std::pair<V, V>> &edges) -> bool
+            {
+                return edge == edges.first;
+            });
+
+        return vector;
     }
 
     template<typename V, typename E>
@@ -86,8 +91,10 @@ namespace Graph {
 
     template<typename V, typename E>
     GraphAbstract<V, E> &EdgeList<V, E>::addEdge(const E &edge, const V &vertex1, const V &vertex2) {
-        if (Edges.contains(edge))
-            throw std::logic_error(edge + " edge already exists\n");
+        if(!containVertex(vertex1))
+            throw std::logic_error(vertex1 + " vertex doesn't exists\n");
+        if(!containVertex(vertex2))
+            throw std::logic_error(vertex2 + " vertex doesn't exists\n");
 
         Edges.insert({edge, {vertex1, vertex2}});
 
