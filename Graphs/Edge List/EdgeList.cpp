@@ -28,11 +28,11 @@ namespace Graph {
     std::pmr::vector<std::pair<V, V>> EdgeList<V, E>::endVertices(const E &edge) {
         std::pmr::vector<std::pair<V, V>> vector;
 
-        std::transform(Edges.begin(), Edges.end(), std::back_inserter(vector),
-            [&edge](const std::pair<const E, std::pair<V, V>> &edges) -> bool
-            {
-                return edge == edges.first;
-            });
+        std::for_each(Edges.begin(), Edges.end(),
+                      [&edge, &vector] (const std::pair<const E, std::pair<V, V>> & pair) -> void {
+            if(pair.first == edge)
+                vector.emplace_back(pair.second.first, pair.second.second);
+        });
 
         return vector;
     }
