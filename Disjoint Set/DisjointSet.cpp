@@ -18,18 +18,20 @@ template <typename T>
 DisjointSet<T> & DisjointSet<T>::create_set(T array[], const size_t size)
 {
    for (size_t i = 0; i < size; i++)
-      map.emplace(array[i], {});
+      map.emplace(array[i], array[i]);
 
     return *this;
 }
 
 template <typename T>
-Node<T>& DisjointSet<T>::find(T element) const
+Node<T>& DisjointSet<T>::find(T element)
 {
-    Node<T> & node = map.at(element);
+    Node<T> & node = map[element];
     if(!node.element)
         return node;
-    return node.element = find(node.element->name);
+
+    node.element = &find(node.element->name);
+    return node;
 }
 
 template <typename T>
@@ -39,11 +41,11 @@ void DisjointSet<T>::union_(T element1, T element2)
 
     if(node1.size < node2.size)
     {
-        node1.element = node2;
+        node1.element = &node2;
         node2.size += node1.size;
     }else
     {
-        node2.element = node1;
+        node2.element = &node1;
         node1.size += node2.size;
     }
 }
@@ -58,8 +60,13 @@ void DisjointSet<T>::print(std::ostream& ostream) const
         vector.emplace_back(element.second);
     }
     ostream << '\n';
-    for(Node<T> & node : vector)
-        ostream << node.name << '\t';
+    for(Node<T> & node : vector){
+
+        if(node.element)
+            ostream << node.element->name << '\t';
+        else
+            ostream << '\t';
+    }
 }
 
 

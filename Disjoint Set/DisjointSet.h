@@ -9,6 +9,12 @@
 #include "Node.h"
 
 template <typename T>
+class DisjointSet;
+
+template <typename T>
+std::ostream & operator<< (std::ostream & ostream, DisjointSet<T> & disjoint_set);
+
+template <typename T>
 class DisjointSet {
     std::unordered_map<T, Node<T>> map;
 
@@ -19,15 +25,13 @@ public:
 
     DisjointSet & create_set(std::pmr::vector<T> & vector);
 
-    Node<T> & find(T element) const;
+    Node<T> & find(T element);
 
     void union_(T element1, T element2);
 
     friend std::ostream & operator<< <T> (std::ostream & ostream, DisjointSet & disjoint_set);
 };
 
-template <typename T>
-std::ostream & operator<< (std::ostream & ostream, DisjointSet<T> & disjoint_set);
 
 #include "DisjointSet.cpp"
 
