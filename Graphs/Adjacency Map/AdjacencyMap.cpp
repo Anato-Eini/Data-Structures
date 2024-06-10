@@ -38,9 +38,9 @@ namespace Graph {
 
         V firstVertex{};
         std::pmr::vector<std::pair<V, V>> vector;
-        for (const std::pair<const V, std::unordered_map<E, V>> &vertexEdge: Vertices)
+        for (std::pair<const V, std::unordered_map<E, V>> &vertexEdge: Vertices)
             if (vertexEdge.second.contains(edge))
-                vector.emplace_back({vertexEdge.first, vertexEdge.second[edge]});
+                vector.push_back({vertexEdge.first, vertexEdge.second[edge]});
 
         return vector;
     }

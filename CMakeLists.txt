@@ -85,4 +85,6 @@ add_executable(Fenwick_Tree
 add_executable(Disjoint_Set
         "Disjoint Set/DisjointSet.cpp"
         "Disjoint Set/DisjointSet.h"
+        "Disjoint Set/Node.h"
+        "Disjoint Set/main.cpp"
 )

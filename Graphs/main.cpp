@@ -14,7 +14,7 @@ int main(){
     std::string vertex1, vertex2, edge;
     std::vector<std::string> edges;
     std::vector<std::string> vertices;
-    std::pair<std::string, std::string> endVertices;
+    std::pmr::vector<std::pair<std::string, std::string>> endVertices;
     do{
         std::cout << "1-Edge_List 2-Adjacency_List 3-Adjacency_Map 4-Adjacency_Matrix: ";
         std::cin >> number;
@@ -73,8 +73,12 @@ int main(){
                     std::cout << "Enter edge: ";
                     std::cin >> edge;
                     endVertices = graph->endVertices(edge);
-                    if (!endVertices.second.empty() && !endVertices.first.empty())
-                        std::cout << "Vertex 1: " << endVertices.first << "\nVertex 2: " << endVertices.second;
+                    if (!endVertices.empty())
+                        for(const std::pair<std::string, std::string> & pair : endVertices)
+                        {
+                            std::cout << pair.first << " -> " << pair.second << '\n';
+                            std::cout << pair.second << " -> " << pair.first << '\n';
+                        }
                     else
                         std::cout << edge << " edge doesn't exist";
                     break;

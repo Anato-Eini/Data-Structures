@@ -36,7 +36,7 @@ namespace Graph {
                                        return cell.second == edge;
                                    });
             if (it != row.second.end())
-                return vector.emplace_back({row.first, it->first});
+                vector.push_back({row.first, it->first});
         }
         return vector;
     }
