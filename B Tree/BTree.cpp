@@ -1,34 +1,31 @@
 #include "BTree.h"
 
-BTree::BTree(int maxChildren) : size(0), capacityElemNode(maxChildren + 1), root(nullptr) {}
+BTree::BTree(const int & maxChildren) : size(0), capacityElemNode(maxChildren + 1), root(nullptr) {}
 
-void BTree::insert(int key) {
-    BTreeNode* curr;
+void BTree::insert(const int & key) {
     if(!root) {
-        curr = root = new BTreeNode{capacityElemNode};
-        root->insertNonLeaf(key, nullptr);
+        root = new BTreeNode{capacityElemNode, true};
+        root->insert(key);
     }else{
-        curr = getGroupNode(key);
+        BTreeNode* curr = getGroupNode(key);
         while(root->parent)
             root = root->parent;
+
+        curr->insert(key);
     }
-    curr->insertNonLeaf(key, nullptr);
     size++;
 }
 
-BTreeNode *BTree::getGroupNode(int key) const {
+BTreeNode *BTree::getGroupNode(const int & key) const {
     BTreeNode* curr = root;
-    while(true){
-        BTreeNode* child = curr->getChild(key);
-        if(!child)
-            break;
-        else
-            curr = child;
+    while(BTreeNode* child = curr->getChild(key))
+    {
+        curr = child;
     }
     return curr;
 }
 
-void BTree::deleteKey(int key) {
+void BTree::deleteKey(const int & key) {
     BTreeNode* curr = getGroupNode(key);
 
     size--;

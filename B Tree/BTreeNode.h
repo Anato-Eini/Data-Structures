@@ -3,28 +3,52 @@
 
 #include <ostream>
 
-class BTreeNode {
+class BTreeNode final {
     int size, capacity;
-    int* elem;
+
+    int *elem;
+
     BTreeNode **children, *parent;
+
+    bool isLeaf;
+
     void printInorder(std::ostream& os, BTreeNode* node);
-public:
-    explicit BTreeNode(int capacity);
-    explicit BTreeNode(int capacity, BTreeNode* parent);
-    BTreeNode* getChild(int key);
-    BTreeNode* removeChild(int index);
-    void insertNonLeaf(int key, BTreeNode* node);
+
+    explicit BTreeNode(const int & capacity, const bool & isLeaf);
+
+    explicit BTreeNode(const int & capacity, BTreeNode* parent, const bool & isLeaf);
+
+    [[nodiscard]] BTreeNode* getChild(const int & key) const;
+
+    [[nodiscard]] BTreeNode* removeChild(const int & index) const;
+
+    void insert(const int & key);
+
+    void insertFromChild(const int & key, BTreeNode * newChild);
+
     void moveHalf(BTreeNode* node);
+
     void splitNode();
-    void deleteElem(int key);
-    bool isFull();
-    bool isEmpty();
-    int getPosFromParent();//Only applicable in deleting nodes
-    std::pair<BTreeNode*, BTreeNode*> getSiblings();
-    int getCapacity() const;
-    int removeElem(int index);
-    int getSize() const;
+
+    void deleteElem(const int & key);
+
+    [[nodiscard]] bool isFull() const;
+
+    [[nodiscard]] bool isEmpty() const;
+
+    //Only applicable in deleting nodes
+    [[nodiscard]] int getPosFromParent() const ;
+
+    [[nodiscard]] std::pair<BTreeNode*, BTreeNode*> getSiblings() const ;
+
+    [[nodiscard]] int getCapacity() const;
+
+    int removeElem(const int & index);
+
+    [[nodiscard]] int getSize() const;
+
     friend std::ostream& operator<<(std::ostream& os, BTreeNode* node);
+
     friend class BTree;
 };
 

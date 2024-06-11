@@ -7,15 +7,21 @@
 
 class BTree {
     size_t size;
+
     int capacityElemNode;
+
 public:
     BTreeNode* root;
-    explicit BTree(int maxChildren);
-    void insert(int key);
-    void deleteKey(int key);
-    friend std::ostream& operator<<(std::ostream& os, BTree* tree);
 
-    BTreeNode *getGroupNode(int key) const;
+    explicit BTree(const int & maxChildren);
+
+    void insert(const int & key);
+
+    void deleteKey(const int & key);
+
+    [[nodiscard]] BTreeNode *getGroupNode(const int & key) const;
+
+    friend std::ostream& operator<<(std::ostream& os, BTree* tree);
 };
 
 std::ostream& operator<<(std::ostream& os, BTree* tree);
