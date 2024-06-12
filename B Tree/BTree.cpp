@@ -12,7 +12,6 @@ void BTree::insert(const int & key) {
 
         while(root->parent)
             root = root->parent;
-
     }
     size++;
 }
@@ -20,9 +19,8 @@ void BTree::insert(const int & key) {
 BTreeNode *BTree::getGroupNode(const int & key) const {
     BTreeNode* curr = root;
     while(BTreeNode* child = curr->getChild(key))
-    {
         curr = child;
-    }
+
     return curr;
 }
 

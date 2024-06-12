@@ -102,7 +102,7 @@ BTreeNode *BTreeNode::removeChild(const int & index) const
     return child;
 }
 
-void BTreeNode::printInorder(std::ostream& os, BTreeNode *node) {
+void BTreeNode::printInorder(std::ostream& os, const BTreeNode *node) {
     if(node){
         int i;
         for(i = 0; i < node->size; i++){
@@ -136,7 +136,7 @@ void BTreeNode::deleteElem(const int & key) {
             for (++i; i < size; i++)
                 elem[i - 1] = elem[i];
             size--;
-            if(size < 2){
+            if(size < capacity / 2){
 
             }
             return;
@@ -152,13 +152,4 @@ int BTreeNode::getPosFromParent() const {
         if(par->children[i] == this)
             return i;
     return -1;
-}
-
-std::pair<BTreeNode *, BTreeNode *> BTreeNode::getSiblings() const
-{
-    std::pair<BTreeNode *, BTreeNode *> sibling;
-    const int index = getPosFromParent();
-    if(index + 1 == capacity + 1){
-    }
-    return {};
 }
