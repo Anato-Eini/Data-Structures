@@ -144,3 +144,13 @@ std::pair<BTreeNode *, BTreeNode *> BTreeNode::getSiblings() const
     }
     return {};
 }
+
+BTreeNode::~BTreeNode(){
+    delete[] elem;
+    if(!isLeaf){
+        for(int i = 0; i < capacity; i++){
+            delete children[i];
+        }
+    }
+    delete[] children;
+}

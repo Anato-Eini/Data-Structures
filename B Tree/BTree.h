@@ -21,6 +21,12 @@ public:
 
     [[nodiscard]] BTreeNode *getGroupNode(const int & key) const;
 
+    ~BTree();
+
+    void clearTreeHelper(BTreeNode* node);
+
+    void clearTree();
+
     friend std::ostream& operator<<(std::ostream& os, BTree* tree);
 };
 

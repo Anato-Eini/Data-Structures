@@ -38,4 +38,19 @@ std::ostream& operator<<(std::ostream& os, BTree* tree){
     return os;
 }
 
+void BTree::clearTreeHelper(BTreeNode *node) {
+    if(node){
+        for(int i = 0; i <= size; i++)
+            clearTreeHelper(node->children[i]);
 
+        delete this;
+    }
+}
+
+void BTree::clearTree() {
+    clearTreeHelper(root);
+}
+
+BTree::~BTree() {
+    clearTree();
+}

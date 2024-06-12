@@ -43,6 +43,8 @@ class BTreeNode final {
 
     [[nodiscard]] int getSize() const;
 
+    ~BTreeNode();
+
     friend std::ostream& operator<<(std::ostream& os, BTreeNode* node);
 
     friend class BTree;
