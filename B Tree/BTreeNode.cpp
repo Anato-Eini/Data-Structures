@@ -31,10 +31,6 @@ void BTreeNode::insert(const int & key) {
         splitNode();
 }
 
-int BTreeNode::getCapacity() const {
-    return capacity;
-}
-
 int BTreeNode::getSize() const {
     return size;
 }
@@ -128,20 +124,6 @@ void BTreeNode::moveHalf(BTreeNode *node) {
     children[i] = nullptr;
     node->size = capacity - (capacity / 2) - 1;
     size = capacity / 2;
-}
-
-void BTreeNode::deleteElem(const int & key) {
-    for(int i = 0; i < size; i++)
-        if(elem[i] == key) {
-            for (++i; i < size; i++)
-                elem[i - 1] = elem[i];
-            size--;
-            if(size < 2){
-
-            }
-            return;
-        }
-    throw std::logic_error(std::to_string(key) + " key doesn't exist\n");
 }
 
 int BTreeNode::getPosFromParent() const {

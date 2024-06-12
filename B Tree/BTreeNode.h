@@ -30,8 +30,6 @@ class BTreeNode final {
 
     void splitNode();
 
-    void deleteElem(const int & key);
-
     [[nodiscard]] bool isFull() const;
 
     [[nodiscard]] bool isEmpty() const;
@@ -40,8 +38,6 @@ class BTreeNode final {
     [[nodiscard]] int getPosFromParent() const ;
 
     [[nodiscard]] std::pair<BTreeNode*, BTreeNode*> getSiblings() const ;
-
-    [[nodiscard]] int getCapacity() const;
 
     int removeElem(const int & index);
 
