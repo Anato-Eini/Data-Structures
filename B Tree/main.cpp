@@ -5,7 +5,7 @@ using namespace std;
 int main()
 {
     int maxChildCount;
-    cout << "Enter max child: ";
+    cout << "Max Element Per Node: ";
     cin >> maxChildCount;
     auto* tree = new BTree(maxChildCount);
     int operation, input, result;

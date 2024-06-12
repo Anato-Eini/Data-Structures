@@ -8,10 +8,11 @@ void BTree::insert(const int & key) {
         root->insert(key);
     }else{
         BTreeNode* curr = getGroupNode(key);
+        curr->insert(key);
+
         while(root->parent)
             root = root->parent;
 
-        curr->insert(key);
     }
     size++;
 }

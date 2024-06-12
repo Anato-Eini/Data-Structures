@@ -72,8 +72,7 @@ void BTreeNode::insertFromChild(const int& key, BTreeNode* newChild)
         children[i + 2] = children[i + 1];
     }
     elem[++i] = key;
-    children[i + 1] = children[i];
-    children[i] = newChild;
+    children[i + 1] = newChild;
     size++;
     if(isFull())
         splitNode();
@@ -126,8 +125,8 @@ void BTreeNode::moveHalf(BTreeNode *node) {
         children[i + 1] = nullptr;
     }
     node->children[j] = children[i];
-    node->size = capacity - (capacity / 2) - 1;
     children[i] = nullptr;
+    node->size = capacity - (capacity / 2) - 1;
     size = capacity / 2;
 }
 
