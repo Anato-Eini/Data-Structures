@@ -30,13 +30,13 @@ void BTree::deleteKey(const int & key) {
     size--;
 }
 
-std::ostream& operator<<(std::ostream& os, BTree* tree){
+std::ostream& operator<<(std::ostream& os, const BTree* tree){
     os << "Size: " << tree->size << "\n";
     os << tree->root;
     return os;
 }
 
-void BTree::clearTreeHelper(BTreeNode *node) {
+void BTree::clearTreeHelper(const BTreeNode *node) {
     if(node){
         for(int i = 0; i <= size; i++)
             clearTreeHelper(node->children[i]);

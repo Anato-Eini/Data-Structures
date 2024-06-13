@@ -12,7 +12,7 @@ class BTreeNode final {
 
     bool isLeaf;
 
-    void printInorder(std::ostream& os, BTreeNode* node);
+    static void printInorder(std::ostream& os, const BTreeNode* node);
 
     explicit BTreeNode(const int & capacity, const bool & isLeaf);
 
@@ -30,14 +30,17 @@ class BTreeNode final {
 
     void splitNode();
 
+    [[nodiscard]] static BTreeNode* getSuccessor(BTreeNode* node);
+
+    [[nodiscard]] static BTreeNode* getPredecessor(BTreeNode* node);
+
+    void deleteKey(const int & key);
+
+    void mergeChild(BTreeNode* node);
+
     [[nodiscard]] bool isFull() const;
 
     [[nodiscard]] bool isEmpty() const;
-
-    //Only applicable in deleting nodes
-    [[nodiscard]] int getPosFromParent() const ;
-
-    [[nodiscard]] std::pair<BTreeNode*, BTreeNode*> getSiblings() const ;
 
     int removeElem(const int & index);
 
@@ -45,11 +48,11 @@ class BTreeNode final {
 
     ~BTreeNode();
 
-    friend std::ostream& operator<<(std::ostream& os, BTreeNode* node);
+    friend std::ostream& operator<<(std::ostream& os, const BTreeNode* node);
 
     friend class BTree;
 };
 
-std::ostream& operator<<(std::ostream& os, BTreeNode* node);
+std::ostream& operator<<(std::ostream& os, const BTreeNode* node);
 
 #endif //DATA_STRUCTURES_BTREENODE_H

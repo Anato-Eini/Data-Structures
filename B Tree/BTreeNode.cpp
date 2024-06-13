@@ -74,7 +74,6 @@ void BTreeNode::insertFromChild(const int& key, BTreeNode* newChild)
         splitNode();
 }
 
-
 int BTreeNode::removeElem(const int & index) {
     const int element = elem[index];
     for(int i = index + 1; i < size; i++)
@@ -83,8 +82,48 @@ int BTreeNode::removeElem(const int & index) {
     return element;
 }
 
-std::ostream &operator<<(std::ostream &os, BTreeNode *node) {
-    node->printInorder(os, node);
+void BTreeNode::deleteKey(const int& key)
+{
+    for(int i = 0; i < size; i++)
+    {
+        if(elem[i] == key)
+        {
+            BTreeNode* replacement;
+            if(size < capacity / 2)
+            {
+                if(children[i + 1])
+                {
+                    replacement = getSuccessor(children[i + 1]);
+                }else if(children[i])
+                {
+                    replacement = getPredecessor(children[i]);
+                }else if(parent)
+            }else
+            {
+
+            }
+        }
+    }
+}
+
+BTreeNode* BTreeNode::getSuccessor(BTreeNode* node)
+{
+    while (node->children[0])
+        node = node->children[0];
+
+    return node;
+}
+
+BTreeNode* BTreeNode::getPredecessor(BTreeNode* node)
+{
+    while(node->children[node->size])
+        node = node->children[node->size];
+
+    return node;
+}
+
+std::ostream &operator<<(std::ostream &os, const BTreeNode *node) {
+    BTreeNode::printInorder(os, node);
     return os;
 }
 
@@ -94,11 +133,12 @@ BTreeNode *BTreeNode::removeChild(const int & index) const
     int i;
     for(i = index; i < capacity && children[i]; i++)
         children[i] = children[i + 1];
+
     children[i] = nullptr;
     return child;
 }
 
-void BTreeNode::printInorder(std::ostream& os, BTreeNode *node) {
+void BTreeNode::printInorder(std::ostream& os, const BTreeNode *node) {
     if(node){
         int i;
         for(i = 0; i < node->size; i++){
@@ -124,25 +164,6 @@ void BTreeNode::moveHalf(BTreeNode *node) {
     children[i] = nullptr;
     node->size = capacity - (capacity / 2) - 1;
     size = capacity / 2;
-}
-
-int BTreeNode::getPosFromParent() const {
-    if(!parent)
-        throw std::logic_error("Parent doesn't exist\n");
-    const BTreeNode* par = parent;
-    for(int i = par->getSize(); i >= 0; i--)
-        if(par->children[i] == this)
-            return i;
-    return -1;
-}
-
-std::pair<BTreeNode *, BTreeNode *> BTreeNode::getSiblings() const
-{
-    std::pair<BTreeNode *, BTreeNode *> sibling;
-    const int index = getPosFromParent();
-    if(index + 1 == capacity + 1){
-    }
-    return {};
 }
 
 BTreeNode::~BTreeNode(){

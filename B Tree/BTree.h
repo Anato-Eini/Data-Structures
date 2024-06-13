@@ -23,13 +23,13 @@ public:
 
     ~BTree();
 
-    void clearTreeHelper(BTreeNode* node);
+    void clearTreeHelper(const BTreeNode* node);
 
     void clearTree();
 
-    friend std::ostream& operator<<(std::ostream& os, BTree* tree);
+    friend std::ostream& operator<<(std::ostream& os, const BTree* tree);
 };
 
-std::ostream& operator<<(std::ostream& os, BTree* tree);
+std::ostream& operator<<(std::ostream& os, const BTree* tree);
 
 #endif //DATA_STRUCTURES_BTREE_H
