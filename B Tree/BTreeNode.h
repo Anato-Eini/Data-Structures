@@ -36,7 +36,13 @@ class BTreeNode final {
 
     void deleteKey(const int & key);
 
+    /**
+     * this node merges with its sibling
+     * @param sibling
+     */
     void mergeChild(BTreeNode* node);
+
+    void underFlow();
 
     [[nodiscard]] bool isFull() const;
 

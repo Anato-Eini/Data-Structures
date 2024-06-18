@@ -1,8 +1,10 @@
 #include "BTreeNode.h"
 
+#include <pstl/execution_defs.h>
+
 BTreeNode::BTreeNode(const int & capacity, const bool & isLeaf) : size(0), capacity(capacity - 1),
-                                    elem(new int[capacity - 1]), children(new BTreeNode*[capacity]), parent(nullptr),
-                                    isLeaf(isLeaf)
+                                                                  elem(new int[capacity - 1]), children(new BTreeNode*[capacity]), parent(nullptr),
+                                                                  isLeaf(isLeaf)
 {
     for (int i = 0; i < capacity; ++i)
         children[i] = nullptr;
@@ -82,26 +84,78 @@ int BTreeNode::removeElem(const int & index) {
     return element;
 }
 
+void BTreeNode::mergeChild(BTreeNode* node)
+{
+    const int parentSize = parent->size;
+    int element;
+    if(node->elem[0] < elem[0])
+    {
+        for (int i = 0, indexOfElem; i < parentSize; i++)
+        {
+            if(parent->children[i] == node)
+            {
+                indexOfElem = i;
+                for(i++; i <= parentSize; i++)
+                    parent->children[i - 1] = parent->children[i];
+
+                element = parent->removeElem(indexOfElem);
+            }
+        }
+    }else
+    {
+
+    }
+}
+
+void BTreeNode::underFlow()
+{
+    if(isLeaf && parent)
+    {
+       const int size = parent->size;
+       for(int i = 0; i <= size; i++)
+       {
+           if(parent->children[i] == this)
+           {
+               BTreeNode* sibling = nullptr;
+               if(i + 1 <= size)
+                   sibling = getPredecessor(parent->children[i + 1]);
+               if((!sibling || sibling->size < capacity / 2) && i - 1 >= 0)
+                   sibling = getSuccessor(parent->children[i - 1]);
+
+               if(sibling->size < capacity / 2)
+                   mergeChild(sibling);
+
+               return;
+           }
+       }
+    }else
+    {
+
+    }
+}
+
+
 void BTreeNode::deleteKey(const int& key)
 {
     for(int i = 0; i < size; i++)
     {
         if(elem[i] == key)
         {
-            BTreeNode* replacement;
-            if(size < capacity / 2)
+            for(int j = i + 1; j < size; j++)
+                elem[j - 1] = elem[j];
+
+            if(isLeaf)
             {
-                if(children[i + 1])
+                if(size < capacity / 2)
                 {
-                    replacement = getSuccessor(children[i + 1]);
-                }else if(children[i])
-                {
-                    replacement = getPredecessor(children[i]);
-                }else if(parent)
+
+                }
             }else
             {
 
             }
+
+            return;
         }
     }
 }
@@ -120,11 +174,6 @@ BTreeNode* BTreeNode::getPredecessor(BTreeNode* node)
         node = node->children[node->size];
 
     return node;
-}
-
-std::ostream &operator<<(std::ostream &os, const BTreeNode *node) {
-    BTreeNode::printInorder(os, node);
-    return os;
 }
 
 BTreeNode *BTreeNode::removeChild(const int & index) const
@@ -174,4 +223,9 @@ BTreeNode::~BTreeNode(){
         }
     }
     delete[] children;
+}
+
+std::ostream &operator<<(std::ostream &os, const BTreeNode *node) {
+    BTreeNode::printInorder(os, node);
+    return os;
 }
