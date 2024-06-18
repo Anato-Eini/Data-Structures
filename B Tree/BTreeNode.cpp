@@ -113,13 +113,12 @@ void BTreeNode::underFlow()
     {
        const int size = parent->size;
        for(int i = 0; i <= size; i++)
-       {
            if(parent->children[i] == this)
            {
                BTreeNode* sibling = nullptr;
                if(i + 1 <= size)
                    sibling = getPredecessor(parent->children[i + 1]);
-               if((!sibling || sibling->size < capacity / 2) && i - 1 >= 0)
+               if(sibling && sibling->size < capacity / 2 && i - 1 >= 0)
                    sibling = getSuccessor(parent->children[i - 1]);
 
                if(sibling->size < capacity / 2)
@@ -127,7 +126,6 @@ void BTreeNode::underFlow()
 
                return;
            }
-       }
     }else
     {
 
