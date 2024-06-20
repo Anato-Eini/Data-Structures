@@ -128,17 +128,27 @@ void BTreeNode::mergeContents(const BTreeNode* src, BTreeNode* dest)
 void BTreeNode::mergeChild(BTreeNode* node)
 {
     const int parentSize = parent->size;
-    int element;
+    BTreeNode ** parentChildren = parent->children;
 
     //removing of variable node
     if(node->elem[0] < elem[0])
     {
+        for(int i = 0; i <= parentSize; i++)
+            if(parentChildren[i] == node)
+                for(++i; i <= parentSize; i++)
+                    parentChildren[i - 1] = parentChildren[i];
 
+        mergeContents(node, this);
     }
     //removing of this node
     else
     {
+        for(int i = 0; i <= parentSize; i++)
+            if(parentChildren[i] == this)
+                for(++i; i <= parentSize; i++)
+                    parentChildren[i - 1] = parentChildren[i];
 
+        mergeContents(this, node);
     }
 }
 
