@@ -1,7 +1,5 @@
 #include "BTreeNode.h"
 
-#include <pstl/execution_defs.h>
-
 BTreeNode::BTreeNode(const int & capacity, const bool & isLeaf) : size(0), capacity(capacity - 1),
                                                                   elem(new int[capacity - 1]), children(new BTreeNode*[capacity]), parent(nullptr),
                                                                   isLeaf(isLeaf)
@@ -84,24 +82,61 @@ int BTreeNode::removeElem(const int & index) {
     return element;
 }
 
+void BTreeNode::mergeContents(const BTreeNode* src, BTreeNode* dest)
+{
+    int & destSize = dest->size, * destElem = dest->elem;
+    const int & parentSize = src->parent->size, & srcSize = src->size, * srcElem = src->elem;
+    BTreeNode ** srcChildren = src->children, ** destChildren = dest->children, * parent = src->parent;
+
+    for (int i = 0, indexOfElem; i < parentSize; i++)
+        {
+            indexOfElem = i;
+            for(i++; i <= parentSize; i++)
+                parent->children[i - 1] = parent->children[i];
+
+            const int element = parent->removeElem(indexOfElem);
+
+            for(int j = srcSize - 1; j >= 0; j--)
+            {
+                destElem[j + srcSize + 1] = destElem[j];
+                destChildren[j + 1 + srcSize] = destChildren[j + 1];
+            }
+            destChildren[srcSize + 1] = destChildren[0];
+            destElem[srcSize] = element;
+
+            for(int j = 0; j < srcSize; j++)
+            {
+                destElem[j] = srcElem[j];
+                destChildren[j] = srcChildren[j];
+            }
+
+            destChildren[srcSize] = srcChildren[srcSize];
+        }
+
+    destSize += srcSize;
+
+    if(dest->isFull())
+        dest->splitNode();
+
+    if(parent->isEmpty())
+        delete parent;
+
+    delete src;
+}
+
+
 void BTreeNode::mergeChild(BTreeNode* node)
 {
     const int parentSize = parent->size;
     int element;
+
+    //removing of variable node
     if(node->elem[0] < elem[0])
     {
-        for (int i = 0, indexOfElem; i < parentSize; i++)
-        {
-            if(parent->children[i] == node)
-            {
-                indexOfElem = i;
-                for(i++; i <= parentSize; i++)
-                    parent->children[i - 1] = parent->children[i];
 
-                element = parent->removeElem(indexOfElem);
-            }
-        }
-    }else
+    }
+    //removing of this node
+    else
     {
 
     }
@@ -109,27 +144,20 @@ void BTreeNode::mergeChild(BTreeNode* node)
 
 void BTreeNode::underFlow()
 {
-    if(isLeaf && parent)
-    {
-       const int size = parent->size;
-       for(int i = 0; i <= size; i++)
-           if(parent->children[i] == this)
-           {
-               BTreeNode* sibling = nullptr;
-               if(i + 1 <= size)
-                   sibling = getPredecessor(parent->children[i + 1]);
-               if(sibling && sibling->size < capacity / 2 && i - 1 >= 0)
-                   sibling = getSuccessor(parent->children[i - 1]);
+    const int size = parent->size;
+    for(int i = 0; i <= size; i++)
+        if(parent->children[i] == this)
+        {
+            BTreeNode* sibling = nullptr;
+            if(i + 1 <= size)
+                sibling = getPredecessor(parent->children[i + 1]);
+            if(sibling && sibling->size < capacity / 2 && i - 1 >= 0)
+                sibling = getSuccessor(parent->children[i - 1]);
+            if(sibling->size < capacity / 2)
+                mergeChild(sibling);
 
-               if(sibling->size < capacity / 2)
-                   mergeChild(sibling);
-
-               return;
-           }
-    }else
-    {
-
-    }
+            return;
+       }
 }
 
 

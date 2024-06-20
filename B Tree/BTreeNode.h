@@ -42,6 +42,8 @@ class BTreeNode final {
      */
     void mergeChild(BTreeNode* node);
 
+    static void mergeContents(const BTreeNode * src, BTreeNode * dest);
+
     void underFlow();
 
     [[nodiscard]] bool isFull() const;
