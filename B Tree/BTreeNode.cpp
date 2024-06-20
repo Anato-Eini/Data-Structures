@@ -1,5 +1,7 @@
 #include "BTreeNode.h"
 
+#include <algorithm>
+
 BTreeNode::BTreeNode(const int & capacity, const bool & isLeaf) : size(0), capacity(capacity - 1),
                                                                   elem(new int[capacity - 1]), children(new BTreeNode*[capacity]), parent(nullptr),
                                                                   isLeaf(isLeaf)
@@ -154,15 +156,19 @@ void BTreeNode::mergeChild(BTreeNode* node)
 
 void BTreeNode::underFlow()
 {
+    if(!parent)
+        return;
+
     const int size = parent->size;
     for(int i = 0; i <= size; i++)
         if(parent->children[i] == this)
         {
             BTreeNode* sibling = nullptr;
             if(i + 1 <= size)
-                sibling = getPredecessor(parent->children[i + 1]);
+                sibling = parent->children[i + 1];
             if(sibling && sibling->size < capacity / 2 && i - 1 >= 0)
-                sibling = getSuccessor(parent->children[i - 1]);
+                sibling = parent->children[i - 1];
+
             if(sibling->size < capacity / 2)
                 mergeChild(sibling);
 
@@ -177,17 +183,29 @@ void BTreeNode::deleteKey(const int& key)
     {
         if(elem[i] == key)
         {
-            for(int j = i + 1; j < size; j++)
-                elem[j - 1] = elem[j];
-
             if(isLeaf)
             {
+                for(++i; i < size; i++)
+                    elem[i - 1] = elem[i];
+
+                size--;
                 if(size < capacity / 2)
+                    underFlow();
+
+            } else
+            {
+                BTreeNode* replacement = getSuccessor(children[i + 1]);
+                int replacementElement;
+
+                if(replacement->size < capacity / 2)
                 {
+                    replacement = getPredecessor(children[i]);
+
+                    if(replacement->size < capacity / 2)
 
                 }
-            }else
-            {
+                else
+                    replacementElement = replacement->removeElem(replacement->size - 1);
 
             }
 
