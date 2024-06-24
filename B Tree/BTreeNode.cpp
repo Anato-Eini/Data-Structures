@@ -171,10 +171,10 @@ void BTreeNode::underFlow()
             BTreeNode* sibling = nullptr;
 
             if(i + 1 <= size)
-                sibling = parentChildren[i + 1];
+                sibling = getSuccessor(parentChildren[i + 1]);
 
             if(sibling->size < capacity / 2 && i - 1 >= 0)
-                sibling = parentChildren[i - 1];
+                sibling = getPredecessor(parentChildren[i - 1]);
             else if(sibling)
             {
                 insert(sibling->removeElem(0));
