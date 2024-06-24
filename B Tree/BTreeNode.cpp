@@ -162,10 +162,10 @@ void BTreeNode::underFlow()
     if(!parent)
         return;
 
-    const int size = parent->size;
+    const int parentSize = parent->size;
     BTreeNode ** parentChildren = parent->children;
 
-    for(int i = 0; i <= size; i++)
+    for(int i = 0; i <= parentSize; i++)
         if(parentChildren[i] == this)
         {
             BTreeNode* sibling = nullptr;
