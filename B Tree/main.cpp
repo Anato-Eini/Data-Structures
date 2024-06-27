@@ -11,9 +11,11 @@ int main()
     int operation, input, result;
 
     for(int i = 1; i <= 20; i++)
+    {
         tree->insert(i);
+        cout << tree;
+    }
 
-    cout << tree;
 
     // for(int i = 1; i <= 20; i++)
     // {

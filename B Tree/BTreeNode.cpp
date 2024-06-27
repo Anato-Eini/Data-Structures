@@ -27,6 +27,7 @@ void BTreeNode::insert(const int & key) {
 
     elem[++i] = key;
     size++;
+
     if(isFull())
         splitNode();
 }
