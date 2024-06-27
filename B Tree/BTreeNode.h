@@ -12,7 +12,7 @@ class BTreeNode final {
 
     bool isLeaf;
 
-    static void printInorder(std::ostream& os, const BTreeNode* node);
+    static void printInorder(std::ostream& os, const BTreeNode* node, int && level);
 
     explicit BTreeNode(const int & capacity, const bool & isLeaf);
 

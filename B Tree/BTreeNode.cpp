@@ -1,7 +1,5 @@
 #include "BTreeNode.h"
 
-#include <algorithm>
-
 BTreeNode::BTreeNode(const int & capacity, const bool & isLeaf) : size(0), capacity(capacity - 1),
                                                                   elem(new int[capacity - 1]), children(new BTreeNode*[capacity]), parent(nullptr),
                                                                   isLeaf(isLeaf)
@@ -260,14 +258,17 @@ BTreeNode *BTreeNode::removeChild(const int & index) const
     return child;
 }
 
-void BTreeNode::printInorder(std::ostream& os, const BTreeNode *node) {
+void BTreeNode::printInorder(std::ostream& os, const BTreeNode *node, int && level)
+{
     if(node){
         int i;
         for(i = 0; i < node->size; i++){
-            printInorder(os, node->children[i]);
-            os << node->elem[i] << " ";
+            printInorder(os, node->children[i], level + 1);
+            os << " " << level << "| " << node->elem[i] << " | ";
         }
-        printInorder(os, node->children[i]);
+
+        printInorder(os, node->children[i], level + 1);
+        os << '\n';
     }
 }
 
@@ -299,6 +300,6 @@ BTreeNode::~BTreeNode(){
 }
 
 std::ostream &operator<<(std::ostream &os, const BTreeNode *node) {
-    BTreeNode::printInorder(os, node);
+    BTreeNode::printInorder(os, node, 1);
     return os;
 }
