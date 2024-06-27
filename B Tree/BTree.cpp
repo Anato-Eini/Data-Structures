@@ -26,13 +26,13 @@ BTreeNode *BTree::getGroupNode(const int & key) const {
 
 void BTree::deleteKey(const int & key) {
     BTreeNode* curr = getGroupNode(key);
-
+    curr->deleteKey(key);
     size--;
 }
 
 std::ostream& operator<<(std::ostream& os, const BTree* tree){
     os << "Size: " << tree->size << "\n";
-    os << tree->root;
+    os << tree->root << '\n';
     return os;
 }
 
