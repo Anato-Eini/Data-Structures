@@ -42,7 +42,7 @@ class BTreeNode final {
      */
     void mergeChild(BTreeNode* node);
 
-    static void mergeContents(const BTreeNode * src, BTreeNode * dest);
+    static void mergeContents(const BTreeNode * src, BTreeNode * dest, const int & elementIndex);
 
     /**
      * @warning Must be used for leaf nodes.
