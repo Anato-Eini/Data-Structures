@@ -61,7 +61,7 @@ void BTreeNode::splitNode() {
 
     newSibling->parent = parentNode;
     parentNode->insertFromChild(removeElem(capacity / 2), newSibling);
-    moveHalf(newSibling, newSibling);
+    moveHalf(newSibling);
 
     if(parentNode->isFull())
         parentNode->splitNode();
@@ -293,7 +293,7 @@ bool BTreeNode::isEmpty() const {
     return size == 0;
 }
 
-void BTreeNode::moveHalf(BTreeNode *node, BTreeNode* newParent) {
+void BTreeNode::moveHalf(BTreeNode *node) {
     int i, j;
     int * nodeElem = node->elem;
     BTreeNode ** nodeChildren = node->children;
@@ -302,11 +302,11 @@ void BTreeNode::moveHalf(BTreeNode *node, BTreeNode* newParent) {
         nodeElem[j] = elem[i];
         nodeChildren[j] = children[i + 1];
         if(nodeChildren[j])
-            nodeChildren[j]->parent = newParent;
+            nodeChildren[j]->parent = node;
     }
     nodeChildren[j] = children[i + 1];
     if(nodeChildren[j])
-        nodeChildren[j]->parent = newParent;
+        nodeChildren[j]->parent = node;
 
     node->size = capacity - (size = capacity / 2) - 1;
 }

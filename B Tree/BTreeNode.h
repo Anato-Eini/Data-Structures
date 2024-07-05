@@ -26,7 +26,7 @@ class BTreeNode final {
 
     void insertFromChild(const int & key, BTreeNode * newChild);
 
-    void moveHalf(BTreeNode* node, BTreeNode* newParent);
+    void moveHalf(BTreeNode* node);
 
     void splitNode();
 
