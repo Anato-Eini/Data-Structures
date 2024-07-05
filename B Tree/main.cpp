@@ -4,19 +4,18 @@
 using namespace std;
 int main()
 {
-    int maxChildCount;
-    cout << "Max Element Per Node: ";
-    cin >> maxChildCount;
+    int maxChildCount = 4;
+    /*cout << "Max Element Per Node: ";
+    cin >> maxChildCount;*/
     auto* tree = new BTree(maxChildCount);
     int operation, input, result;
 
-    for(int i = 1; i <= 20; i++)
+    for(int i = 1; i <= 100; i++)
     {
         tree->insert(i);
-        cout << tree;
     }
 
-
+    std::cout << tree;
     // for(int i = 1; i <= 20; i++)
     // {
     //     tree->deleteKey(i);
@@ -32,16 +31,16 @@ int main()
                 cin >> input;
                 tree->insert(input);
                 break;
-            /*case 2:
+            case 2:
                 cout << "Enter element to search: ";
                 cin >> input;
                 cout << endl;
-                if (tree->search(input)->value == input)
+                if(tree->search(input))
                     cout << input << " exists" << endl;
                 else
                     cout << input <<" does not exists" << endl;
                 break;
-            case 3:
+            /*case 3:
                 cout << "Enter element to delete: ";
                 cin >> input;
                 tree->deleteNode(input);

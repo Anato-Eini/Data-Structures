@@ -26,7 +26,7 @@ class BTreeNode final {
 
     void insertFromChild(const int & key, BTreeNode * newChild);
 
-    void moveHalf(BTreeNode* node);
+    void moveHalf(BTreeNode* node, BTreeNode* newParent);
 
     void splitNode();
 
@@ -35,6 +35,8 @@ class BTreeNode final {
     [[nodiscard]] static BTreeNode* getPredecessor(BTreeNode* node);
 
     void deleteKey(const int & key);
+
+    [[nodiscard]] bool keyPresent(const int & key) const;
 
     /**
      * this node merges with its sibling
@@ -54,8 +56,6 @@ class BTreeNode final {
     [[nodiscard]] bool isEmpty() const;
 
     int removeElem(const int & index);
-
-    [[nodiscard]] int getSize() const;
 
     ~BTreeNode();
 

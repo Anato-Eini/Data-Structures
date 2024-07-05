@@ -1,7 +1,11 @@
 #include "BTreeNode.h"
 
+#include <iostream>
+#include <pstl/execution_defs.h>
+
 BTreeNode::BTreeNode(const int & capacity, const bool & isLeaf) : size(0), capacity(capacity - 1),
-                                                                  elem(new int[capacity - 1]), children(new BTreeNode*[capacity]), parent(nullptr),
+                                                                  elem(new int[capacity - 1]),
+                                                                  children(new BTreeNode*[capacity]), parent(nullptr),
                                                                   isLeaf(isLeaf)
 {
     for (int i = 0; i < capacity; ++i)
@@ -32,16 +36,16 @@ void BTreeNode::insert(const int & key) {
         splitNode();
 }
 
-int BTreeNode::getSize() const {
-    return size;
-}
-
 BTreeNode* BTreeNode::getChild(const int & key) const
 {
     int i;
     for(i = 0; i < size; i++)
+    {
         if(elem[i] > key)
             return children[i];
+        if(elem[i] == key)
+            return nullptr;
+    }
     return children[i];
 }
 
@@ -57,7 +61,10 @@ void BTreeNode::splitNode() {
 
     newSibling->parent = parentNode;
     parentNode->insertFromChild(removeElem(capacity / 2), newSibling);
-    moveHalf(newSibling);
+    moveHalf(newSibling, newSibling);
+
+    if(parentNode->isFull())
+        parentNode->splitNode();
 }
 
 void BTreeNode::insertFromChild(const int& key, BTreeNode* newChild)
@@ -71,8 +78,6 @@ void BTreeNode::insertFromChild(const int& key, BTreeNode* newChild)
     elem[++i] = key;
     children[i + 1] = newChild;
     size++;
-    if(isFull())
-        splitNode();
 }
 
 int BTreeNode::removeElem(const int & index) {
@@ -263,7 +268,8 @@ void BTreeNode::printInorder(std::ostream& os, const BTreeNode *node, int && lev
 {
     if(node){
         int i;
-        for(i = 0; i < node->size; i++){
+        const int & nodeSize = node->size;
+        for(i = 0; i < nodeSize; i++){
             printInorder(os, node->children[i], level + 1);
             os << " " << level << "| " << node->elem[i] << " | ";
         }
@@ -273,30 +279,43 @@ void BTreeNode::printInorder(std::ostream& os, const BTreeNode *node, int && lev
     }
 }
 
+bool BTreeNode::keyPresent(const int& key) const
+{
+    for(int i = 0; i < size; i++)
+        if (elem[i] == key)
+            return true;
+
+    return false;
+}
+
+
 bool BTreeNode::isEmpty() const {
     return size == 0;
 }
 
-void BTreeNode::moveHalf(BTreeNode *node) {
+void BTreeNode::moveHalf(BTreeNode *node, BTreeNode* newParent) {
     int i, j;
+    int * nodeElem = node->elem;
+    BTreeNode ** nodeChildren = node->children;
+
     for(i = capacity / 2, j = 0; i < size; i++, j++){
-        node->elem[j] = elem[i];
-        node->children[j] = children[i + 1];
-        children[i + 1] = nullptr;
+        nodeElem[j] = elem[i];
+        nodeChildren[j] = children[i + 1];
+        if(nodeChildren[j])
+            nodeChildren[j]->parent = newParent;
     }
-    node->children[j] = children[i];
-    children[i] = nullptr;
-    node->size = capacity - (capacity / 2) - 1;
-    size = capacity / 2;
+    nodeChildren[j] = children[i + 1];
+    if(nodeChildren[j])
+        nodeChildren[j]->parent = newParent;
+
+    node->size = capacity - (size = capacity / 2) - 1;
 }
 
 BTreeNode::~BTreeNode(){
     delete[] elem;
-    if(!isLeaf){
-        for(int i = 0; i < capacity; i++){
+    if(!isLeaf)
+        for(int i = 0; i < capacity; i++)
             delete children[i];
-        }
-    }
     delete[] children;
 }
 

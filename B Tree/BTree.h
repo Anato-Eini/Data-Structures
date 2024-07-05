@@ -8,10 +8,11 @@
 class BTree {
     size_t size;
 
+    BTreeNode* root;
+
     int capacityElemNode;
 
 public:
-    BTreeNode* root;
 
     explicit BTree(const int & maxChildren);
 
@@ -24,6 +25,8 @@ public:
     ~BTree();
 
     void clearTreeHelper(const BTreeNode* node);
+
+    [[nodiscard]] bool search(const int & key) const;
 
     void clearTree();
 
