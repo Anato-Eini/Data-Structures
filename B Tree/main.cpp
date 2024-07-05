@@ -10,17 +10,16 @@ int main()
     auto* tree = new BTree(maxChildCount);
     int operation, input, result;
 
-    for(int i = 1; i <= 100; i++)
+    for(int i = 1; i <= 20; i++)
     {
         tree->insert(i);
     }
 
-    std::cout << tree;
-    // for(int i = 1; i <= 20; i++)
-    // {
-    //     tree->deleteKey(i);
-    //     cout << tree;
-    // }
+    for(int i = 1; i <= 20; i++)
+    {
+        tree->deleteKey(i);
+        std::cout << tree;
+    }
 
     do{
         cout << "Enter operation: ";
