@@ -186,13 +186,13 @@ void BTreeNode::underFlow()
                 sibling = parentChildren[i - 1];
             }
 
-            if (sibling->size < capacity / 2 && !isLeft)
+            if (sibling->size < capacity / 2 && i - 1 >= 0 && !isLeft)
             {
                 sibling = parentChildren[i - 1];
                 isLeft = true;
             }
 
-            if (sibling->size < capacity / 2 || !isLeaf)
+            if (sibling->size < capacity / 2)
                 mergeChild(sibling);
             else if (isLeft)
             {
@@ -300,13 +300,17 @@ void BTreeNode::moveHalf(BTreeNode *node) {
 
     for(i = capacity / 2, j = 0; i < size; i++, j++){
         nodeElem[j] = elem[i];
-        nodeChildren[j] = children[i + 1];
-        if(nodeChildren[j])
+        if(!isLeaf)
+        {
+            nodeChildren[j] = children[i + 1];
             nodeChildren[j]->parent = node;
+        }
     }
-    nodeChildren[j] = children[i + 1];
-    if(nodeChildren[j])
+    if(!isLeaf)
+    {
+        nodeChildren[j] = children[i + 1];
         nodeChildren[j]->parent = node;
+    }
 
     node->size = capacity - (size = capacity / 2) - 1;
 }

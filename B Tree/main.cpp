@@ -10,12 +10,12 @@ int main()
     auto* tree = new BTree(maxChildCount);
     int operation, input, result;
 
-    for(int i = 1; i <= 20; i++)
+    for(int i = 1; i <= 16; i++)
     {
         tree->insert(i);
     }
 
-    for(int i = 1; i <= 20; i++)
+    for(int i = 1; i <= 1; i++)
     {
         tree->deleteKey(i);
         std::cout << tree;
