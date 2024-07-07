@@ -20,8 +20,6 @@ class BTreeNode final {
 
     [[nodiscard]] BTreeNode* getChild(const int & key) const;
 
-    [[nodiscard]] BTreeNode* removeChild(const int & index) const;
-
     void insert(const int & key);
 
     void insertFromChild(const int & key, BTreeNode * newChild);

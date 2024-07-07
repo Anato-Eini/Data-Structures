@@ -251,17 +251,6 @@ BTreeNode* BTreeNode::getPredecessor(BTreeNode* node)
     return node;
 }
 
-BTreeNode *BTreeNode::removeChild(const int & index) const
-{
-    BTreeNode* child = children[index];
-    int i;
-    for(i = index; i < capacity && children[i]; i++)
-        children[i] = children[i + 1];
-
-    children[i] = nullptr;
-    return child;
-}
-
 void BTreeNode::printInorder(std::ostream& os, const BTreeNode *node, int && level)
 {
     if(node){
@@ -305,6 +294,7 @@ void BTreeNode::moveHalf(BTreeNode *node) {
             nodeChildren[j]->parent = node;
         }
     }
+
     if(!isLeaf)
     {
         nodeChildren[j] = children[i + 1];
