@@ -237,7 +237,7 @@ void BTreeNode::deleteKey(const int& key)
 
 BTreeNode* BTreeNode::getSuccessor(BTreeNode* node)
 {
-    while (node->children[0])
+    while (!node->isLeaf)
         node = node->children[0];
 
     return node;
@@ -245,7 +245,7 @@ BTreeNode* BTreeNode::getSuccessor(BTreeNode* node)
 
 BTreeNode* BTreeNode::getPredecessor(BTreeNode* node)
 {
-    while(node->children[node->size])
+    while(!node->isLeaf)
         node = node->children[node->size];
 
     return node;
@@ -310,7 +310,6 @@ BTreeNode::~BTreeNode(){
         for(int i = 0; i < capacity; i++)
             delete children[i];
     delete[] children;
-    delete parent;
 }
 
 std::ostream &operator<<(std::ostream &os, BTreeNode *node) {

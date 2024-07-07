@@ -19,6 +19,13 @@ int main()
     {
         tree->deleteKey(i);
         std::cout << tree;
+        for(int j = i + 1; j <= 16; j++){
+            std::cout << j << " ";
+            if(!tree->search(j)){
+                std::cout << "FALSE";
+                return 0;
+            }
+        }
     }
 
     do{
