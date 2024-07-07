@@ -15,7 +15,7 @@ int main()
         tree->insert(i);
     }
 
-    for(int i = 1; i <= 1; i++)
+    for(int i = 1; i <= 16; i++)
     {
         tree->deleteKey(i);
         std::cout << tree;

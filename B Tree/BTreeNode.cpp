@@ -1,8 +1,5 @@
 #include "BTreeNode.h"
 
-#include <iostream>
-#include <pstl/execution_defs.h>
-
 BTreeNode::BTreeNode(const int & capacity, const bool & isLeaf) : size(0), capacity(capacity - 1),
                                                                   elem(new int[capacity - 1]),
                                                                   children(new BTreeNode*[capacity]), parent(nullptr),
@@ -75,6 +72,7 @@ void BTreeNode::insertFromChild(const int& key, BTreeNode* newChild)
         elem[i + 1] = elem[i];
         children[i + 2] = children[i + 1];
     }
+
     elem[++i] = key;
     children[i + 1] = newChild;
     size++;
@@ -176,11 +174,11 @@ void BTreeNode::underFlow()
             BTreeNode* sibling;
             bool isLeft;
 
-            if (i + 1 <= size)
+            if (i + 1 <= parentSize)
             {
                 isLeft = false;
                 sibling = parentChildren[i + 1];
-            }else
+            } else
             {
                 isLeft = true;
                 sibling = parentChildren[i - 1];
@@ -202,7 +200,7 @@ void BTreeNode::underFlow()
             }
             else
             {
-                int& parentElement = parent->elem[i];
+                int& parentElement = parent->elem[0];
                 insert(parentElement);
                 parentElement = sibling->removeElem(0);
             }
@@ -223,7 +221,7 @@ void BTreeNode::deleteKey(const int& key)
                     elem[i - 1] = elem[i];
 
                 size--;
-                if(size < capacity / 2)
+                if(isEmpty())
                     underFlow();
 
             } else
@@ -271,7 +269,8 @@ void BTreeNode::printInorder(std::ostream& os, const BTreeNode *node, int && lev
         const int & nodeSize = node->size;
         for(i = 0; i < nodeSize; i++){
             printInorder(os, node->children[i], level + 1);
-            os << " " << level << "| " << node->elem[i] << " | ";
+            os << " " << level << "| " << node->elem[i] << " | -" <<
+                (node->parent ? std::to_string(node->parent->elem[0]) : " ") << "- ";
         }
 
         printInorder(os, node->children[i], level + 1);
@@ -323,7 +322,7 @@ BTreeNode::~BTreeNode(){
     delete[] children;
 }
 
-std::ostream &operator<<(std::ostream &os, const BTreeNode *node) {
+std::ostream &operator<<(std::ostream &os, BTreeNode *node) {
     BTreeNode::printInorder(os, node, 1);
     return os;
 }

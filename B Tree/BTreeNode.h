@@ -59,11 +59,11 @@ class BTreeNode final {
 
     ~BTreeNode();
 
-    friend std::ostream& operator<<(std::ostream& os, const BTreeNode* node);
+    friend std::ostream& operator<<(std::ostream& os, BTreeNode* node);
 
     friend class BTree;
 };
 
-std::ostream& operator<<(std::ostream& os, const BTreeNode* node);
+std::ostream& operator<<(std::ostream& os, BTreeNode *node);
 
 #endif //DATA_STRUCTURES_BTREENODE_H
