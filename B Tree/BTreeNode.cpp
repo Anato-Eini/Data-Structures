@@ -320,6 +320,7 @@ BTreeNode::~BTreeNode(){
         for(int i = 0; i < capacity; i++)
             delete children[i];
     delete[] children;
+    delete parent;
 }
 
 std::ostream &operator<<(std::ostream &os, BTreeNode *node) {

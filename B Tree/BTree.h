@@ -24,11 +24,7 @@ public:
 
     ~BTree();
 
-    void clearTreeHelper(const BTreeNode* node);
-
     [[nodiscard]] bool search(const int & key) const;
-
-    void clearTree();
 
     friend std::ostream& operator<<(std::ostream& os, const BTree* tree);
 };

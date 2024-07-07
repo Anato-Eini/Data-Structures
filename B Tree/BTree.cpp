@@ -40,20 +40,7 @@ std::ostream& operator<<(std::ostream& os, const BTree* tree){
     os << tree->root << '\n';
     return os;
 }
-//TODO Something fishy
-void BTree::clearTreeHelper(const BTreeNode *node) {
-    if(node){
-        for(int i = 0; i <= size; i++)
-            clearTreeHelper(node->children[i]);
-
-        delete this;
-    }
-}
-
-void BTree::clearTree() {
-    clearTreeHelper(root);
-}
 
 BTree::~BTree() {
-    clearTree();
+    delete root;
 }
