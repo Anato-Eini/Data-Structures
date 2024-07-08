@@ -32,7 +32,7 @@ class BTreeNode final {
 
     [[nodiscard]] static BTreeNode* getPredecessor(BTreeNode* node);
 
-    void deleteKey(const int & key);
+    bool deleteKey(const int & key);
 
     [[nodiscard]] bool keyPresent(const int & key) const;
 

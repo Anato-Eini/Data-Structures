@@ -209,7 +209,7 @@ void BTreeNode::underFlow()
 }
 
 
-void BTreeNode::deleteKey(const int& key)
+bool BTreeNode::deleteKey(const int& key)
 {
     for(int i = 0; i < size; i++)
     {
@@ -230,9 +230,10 @@ void BTreeNode::deleteKey(const int& key)
                 elem[i] = substitute->removeElem(substitute->size - 1);
             }
 
-            return;
+            return true;
         }
     }
+    return false;
 }
 
 BTreeNode* BTreeNode::getSuccessor(BTreeNode* node)
