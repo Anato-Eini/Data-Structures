@@ -42,6 +42,28 @@ void BTree::deleteKey(const int & key) {
     }
 }
 
+size_t BTree::height() const {
+    return root ? height(root->elem[0]) + 1 : 0;
+}
+
+size_t BTree::height(const int &key) const {
+    BTreeNode * curr = getGroupNode(key);
+    int i = 0;
+    while((curr = curr->children[0]))
+        i++;
+
+    return i;
+}
+
+size_t BTree::depth(const int & key) const {
+    BTreeNode * curr = getGroupNode(key);
+    int i = 0;
+    while((curr = curr->parent))
+        i++;
+
+    return i;
+}
+
 bool BTree::search(const int & key) const
 {
     return root ? getGroupNode(key)->keyPresent(key) : false;

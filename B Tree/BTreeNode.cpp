@@ -251,8 +251,7 @@ void BTreeNode::printInorder(std::ostream& os, const BTreeNode *node, int && lev
         const int & nodeSize = node->size;
         for(i = 0; i < nodeSize; i++){
             printInorder(os, node->children[i], level + 1);
-            os << " " << level << "| " << node->elem[i] << " | -" <<
-                (node->parent ? std::to_string(node->parent->elem[0]) : " ") << "- ";
+            os << " " << level << "| " << node->elem[i] << " ";
         }
 
         printInorder(os, node->children[i], level + 1);

@@ -20,6 +20,12 @@ public:
 
     void deleteKey(const int & key);
 
+    [[nodiscard]] size_t height() const;
+
+    [[nodiscard]] size_t height(const int & key) const;
+
+    [[nodiscard]] size_t depth(const int & key) const;
+
     [[nodiscard]] BTreeNode *getGroupNode(const int & key) const;
 
     ~BTree();

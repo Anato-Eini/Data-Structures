@@ -10,6 +10,9 @@ int main()
     auto* tree = new BTree(maxChildCount);
     int operation, input, result;
 
+    for(int i = 0; i < 16; i++)
+        tree->insert(i);
+
     do{
         cout << "Enter operation: ";
         cin >> operation;
@@ -31,10 +34,10 @@ int main()
             case 3:
                 cout << "Enter element to delete: ";
                 cin >> input;
-                tree->deleteNode(input);
+                tree->deleteKey(input);
                 break;
             case 4:
-                cout << "Max height of the tree is: " << tree->treeHeight() << endl;
+                cout << "Max height of the tree is: " << tree->height() << endl;
                 break;
             case 5:
                 cout << "Enter element: ";
