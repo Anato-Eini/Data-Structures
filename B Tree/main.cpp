@@ -5,29 +5,10 @@ using namespace std;
 int main()
 {
     int maxChildCount = 4;
-    /*cout << "Max Element Per Node: ";
-    cin >> maxChildCount;*/
+    cout << "Max Element Per Node: ";
+    cin >> maxChildCount;
     auto* tree = new BTree(maxChildCount);
     int operation, input, result;
-
-    for(int i = 1; i <= 16; i++)
-    {
-        tree->insert(i);
-    }
-
-    for(int i = 1; i <= 16; i++)
-    {
-        tree->deleteKey(i);
-        std::cout << tree;
-        for(int j = i + 1; j <= 16; j++){
-            std::cout << j << " ";
-            if(!tree->search(j)){
-                std::cout << "FALSE";
-                return 0;
-            }
-        }
-        std::cout << '\n';
-    }
 
     do{
         cout << "Enter operation: ";
@@ -47,7 +28,7 @@ int main()
                 else
                     cout << input <<" does not exists" << endl;
                 break;
-            /*case 3:
+            case 3:
                 cout << "Enter element to delete: ";
                 cin >> input;
                 tree->deleteNode(input);
@@ -72,7 +53,7 @@ int main()
                     cout << "The depth of the node with the element " << input << " is " << result << '\n';
                 else
                     cout << "Element not found" << '\n';
-                break;*/
+                break;
             case 7:
                 cout << tree;
                 break;

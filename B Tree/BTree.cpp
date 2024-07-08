@@ -30,8 +30,16 @@ void BTree::deleteKey(const int & key) {
     if(getGroupNode(key)->deleteKey(key))
         size--;
 
-    if(root->isEmpty())
-        root = root->children[0];
+    if(root->isEmpty()){
+        if(!root->isLeaf){
+            root = root->children[0];
+            delete root->parent;
+            root->parent = nullptr;
+        }else{
+            delete root;
+            root = nullptr;
+        }
+    }
 }
 
 bool BTree::search(const int & key) const
