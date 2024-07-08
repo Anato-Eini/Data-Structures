@@ -1,34 +1,69 @@
 #ifndef DATA_STRUCTURES_BTREENODE_H
 #define DATA_STRUCTURES_BTREENODE_H
 
-#include <iostream>
-using namespace std;
-class BTreeNode {
-    int *keys;
-    int t;
-    BTreeNode **C;
-    int n;
-    bool leaf;
+#include <ostream>
 
-public:
-    BTreeNode(int t1, bool leaf1);
+class BTreeNode final {
+    int size, capacity;
 
-    void traverse();
+    int *elem;
 
-    int findKey(int k);
-    void insertNonFull(int k);
-    void splitChild(int i, BTreeNode *y);
-    void deletion(int k);
-    void removeFromLeaf(int idx);
-    void removeFromNonLeaf(int idx);
-    int getPredecessor(int idx);
-    int getSuccessor(int idx);
-    void fill(int idx);
-    void borrowFromPrev(int idx);
-    void borrowFromNext(int idx);
-    void merge(int idx);
+    BTreeNode **children, *parent;
+
+    bool isLeaf;
+
+    static void printInorder(std::ostream& os, const BTreeNode* node, int && level);
+
+    explicit BTreeNode(const int & capacity, const bool & isLeaf);
+
+    explicit BTreeNode(const int & capacity, BTreeNode* parent, const bool & isLeaf);
+
+    [[nodiscard]] BTreeNode* getChild(const int & key) const;
+
+    void insert(const int & key);
+
+    void insertFromChild(const int & key, BTreeNode * newChild);
+
+    void moveHalf(BTreeNode* node);
+
+    void splitNode();
+
+    [[nodiscard]] static BTreeNode* getSuccessor(BTreeNode* node);
+
+    [[nodiscard]] static BTreeNode* getPredecessor(BTreeNode* node);
+
+    bool deleteKey(const int & key);
+
+    [[nodiscard]] bool keyPresent(const int & key) const;
+
+    /**
+     * this node merges with its sibling
+     * @param sibling
+     */
+    void mergeChild(BTreeNode* node);
+
+    void mergeNode(BTreeNode* src, BTreeNode* dest);
+
+    static void mergeContents(const BTreeNode * src, BTreeNode * dest, const int & elementIndex);
+
+    /**
+     * @warning Must be used for leaf nodes.
+     */
+    void underFlow();
+
+    [[nodiscard]] bool isFull() const;
+
+    [[nodiscard]] bool isEmpty() const;
+
+    int removeElem(const int & index);
+
+    ~BTreeNode();
+
+    friend std::ostream& operator<<(std::ostream& os, BTreeNode* node);
+
     friend class BTree;
 };
 
+std::ostream& operator<<(std::ostream& os, BTreeNode *node);
 
 #endif //DATA_STRUCTURES_BTREENODE_H
