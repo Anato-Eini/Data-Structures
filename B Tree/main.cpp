@@ -10,9 +10,6 @@ int main()
     auto* tree = new BTree(maxChildCount);
     int operation, input, result;
 
-    for(int i = 0; i < 16; i++)
-        tree->insert(i);
-
     do{
         cout << "Enter operation: ";
         cin >> operation;
