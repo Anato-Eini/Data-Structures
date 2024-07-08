@@ -48,6 +48,10 @@ size_t BTree::height() const {
 
 size_t BTree::height(const int &key) const {
     BTreeNode * curr = getGroupNode(key);
+
+    if(!curr->keyPresent(key))
+        return -1;
+
     int i = 0;
     while((curr = curr->children[0]))
         i++;
@@ -57,6 +61,10 @@ size_t BTree::height(const int &key) const {
 
 size_t BTree::depth(const int & key) const {
     BTreeNode * curr = getGroupNode(key);
+
+    if(!curr->keyPresent(key))
+        return -1;
+
     int i = 0;
     while((curr = curr->parent))
         i++;
