@@ -42,6 +42,8 @@ class BTreeNode final {
      */
     void mergeChild(BTreeNode* node);
 
+    void mergeNode(BTreeNode* src, BTreeNode* dest);
+
     static void mergeContents(const BTreeNode * src, BTreeNode * dest, const int & elementIndex);
 
     /**
