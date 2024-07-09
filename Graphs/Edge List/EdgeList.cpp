@@ -5,51 +5,57 @@
 namespace Graph {
 
     template<typename V, typename E>
-    std::vector<V> EdgeList<V, E>::vertices() const {
-        std::vector<V> vertices;
-        std::transform(Vertices.begin(), Vertices.end(), std::back_inserter(vertices),
+    std::vector<V>* EdgeList<V, E>::vertices() const {
+        std::vector<V>* vertices = new std::vector<V>();
+        std::transform(Vertices.begin(), Vertices.end(), std::back_inserter(*vertices),
                        [](const V &s) -> V {
                            return s;
                        });
+
         return vertices;
     }
 
     template<typename V, typename E>
-    std::vector<E> EdgeList<V, E>::edges() const {
-        std::vector<E> edges;
-        std::transform(Edges.begin(), Edges.end(), std::back_inserter(edges),
+    std::vector<E>* EdgeList<V, E>::edges() const {
+        std::vector<E>* edges = new std::vector<V>();
+
+        std::transform(Edges.begin(), Edges.end(), std::back_inserter(*edges),
                        [](const std::pair<const E, std::pair<V, V>> &edge) -> E {
                            return edge.first;
                        });
+
         return edges;
     }
 
     template<typename V, typename E>
-    std::pmr::vector<std::pair<V, V>> EdgeList<V, E>::endVertices(const E &edge) {
-        std::pmr::vector<std::pair<V, V>> vector;
+    std::pmr::vector<std::pair<V, V>>* EdgeList<V, E>::endVertices(const E &edge) {
+        std::pmr::vector<std::pair<V, V>>* vector = new std::pmr::vector<std::pair<V, V>>();
 
         std::for_each(Edges.begin(), Edges.end(),
                       [&edge, &vector] (const std::pair<const E, std::pair<V, V>> & pair) -> void {
             if(pair.first == edge)
-                vector.emplace_back(pair.second.first, pair.second.second);
+                vector->emplace_back(pair.second.first, pair.second.second);
         });
 
         return vector;
     }
 
     template<typename V, typename E>
-    std::vector<E> EdgeList<V, E>::outgoingEdges(const V &vertex) {
+    std::vector<E>* EdgeList<V, E>::outgoingEdges(const V &vertex) {
         if (!Vertices.contains(vertex))
             throw std::logic_error(vertex + " vertex doesn't exists\n");
-        std::vector<E> outgoingEdges;
+
+        std::vector<E>* outgoingEdges = new std::vector<E>();
+
         for (const std::pair<const E, std::pair<V, V>> &pair: Edges)
             if (pair.second.first == vertex || pair.second.second == vertex)
-                outgoingEdges.emplace_back(pair.first);
+                outgoingEdges->emplace_back(pair.first);
+
         return outgoingEdges;
     }
 
     template<typename V, typename E>
-    std::vector<E> EdgeList<V, E>::incomingEdges(const V &vertex) {
+    std::vector<E>* EdgeList<V, E>::incomingEdges(const V &vertex) {
         return outgoingEdges(vertex);
     }
 
@@ -57,8 +63,9 @@ namespace Graph {
     E EdgeList<V, E>::getEdge(const V &vertex1, const V &vertex2) {
         if (!containVertex(vertex1))
             throw std::logic_error(vertex1 + " vertex doesn't exist\n");
-        else if (!containVertex(vertex2))
+        if (!containVertex(vertex2))
             throw std::logic_error(vertex2 + " vertex doesn't exist\n");
+
         for (const std::pair<const E, std::pair<V, V>> &pair: Edges)
             if ((pair.second.first == vertex1 || pair.second.first == vertex2) &&
                 (pair.second.second == vertex1 || pair.second.second == vertex2))
@@ -66,17 +73,32 @@ namespace Graph {
         return {};
     }
 
+    template <typename V, typename E>
+    std::pmr::set<E>* EdgeList<V, E>::unique_edge()
+    {
+        std::pmr::set<E> unique_edges = new std::pmr::set<E>();
+        std::for_each(Edges.begin(), Edges.end(), [&unique_edges](const E & edge) -> void
+        {
+            unique_edges.insert(edge);
+        });
+
+        return unique_edges;
+    }
+
+
     template<typename V, typename E>
-    std::vector<V> EdgeList<V, E>::opposite(const V &vertex) {
+    std::vector<V>* EdgeList<V, E>::opposite(const V &vertex) {
         if (!containVertex(vertex))
             throw std::logic_error(vertex + " vertex doesn't exist\n");
-        std::vector<V> oppositeVertices;
+        std::vector<V>* oppositeVertices = new std::vector<V>();
+
         for (const std::pair<const E, std::pair<V, V>> &pair: Edges) {
             if (pair.second.first == vertex)
-                oppositeVertices.emplace_back(pair.second.second);
+                oppositeVertices->emplace_back(pair.second.second);
             else if (pair.second.second == vertex)
-                oppositeVertices.emplace_back(pair.second.first);
+                oppositeVertices->emplace_back(pair.second.first);
         }
+
         return oppositeVertices;
     }
 

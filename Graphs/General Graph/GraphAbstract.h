@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <algorithm>
+#include <set>
 #include <string>
 
 namespace Graph {
@@ -25,19 +26,19 @@ namespace Graph {
         virtual GraphAbstract &print(std::ostream &) = 0;
 
     public:
-        virtual std::vector<V> vertices() const = 0;
+        virtual std::vector<V>* vertices() const = 0;
 
-        virtual std::vector<E> edges() const = 0;
+        virtual std::vector<E>* edges() const = 0;
 
-        virtual std::pmr::vector<std::pair<V, V>> endVertices(const E &edge) = 0;
+        virtual std::pmr::vector<std::pair<V, V>>* endVertices(const E &edge) = 0;
 
-        virtual std::vector<E> outgoingEdges(const V &vertex) = 0;
+        virtual std::vector<E>* outgoingEdges(const V &vertex) = 0;
 
-        virtual std::vector<E> incomingEdges(const V &vertex) = 0;
+        virtual std::vector<E>* incomingEdges(const V &vertex) = 0;
 
         virtual E getEdge(const V &vertex1, const V &vertex2) = 0;
 
-        virtual std::vector<V> opposite(const V &vertex) = 0;
+        virtual std::vector<V>* opposite(const V &vertex) = 0;
 
         ///Must be unique
         virtual GraphAbstract &addVertex(const V &vertex) = 0;
@@ -47,6 +48,8 @@ namespace Graph {
         virtual GraphAbstract &removeVertex(const V &vertex) = 0;
 
         virtual GraphAbstract &removeEdge(const E &edge) = 0;
+
+        virtual std::pmr::set<E>* unique_edge() = 0;
 
         virtual bool containEdge(const E &edge) const = 0;
 
