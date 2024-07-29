@@ -88,3 +88,8 @@ add_executable(Disjoint_Set
         "Disjoint Set/Node.h"
         "Disjoint Set/main.cpp"
 )
+add_executable(Suffix_Tree_and_Arrays
+        "Suffix Trees and Arrays/main.cpp"
+        "Suffix Trees and Arrays/Suffix Tree/SuffixTree.cpp"
+        "Suffix Trees and Arrays/Suffix Tree/SuffixTree.h"
+)
