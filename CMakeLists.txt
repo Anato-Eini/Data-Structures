@@ -93,3 +93,10 @@ add_executable(Suffix_Tree_and_Arrays
         "Suffix Trees and Arrays/Suffix Tree/SuffixTree.cpp"
         "Suffix Trees and Arrays/Suffix Tree/SuffixTree.h"
 )
+
+add_executable(Skip_List
+        "Skip List/SkipList.cpp"
+        "Skip List/SkipList.h"
+        "Skip List/main.cpp"
+
+)
