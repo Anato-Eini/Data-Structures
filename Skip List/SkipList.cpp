@@ -38,7 +38,7 @@ SkipList& SkipList::insertKey(const int& key)
     if(curr->next[0] && curr->next[0]->value == key)
         return *this;
 
-    auto * newNode = new SkipList_Node{key};
+    auto * newNode = new SkipList_Node{key, new SkipList_Node*[rLimit]};
 
     for(int i = rLimit - 1; i >= 0; i--)
     {
@@ -64,6 +64,7 @@ std::ostream & operator<< (std::ostream & ostream, const SkipList* skip_list)
             ostream << curr->value << ' ';
             curr = curr->next[i];
         }
+        ostream << '\n';
     }
 
     return ostream;
