@@ -4,30 +4,45 @@
 
 int main()
 {
-    auto * list = new SkipList(0.5, 3);
+    float rLimit;
+    int maxLevel;
+    int inputKey;
+    char op = '\0';
 
-    for(int i = 10; i >= 1; i--)
-        list->insertKey(i);
+    std::cout << "Enter randomizer limit: ";
+    std::cin >> rLimit;
 
-    for(int i = 11; i <= 20; i++)
-        list->insertKey(i);
+    std::cout << "Enter max level: ";
+    std::cin >> maxLevel;
 
-    for(int i = 1; i <= 20; i++)
+    auto * list = new SkipList(rLimit, maxLevel);
+
+    while(true)
     {
-        if(!list->keyExist(i))
-            return 1;
+        std::cout << "Enter op: ";
+        std::cin >> op;
+
+        switch (op)
+        {
+        case '+':
+            std::cin >> inputKey;
+            list->insertKey(inputKey);
+            break;
+        case '-':
+            std::cin >> inputKey;
+            list->deleteKey(inputKey);
+            break;
+        case 's':
+            std::cin >> inputKey;
+            std::cout << inputKey << (list->keyExist(inputKey) ? "" : " doesn't") << " exists\n";
+            break;
+        case 'p':
+            std::cout << list;
+            break;
+
+            default:
+                delete list;
+                return 0;
+        }
     }
-
-    for(int i = 1; i <= 20; i++)
-    {
-        list->deleteKey(i);
-    }
-
-    for(int i = 11; i <= 20; i++)
-        list->insertKey(i);
-
-    std::cout << list;
-
-    delete list;
-    return 0;
 }
