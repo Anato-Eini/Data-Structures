@@ -6,6 +6,61 @@ SkipList::SkipList(const float& rLimit, const int& maxLevel) : rLimit(rLimit), l
     memset(head->next, 0, sizeof (SkipList_Node*) * this->maxLevel);
 }
 
+SkipList::SkipList_Node** SkipList::get_update_list_node(const int& key) const
+{
+    SkipList_Node * curr = head;
+    auto ** updateList = new SkipList_Node*[level];
+
+    for(int i = level - 1; i >= 0; i--)
+    {
+        while(curr->next[i] && curr->next[i]->value < key)
+            curr = curr->next[i];
+
+        updateList[i] = curr;
+    }
+
+    return updateList;
+}
+
+bool SkipList::keyExist(const int& key) const
+{
+    SkipList_Node ** result = get_update_list_node(key);
+    const SkipList_Node * nextNode = result[0]->next[0];
+
+    delete[] result;
+
+    return nextNode && nextNode->value == key;
+}
+
+SkipList& SkipList::deleteKey(const int& key)
+{
+    SkipList_Node ** updateList = get_update_list_node(key);
+
+    if(updateList[0]->next[0] && updateList[0]->next[0]->value == key)
+    {
+        const SkipList_Node * exactNode = updateList[0]->next[0];
+        for(int i = 0; i < level; i++)
+        {
+            if(const SkipList_Node * node_in_array = updateList[i];
+                node_in_array->next[i] && node_in_array->next[i]->value == key)
+                node_in_array->next[i] = node_in_array->next[i]->next[i];
+        }
+
+        delete exactNode;
+
+        for(int i = level - 1; i >= 0; i--)
+            if(!head->next[i])
+                level--;
+
+        size--;
+    }
+
+    delete[] updateList;
+
+    return *this;
+}
+
+
 int SkipList::get_rNumber() const
 {
     std::random_device random_device;
@@ -21,21 +76,13 @@ int SkipList::get_rNumber() const
 SkipList& SkipList::insertKey(const int& key)
 {
     const int rLimit = get_rNumber();
-    SkipList_Node * curr = head;
-    auto ** updateList = new SkipList_Node*[rLimit];
 
     if(rLimit > level)
         level = rLimit;
 
-    for(int i = rLimit - 1; i >= 0; i--)
-    {
-        while(curr->next[i] && curr->next[i]->value < key)
-            curr = curr->next[i];
+    SkipList_Node ** updateList = get_update_list_node(key);
 
-        updateList[i] = curr;
-    }
-
-    if(curr->next[0] && curr->next[0]->value == key)
+    if(updateList[0]->next[0] && updateList[0]->next[0]->value == key)
         return *this;
 
     auto * newNode = new SkipList_Node{key, new SkipList_Node*[rLimit]};
