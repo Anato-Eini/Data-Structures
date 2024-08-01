@@ -7,7 +7,7 @@ int main()
     float rLimit;
     int maxLevel;
     int inputKey;
-    char op = '\0';
+    char op;
 
     std::cout << "Enter randomizer limit: ";
     std::cin >> rLimit;
