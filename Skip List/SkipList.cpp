@@ -119,3 +119,23 @@ std::ostream & operator<< (std::ostream & ostream, const SkipList* skip_list)
 
     return ostream;
 }
+
+SkipList::SkipList_Node::~SkipList_Node()
+{
+    delete[] next;
+}
+
+SkipList::~SkipList()
+{
+    const SkipList_Node * prev = head;
+    const SkipList_Node * curr = head->next[0];
+
+    do
+    {
+        delete prev;
+        prev = curr;
+        curr = curr->next[0];
+
+    }while(prev);
+
+}

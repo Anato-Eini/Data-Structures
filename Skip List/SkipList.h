@@ -11,6 +11,8 @@ class SkipList final {
     {
         int value;
         SkipList_Node ** next;
+
+        ~SkipList_Node();
     };
 
     [[nodiscard]] int get_rNumber() const ;
@@ -26,6 +28,8 @@ public:
     SkipList & insertKey(const int & key);
 
     SkipList & deleteKey(const int & key);
+
+    ~SkipList();
 
 private:
 
