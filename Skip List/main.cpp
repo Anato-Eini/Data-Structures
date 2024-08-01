@@ -2,9 +2,9 @@
 
 #include "SkipList.h"
 
-int main(int argc, char* argv[])
+int main()
 {
-    auto * list = new SkipList(1, 3);
+    auto * list = new SkipList(0.5, 3);
 
     for(int i = 10; i >= 1; i--)
         list->insertKey(i);

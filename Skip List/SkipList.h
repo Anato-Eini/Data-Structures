@@ -15,7 +15,7 @@ class SkipList final {
 
 public:
 
-    SkipList(const int & rLimit, const int & maxLevel);
+    SkipList(const float & rLimit, const int & maxLevel);
 
     [[nodiscard]] bool keyExist(const int & key);
 
@@ -27,7 +27,7 @@ private:
 
     [[nodiscard]] int get_rNumber() const ;
 
-    int rLimit;
+    float rLimit;
 
     int maxLevel;
 
