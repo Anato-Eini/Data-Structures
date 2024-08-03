@@ -100,3 +100,9 @@ add_executable(Skip_List
         "Skip List/main.cpp"
 
 )
+
+add_executable(K-d_Tree
+        "K-d Tree/Kd_Tree.cpp"
+        "K-d Tree/Kd_Tree.h"
+
+)
