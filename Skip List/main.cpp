@@ -2,18 +2,47 @@
 
 #include "SkipList.h"
 
-int main(int argc, char* argv[])
+int main()
 {
-    auto * list = new SkipList(1, 3);
+    float rLimit;
+    int maxLevel;
+    int inputKey;
+    char op;
 
-    for(int i = 10; i >= 1; i--)
-        list->insertKey(i);
+    std::cout << "Enter randomizer limit: ";
+    std::cin >> rLimit;
 
-    for(int i = 11; i <= 20; i++)
-        list->insertKey(i);
+    std::cout << "Enter max level: ";
+    std::cin >> maxLevel;
 
-    std::cout << list;
+    auto * list = new SkipList(rLimit, maxLevel);
 
-    delete list;
-    return 0;
+    while(true)
+    {
+        std::cout << "Enter op: ";
+        std::cin >> op;
+
+        switch (op)
+        {
+        case '+':
+            std::cin >> inputKey;
+            list->insertKey(inputKey);
+            break;
+        case '-':
+            std::cin >> inputKey;
+            list->deleteKey(inputKey);
+            break;
+        case 's':
+            std::cin >> inputKey;
+            std::cout << inputKey << (list->keyExist(inputKey) ? "" : " doesn't") << " exists\n";
+            break;
+        case 'p':
+            std::cout << list;
+            break;
+
+            default:
+                delete list;
+                return 0;
+        }
+    }
 }

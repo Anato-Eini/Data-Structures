@@ -11,23 +11,29 @@ class SkipList final {
     {
         int value;
         SkipList_Node ** next;
+
+        ~SkipList_Node();
     };
+
+    [[nodiscard]] int get_rNumber() const ;
+
+    [[nodiscard]] SkipList_Node ** get_update_list_node(const int & key) const;
 
 public:
 
-    SkipList(const int & rLimit, const int & maxLevel);
+    SkipList(const float & rLimit, const int & maxLevel);
 
-    [[nodiscard]] bool keyExist(const int & key);
+    [[nodiscard]] bool keyExist(const int & key) const;
 
     SkipList & insertKey(const int & key);
 
     SkipList & deleteKey(const int & key);
 
+    ~SkipList();
+
 private:
 
-    [[nodiscard]] int get_rNumber() const ;
-
-    int rLimit;
+    float rLimit;
 
     int maxLevel;
 
