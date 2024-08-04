@@ -7,6 +7,8 @@ class Kd_Tree {
         int * point;
         Node * next;
         Node * prev;
+
+        Node(int point[], int size);
     };
 
 public:
@@ -14,7 +16,7 @@ public:
 
     Kd_Tree(const int k_dimension);
 
-    void insertKey(/* Maybe use variadic template? */);
+    void insertKey(int point[]);
 
 private:
     //Fields
