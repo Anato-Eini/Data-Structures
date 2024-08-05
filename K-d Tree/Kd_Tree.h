@@ -8,7 +8,7 @@ class Kd_Tree {
         Node * next;
         Node * prev;
 
-        Node(int point[], int size);
+        Node(int point[]);
     };
 
 public:
@@ -17,6 +17,8 @@ public:
     Kd_Tree(const int k_dimension);
 
     void insertKey(int point[]);
+
+    void searchKey(int point[]);
 
 private:
     //Fields
