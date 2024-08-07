@@ -104,25 +104,38 @@ void Kd_Tree::insertKey(const std::vector<int> & point) {
 
 
 
+#include "deque"
 
+void Kd_Tree::print(std::ostream &ostream) const {
+    if(root){
+        std::deque<std::pair<int, Node*>> queue;
+        queue.push_front({1, root});
+        int depth = 0;
+        while(!queue.empty()) {
+            std::pair<int, Node*> curr = queue.front();
+            if(curr.first != depth)
+                ostream << "\nDepth " << ++depth << ": ";
 
+            Node* node = curr.second;
 
+            if(node->left)
+                queue.push_back({depth, node->left});
+            if(node->right)
+                queue.push_back({depth, node->right});
 
+            queue.pop_front();
+        }
+    }
+}
 
+std::ostream & operator<<(std::ostream & ostream, const Kd_Tree * tree){
+    tree->print(ostream);
 
+    return ostream;
+}
 
+std::ostream & operator<<(std::ostream & ostream, const Kd_Tree & tree){
+    tree.print(ostream);
 
-
-
-
-
-
-
-
-
-
-
-
-void Kd_Tree::print(std::ostream & ostream) const {
-
+    return ostream;
 }

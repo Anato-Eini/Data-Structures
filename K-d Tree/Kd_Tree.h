@@ -20,7 +20,7 @@ class Kd_Tree {
         ~Node();
     };
 
-    void print(std::ostream & ostream, Node * node, std::string && indent, bool isLeaf) const;
+    void print(std::ostream & ostream) const;
 
 public:
     Kd_Tree();
@@ -31,9 +31,13 @@ public:
 
     void insertKey(const std::vector<int> & point);
 
-    void searchKey(const int point[]) const;
+    void keyExist(const int point[]) const;
 
-    void searchKey(const std::vector<int> & point) const;
+    void keyExist(const std::vector<int> & point) const;
+
+    void deleteKey(const int point[]);
+
+    void deleteKey(const std::vector<int> & point);
 
 
 private:
@@ -50,16 +54,8 @@ private:
     friend std::ostream & operator<<(std::ostream & ostream, const Kd_Tree & tree);
 };
 
-std::ostream & operator<<(std::ostream & ostream, const Kd_Tree * tree){
-    tree->print(ostream);
+std::ostream & operator<<(std::ostream & ostream, const Kd_Tree * tree);
 
-    return ostream;
-}
-
-std::ostream & operator<<(std::ostream & ostream, const Kd_Tree & tree){
-    tree.print(ostream);
-
-    return ostream;
-}
+std::ostream & operator<<(std::ostream & ostream, const Kd_Tree & tree);
 
 #endif //DATA_STRUCTURES_KD_TREE_H
