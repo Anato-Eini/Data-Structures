@@ -22,6 +22,8 @@ class Kd_Tree {
 
     void print(std::ostream & ostream) const;
 
+    [[nodiscard]] bool isEqual(const int point1[], const int point2[]) const;
+
 public:
     Kd_Tree();
 
