@@ -31,9 +31,9 @@ public:
 
     void insertKey(const std::vector<int> & point);
 
-    void keyExist(const int point[]) const;
+    [[nodiscard]] bool keyExist(const int point[]) const;
 
-    void keyExist(const std::vector<int> & point) const;
+    [[nodiscard]] bool keyExist(const std::vector<int> & point) const;
 
     void deleteKey(const int point[]);
 

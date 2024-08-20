@@ -35,7 +35,7 @@ void Kd_Tree::insertKey(const int point[]) {
     else{
         Node * curr = root;
 
-        for(size_t i = 0; true; i++)
+        for(int i = 0; true; i = ++i % k_dimension)
             if(point[i % k_dimension] < curr->point[i % k_dimension]){
                 if (curr->left)
                     curr = curr->left;
@@ -60,7 +60,7 @@ void Kd_Tree::insertKey(const std::vector<int> & point) {
     else{
         Node * curr = root;
 
-        for(size_t i = 0; i < k_dimension; i++)
+        for(int i = 0; true; i = ++i % k_dimension)
             if(point[i % k_dimension] < curr->point[i % k_dimension]){
                 if (curr->left)
                     curr = curr->left;
@@ -81,6 +81,14 @@ void Kd_Tree::insertKey(const std::vector<int> & point) {
 
 void Kd_Tree::deleteKey(const int point[]){
 
+}
+
+bool Kd_Tree::keyExist(const int *point) const {
+    if(root){
+        Node* curr = root;
+
+    }
+    return false;
 }
 
 #include "deque"
