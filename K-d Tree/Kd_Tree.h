@@ -13,7 +13,7 @@ class Kd_Tree {
 
         Node * left;
 
-        explicit Node(const int point[]);
+        explicit Node(const int point[], int size);
 
         explicit Node(const std::vector<int> & point);
 

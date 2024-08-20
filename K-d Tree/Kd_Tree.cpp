@@ -4,10 +4,9 @@ Kd_Tree::Kd_Tree() {
     Kd_Tree(1);
 }
 
-Kd_Tree::Node::Node(const int point[]) {
-    const size_t sizeArray = sizeof(*point) / sizeof(point[0]);
-    this->point = new int[sizeArray];
-    for(size_t i = 0; i < sizeArray; i++)
+Kd_Tree::Node::Node(const int point[], int size) {
+    this->point = new int[size];
+    for(size_t i = 0; i < size; i++)
         this->point[i] = point[i];
 
     left = right = nullptr;
@@ -31,35 +30,24 @@ Kd_Tree::Node::~Node(){
 Kd_Tree::Kd_Tree(const int k_dimension) : root{nullptr}, size{0}, k_dimension{k_dimension} {}
 
 void Kd_Tree::insertKey(const int point[]) {
-    size_t pointSize = sizeof(*point) / sizeof(point[0]);
-    if (pointSize != k_dimension)
-        return;
-
     if(!root)
-        root = new Node{point};
+        root = new Node{point, k_dimension};
     else{
         Node * curr = root;
 
-        for(size_t i = 0; i < k_dimension; i++)
+        for(size_t i = 0; true; i++)
             if(point[i % k_dimension] < curr->point[i % k_dimension]){
                 if (curr->left)
                     curr = curr->left;
                 else{
-                    curr->left = new Node{point};
+                    curr->left = new Node{point, k_dimension};
                     break;
                 }
-            } else {
-                int currPoint = curr->point[i % k_dimension];
-                int pParameter = point[i % k_dimension];
-
-                if(i == k_dimension - 1 && currPoint == pParameter)
-                    return;
-                else if(curr->right)
+            } else if (curr->right)
                     curr = curr->right;
-                else{
-                    curr->right = new Node{point};
-                    break;
-                }
+            else {
+                curr->right = new Node{point, k_dimension};
+                break;
             }
     }
 
@@ -67,10 +55,6 @@ void Kd_Tree::insertKey(const int point[]) {
 }
 
 void Kd_Tree::insertKey(const std::vector<int> & point) {
-    size_t pointSize = point.size();
-    if (pointSize != k_dimension)
-        return;
-
     if(!root)
         root = new Node{point};
     else{
@@ -84,47 +68,53 @@ void Kd_Tree::insertKey(const std::vector<int> & point) {
                     curr->left = new Node{point};
                     break;
                 }
-            } else {
-                int currPoint = curr->point[i % k_dimension];
-                int pParameter = point[i % k_dimension];
-
-                if(i == k_dimension - 1 && currPoint == pParameter)
-                    return;
-                else if(curr->right)
+            } else if (curr->right)
                     curr = curr->right;
-                else{
-                    curr->right = new Node{point};
-                    break;
-                }
+            else {
+                curr->right = new Node{point};
+                break;
             }
     }
 
     size++;
 }
 
+void Kd_Tree::deleteKey(const int point[]){
 
+}
 
 #include "deque"
 
 void Kd_Tree::print(std::ostream &ostream) const {
+    ostream << "Size: " << size << '\n';
+
     if(root){
         std::deque<std::pair<int, Node*>> queue;
         queue.push_front({1, root});
         int depth = 0;
+
         while(!queue.empty()) {
             std::pair<int, Node*> curr = queue.front();
+
             if(curr.first != depth)
-                ostream << "\nDepth " << ++depth << ": ";
+                ostream << "\nDepth " << (depth = curr.first) << ": ";
 
             Node* node = curr.second;
 
+            ostream << "| ";
+            for (int i = 0; i < k_dimension; i++)
+                ostream << node->point[i] << " ";
+            ostream << "|";
+
             if(node->left)
-                queue.push_back({depth, node->left});
+                queue.push_back({depth + 1, node->left});
             if(node->right)
-                queue.push_back({depth, node->right});
+                queue.push_back({depth + 1, node->right});
 
             queue.pop_front();
         }
+
+        ostream << '\n';
     }
 }
 
