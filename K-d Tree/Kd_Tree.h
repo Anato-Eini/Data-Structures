@@ -24,6 +24,8 @@ class Kd_Tree {
 
     [[nodiscard]] bool isEqual(const int point1[], const int point2[]) const;
 
+    [[nodiscard]] bool isEqual(const int point1[], const std::vector<int> point2) const;
+
 public:
     Kd_Tree();
 
