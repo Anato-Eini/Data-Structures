@@ -132,9 +132,9 @@ bool Kd_Tree::keyExist(const int *point) const {
                     return false;
             } else if (isEqual(point, curr->point))
                 return true;
-            else
+            else if (curr->right)
                 curr = curr->right;
-
+            else return false;
         }
     }
     return false;
