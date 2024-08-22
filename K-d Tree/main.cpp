@@ -33,10 +33,16 @@ int main(){
 
                 tree->deleteKey(inputKey);
                 break;
-            /*case 's':
-                std::cin >> inputKey;
-                std::cout << inputKey << (tree->keyExist(inputKey) ? "" : " doesn't") << " exists\n";
-                break;*/
+            case 's':
+                std::cout << "Enter point coordinate: ";
+                for(int i = 0; i < kDimension; i++)
+                    std::cin >> inputKey[i];
+
+                for(int i = 0; i < kDimension; i++)
+                    std::cout << inputKey[i] << " ";
+
+                std::cout << (tree->keyExist(inputKey) ? "" : "doesn't ") << "exists\n";
+                break;
             case 'p':
                 std::cout << tree;
                 break;
@@ -46,5 +52,4 @@ int main(){
                 return 0;
         }
     }
-    return 0;
 }

@@ -13,7 +13,7 @@ class Kd_Tree {
 
         Node * left;
 
-        explicit Node(const int point[]);
+        explicit Node(const int point[], int size);
 
         explicit Node(const std::vector<int> & point);
 
@@ -21,6 +21,10 @@ class Kd_Tree {
     };
 
     void print(std::ostream & ostream) const;
+
+    [[nodiscard]] bool isEqual(const int point1[], const int point2[]) const;
+
+    [[nodiscard]] bool isEqual(const int point1[], const std::vector<int> point2) const;
 
 public:
     Kd_Tree();
@@ -31,9 +35,9 @@ public:
 
     void insertKey(const std::vector<int> & point);
 
-    void keyExist(const int point[]) const;
+    [[nodiscard]] bool keyExist(const int point[]) const;
 
-    void keyExist(const std::vector<int> & point) const;
+    [[nodiscard]] bool keyExist(const std::vector<int> & point) const;
 
     void deleteKey(const int point[]);
 
