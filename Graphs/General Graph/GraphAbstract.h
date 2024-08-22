@@ -3,8 +3,6 @@
 
 #include <vector>
 #include <iostream>
-#include <unordered_map>
-#include <unordered_set>
 #include <algorithm>
 #include <set>
 #include <string>
@@ -26,17 +24,46 @@ namespace Graph {
         virtual GraphAbstract &print(std::ostream &) = 0;
 
     public:
+        /**
+         * Return all the vertices from the graph
+         * @return std::vector from heap
+         */
         virtual std::vector<V>* vertices() const = 0;
 
+        /**
+         * Return all the edges from the graph
+         * @return std::vector from heap
+         */
         virtual std::vector<E>* edges() const = 0;
 
-        virtual std::pmr::vector<std::pair<V, V>>* endVertices(const E &edge) = 0;
+        /**
+         * Return an array of pair vertices
+         * @param edge
+         * @return std::vector from heap
+         */
+        virtual std::vector<std::pair<V, V>>* endVertices(const E &edge) = 0;
 
+        /**
+         * Return an array of outgoing edges from vertex
+         * @param vertex
+         * @return std::vector from heap
+         */
         virtual std::vector<E>* outgoingEdges(const V &vertex) = 0;
 
+        /**
+         * return an array of incoming edges from vertex
+         * @return std::vector from heap
+         */
         virtual std::vector<E>* incomingEdges(const V &vertex) = 0;
 
+        /**
+         *
+         * @param vertex1
+         * @param vertex2
+         * @return an edge between two vertices
+         */
         virtual E getEdge(const V &vertex1, const V &vertex2) = 0;
+
 
         virtual std::vector<V>* opposite(const V &vertex) = 0;
 
@@ -63,9 +90,9 @@ namespace Graph {
 
         virtual size_t inDegree(const V &vertex) = 0;
 
-        friend std::ostream &operator<< <V, E>(std::ostream &, GraphAbstract<V, E> *graph);
+        friend std::ostream &operator<< <V, E>(std::ostream &, GraphAbstract *graph);
 
-        friend std::ostream &operator<< <V, E>(std::ostream &, GraphAbstract<V, E> &graph);
+        friend std::ostream &operator<< <V, E>(std::ostream &, GraphAbstract &graph);
 
         virtual ~GraphAbstract() = default;
     };

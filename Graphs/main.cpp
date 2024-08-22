@@ -1,9 +1,9 @@
 #include <iostream>
 
 #include "Edge List/EdgeList.h"
-#include "Adjacency List/AdjacencyList.h"
-#include "Adjacency Map/AdjacencyMap.h"
-#include "Adjacency Matrix/AdjacencyMatrix.h"
+// #include "Adjacency List/AdjacencyList.h"
+// #include "Adjacency Map/AdjacencyMap.h"
+// #include "Adjacency Matrix/AdjacencyMatrix.h"
 
 using namespace Graph;
 int main(){
@@ -22,7 +22,7 @@ int main(){
             case 1:
                 graph = new EdgeList<std::string, std::string>{};
                 break;
-            case 2:
+            /*case 2:
                 graph = new AdjacencyList<std::string, std::string>{};
                 break;
             case 3:
@@ -30,7 +30,7 @@ int main(){
                 break;
             case 4:
                 graph = new AdjacencyMatrix<std::string, std::string>{};
-                break;
+                break;*/
             default:
                 std::cout << "Invalid operation\n";
         }

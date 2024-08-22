@@ -4,47 +4,29 @@
 
 namespace Graph {
 
+    template <typename V, typename E>
+    EdgeList<V, E>::EdgeList() : _edges(new std::vector<E, std::pair<V, V>>), _vertices(new std::vector<V>) {}
+
     template<typename V, typename E>
     std::vector<V>* EdgeList<V, E>::vertices() const {
-        std::vector<V>* vertices = new std::vector<V>();
-        std::transform(Vertices.begin(), Vertices.end(), std::back_inserter(*vertices),
-                       [](const V &s) -> V {
-                           return s;
-                       });
-
-        return vertices;
+        return _vertices;
     }
 
     template<typename V, typename E>
     std::vector<E>* EdgeList<V, E>::edges() const {
-        std::vector<E>* edges = new std::vector<V>();
-
-        std::transform(Edges.begin(), Edges.end(), std::back_inserter(*edges),
-                       [](const std::pair<const E, std::pair<V, V>> &edge) -> E {
-                           return edge.first;
-                       });
-
-        return edges;
+        return _edges;
     }
 
     template<typename V, typename E>
-    std::pmr::vector<std::pair<V, V>>* EdgeList<V, E>::endVertices(const E &edge) {
-        std::pmr::vector<std::pair<V, V>>* vector = new std::pmr::vector<std::pair<V, V>>();
-
-        std::for_each(Edges.begin(), Edges.end(),
-                      [&edge, &vector] (const std::pair<const E, std::pair<V, V>> & pair) -> void {
-            if(pair.first == edge)
-                vector->emplace_back(pair.second.first, pair.second.second);
-        });
-
-        return vector;
+    std::pair<V, V>* EdgeList<V, E>::endVertices(const E &edge) {
+        auto it = _vertices->find(edge);
+        return it == _vertices->end() ? nullptr : it->second;
     }
 
     template<typename V, typename E>
     std::vector<E>* EdgeList<V, E>::outgoingEdges(const V &vertex) {
         if (!Vertices.contains(vertex))
             throw std::logic_error(vertex + " vertex doesn't exists\n");
-
         std::vector<E>* outgoingEdges = new std::vector<E>();
 
         for (const std::pair<const E, std::pair<V, V>> &pair: Edges)

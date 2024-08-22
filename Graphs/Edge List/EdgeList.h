@@ -7,18 +7,20 @@ namespace Graph {
 
     template<typename V, typename E>
     class EdgeList final : public GraphAbstract<V, E> {
-        std::unordered_set<V> Vertices;
-        //unordered_map<Edge, <vertex1, vertex2>>
-        std::unordered_map<E, std::pair<V, V>> Edges;
+        std::vector<E, std::pair<V, V>> _edges;
+
+        std::vector<V> _vertices;
 
         GraphAbstract<V, E> &print(std::ostream &ostream) override;
 
     public:
+        EdgeList();
+
         std::vector<V>* vertices() const override;
 
         std::vector<E>* edges() const override;
 
-        std::pmr::vector<std::pair<V, V>>* endVertices(const E &edge) override;
+        std::pair<V, V>* endVertices(const E &edge) override;
 
         std::vector<E>* outgoingEdges(const V &vertex) override;
 
