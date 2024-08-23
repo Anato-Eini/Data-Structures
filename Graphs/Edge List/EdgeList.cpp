@@ -70,35 +70,33 @@ namespace Graph {
 
     template<typename V, typename E>
     std::vector<V>* EdgeList<V, E>::opposite(const V &vertex) {
-        std::vector<V>* oppositeVertices = new std::vector<V>();
+        auto* oppositeVertices = new std::vector<V>();
 
-        for (const std::pair<const E, std::pair<V, V>> &pair: Edges) {
-            if (pair.second.first == vertex)
-                oppositeVertices->emplace_back(pair.second.second);
-            else if (pair.second.second == vertex)
-                oppositeVertices->emplace_back(pair.second.first);
-        }
+    	std::for_each(_edges.begin(), _edges.end(), [&oppositeVertices, & vertex](const E & edge) -> void
+    	{
+    		if(edge.vertex1 == vertex)
+    			oppositeVertices->push_back(edge.edgeName);
+    	});
 
         return oppositeVertices;
     }
 
     template<typename V, typename E>
     GraphAbstract<V, E> &EdgeList<V, E>::addVertex(const V &vertex) {
-        if (Vertices.contains(vertex))
+        if (_vertices.contains(vertex))
             throw std::logic_error(vertex + " vertex already exists\n");
-        Vertices.insert(vertex);
+
+		_vertices->push_back(vertex);
 
         return *this;
     }
 
     template<typename V, typename E>
-    GraphAbstract<V, E> &EdgeList<V, E>::addEdge(const E &edge, const V &vertex1, const V &vertex2) {
-        if(!containVertex(vertex1))
-            throw std::logic_error(vertex1 + " vertex doesn't exists\n");
-        if(!containVertex(vertex2))
-            throw std::logic_error(vertex2 + " vertex doesn't exists\n");
+    GraphAbstract<V, E> &EdgeList<V, E>::add_directed_Edge(const E &edge, const V &vertex1, const V &vertex2) {
+        if(!_vertices.contains(vertex1) || !_vertices.contains(vertex2))
+            throw std::logic_error("vertex doesn't exists\n");
 
-        Edges.insert({edge, {vertex1, vertex2}});
+        _edges.insert({edge, {vertex1, vertex2}});
 
         return *this;
     }
