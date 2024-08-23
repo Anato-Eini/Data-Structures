@@ -6,8 +6,18 @@
 namespace Graph {
 
     template<typename V, typename E>
-    class EdgeList final : public GraphAbstract<V, E> {
-        std::vector<E, std::pair<V, V>> _edges;
+    class EdgeList final : public GraphAbstract<V, E>
+	{
+
+    	struct Edges
+    	{
+    		E edgeName;
+
+    		///From vertex1 to vertex2
+    		V vertex1, vertex2;
+    	};
+
+        std::vector<E> _edges;
 
         std::vector<V> _vertices;
 
@@ -20,7 +30,7 @@ namespace Graph {
 
         std::vector<E>* edges() const override;
 
-        std::pair<V, V>* endVertices(const E &edge) override;
+        std::vector<std::pair<V, V>>* endVertices(const E &edge) override;
 
         std::vector<E>* outgoingEdges(const V &vertex) override;
 
@@ -32,7 +42,9 @@ namespace Graph {
 
         GraphAbstract<V, E> &addVertex(const V &vertex) override;
 
-        GraphAbstract<V, E> &addEdge(const E &edge, const V &vertex1, const V &vertex2) override;
+        GraphAbstract<V, E> &add_directed_Edge(const E &edge, const V &vertex1, const V &vertex2) override;
+
+    	GraphAbstract<V, E> & add_bidirected_Edge(const E &edge, const V &vertex1, const V &vertex2) override;
 
         GraphAbstract<V, E> &removeVertex(const V &vertex) override;
 

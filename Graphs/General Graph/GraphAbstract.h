@@ -64,13 +64,14 @@ namespace Graph {
          */
         virtual E getEdge(const V &vertex1, const V &vertex2) = 0;
 
-
         virtual std::vector<V>* opposite(const V &vertex) = 0;
 
         ///Must be unique
         virtual GraphAbstract &addVertex(const V &vertex) = 0;
 
-        virtual GraphAbstract &addEdge(const E &edge, const V &vertex1, const V &vertex2) = 0;
+        virtual GraphAbstract &add_directed_Edge(const E &edge, const V &vertex1, const V &vertex2) = 0;
+
+    	virtual GraphAbstract & add_bidirected_Edge(const E & edge, const V & vertex1, const V & vertex2) = 0;
 
         virtual GraphAbstract &removeVertex(const V &vertex) = 0;
 
