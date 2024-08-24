@@ -9,20 +9,34 @@ namespace Graph {
 
     template<typename V, typename E>
     std::vector<V>* EdgeList<V, E>::vertices() const {
-        return _vertices;
+    	auto * vertices = new std::vector<V>;
+
+    	std::transform(_vertices->begin(), _vertices->end(), std::back_inserter(*vertices),
+    		[](const V & vertex) -> V {return vertex;});
+
+        return vertices;
     }
 
     template<typename V, typename E>
     std::vector<E>* EdgeList<V, E>::edges() const {
+    	auto * edges = new std::vector<E>;
+
+    	std::transform(_edges->begin(), _edges->end(), std::back_inserter(*edges),
+    		[](const E & edge) -> E {return edge;});
+
         return _edges;
     }
 
     template<typename V, typename E>
     std::vector<std::pair<V, V>>* EdgeList<V, E>::endVertices(const E &edge) {
     	auto* vertices = new std::vector<std::pair<V, V>>;
-		for (const E & edges: _edges)
-			if(edge == edges.edgeName)
-				vertices->push_back({edges.vertex1, edges.vertex2});
+
+    	std::for_each(_edges->begin(), _edges->end(), [& vertices, & edge](const E & e) -> void
+    	{
+    		if(edge == e)
+				vertices->emplace_back({e.vertex1, e.vertex2});
+    	});
+
         return vertices;
     }
 
@@ -30,9 +44,11 @@ namespace Graph {
     std::vector<E>* EdgeList<V, E>::outgoingEdges(const V &vertex) {
         auto * outgoingEdges = new std::vector<E>();
 
-		for	(const E & edges: _edges)
-			if(edges.vertex1 == vertex)
-				outgoingEdges->push_back(edges.edgeName);
+    	std::for_each(_edges->begin(), _edges->end(), [&outgoingEdges, &vertex] (const E & e) -> void
+    	{
+    		if(e.vertex1 == vertex)
+				outgoingEdges->emplace_back(e);
+    	});
 
         return outgoingEdges;
     }
@@ -44,6 +60,12 @@ namespace Graph {
     	for (const E & edge: _edges)
     		if(edge.vertex2 == vertex)
     			incomingEdges->push_back(edge.edgeName);
+
+    	std::for_each(_edges->begin(), _edges->end(), [& incomingEdges, &vertex](const E & e) -> void
+    	{
+    		if(e.vertex2 == vertex)
+    			incomingEdges->emplace_back(e);
+    	});
 
         return incomingEdges;
     }
@@ -60,22 +82,22 @@ namespace Graph {
     template <typename V, typename E>
     std::pmr::set<E>* EdgeList<V, E>::unique_edge()
     {
-        std::set<E> unique_edges = new std::set<E>();
-    	std::for_each(_edges.begin(), _edges.end(), [&unique_edges](const E & edges) -> void
-    			{ unique_edges.insert(edges.edgeName); });
+        std::set<E>* unique_edges = new std::set<E>();
+
+    	std::for_each(_edges->begin(), _edges->end(), [&unique_edges](const E & edges) -> void
+    			{ unique_edges->insert(edges.edgeName); });
 
         return unique_edges;
     }
-
 
     template<typename V, typename E>
     std::vector<V>* EdgeList<V, E>::opposite(const V &vertex) {
         auto* oppositeVertices = new std::vector<V>();
 
-    	std::for_each(_edges.begin(), _edges.end(), [&oppositeVertices, & vertex](const E & edge) -> void
+    	std::for_each(_edges->begin(), _edges->end(), [& oppositeVertices, & vertex](const E & edge) -> void
     	{
     		if(edge.vertex1 == vertex)
-    			oppositeVertices->push_back(edge.edgeName);
+    			oppositeVertices->emplace_back(edge.edgeName);
     	});
 
         return oppositeVertices;
@@ -83,16 +105,17 @@ namespace Graph {
 
     template<typename V, typename E>
     GraphAbstract<V, E> &EdgeList<V, E>::addVertex(const V &vertex) {
-        if (_vertices.contains(vertex))
+        if (_vertices->contains(vertex))
             throw std::logic_error(vertex + " vertex already exists\n");
 
-		_vertices->push_back(vertex);
+		_vertices->emplace_back(vertex);
+
         return *this;
     }
 
     template<typename V, typename E>
     GraphAbstract<V, E> &EdgeList<V, E>::add_directed_Edge(const E &edge, const V &vertex1, const V &vertex2) {
-        if(!_vertices.contains(vertex1) || !_vertices.contains(vertex2))
+        if(!_vertices->contains(vertex1) || !_vertices->contains(vertex2))
             throw std::logic_error("vertex doesn't exists\n");
 
         _edges->push_back({edge, vertex1, vertex2});
@@ -103,7 +126,7 @@ namespace Graph {
 	template <typename V, typename E>
 	GraphAbstract<V, E> &EdgeList<V, E>::add_bidirected_Edge(const E &edge, const V &vertex1, const V &vertex2)
 	{
-    	if(!_vertices.contains(vertex1) || !_vertices.contains(vertex2))
+    	if(!_vertices->contains(vertex1) || !_vertices->contains(vertex2))
     		throw std::logic_error("vertex doesn't exists\n");
 
     	_edges->push_back({edge, vertex1, vertex2});
@@ -114,29 +137,34 @@ namespace Graph {
 
     template<typename V, typename E>
     GraphAbstract<V, E> &EdgeList<V, E>::removeVertex(const V &vertex) {
-		_vertices->erase(std::find(_vertices.begin(), _vertices.end(), vertex));
+    	typename std::list<E>::iterator iterator = std::find(_vertices->begin(), _vertices->end(), vertex);
+
+    	if(iterator == _vertices->end())
+    		return *this;
+
+		_vertices->erase(iterator);
 
     	std::vector<typename std::list<E>::iterator> iterators;
 
-    	for (typename std::list<E>::iterator it = _edges.begin(); it != _edges.end(); ++it)
+    	for (typename std::list<E>::iterator it = _edges->begin(); it != _edges->end(); ++it)
     		if(it->vertex1 == vertex || it->vertex2 == vertex)
-    			iterators.push_back(it);
+    			iterators.emplace_back(it);
 
     	std::for_each(iterators.begin(), iterators.end(), [this]
     		(const typename std::vector<E>::iterator & it) -> void
-    	{ _edges->erase(std::find(_edges.begin(), _edges.end(), it)); });
+    	{ _edges->erase(std::find(_edges->begin(), _edges->end(), it)); });
 
         return *this;
     }
 
     template<typename V, typename E>
     GraphAbstract<V, E> &EdgeList<V, E>::removeEdge(const E &edge) {
-        auto iterator = _vertices.find(edge);
-    	_vertices.erase(_vertices.find(e))
-        if (iterator != Edges.end())
-            Edges.erase(iterator);
-        else
-            throw std::logic_error(edge + " edge doesn't exist\n");
+    	typename std::list<E>::iterator iterator = std::find(_edges->begin(), _edges->end(), edge);
+
+    	if(iterator == _edges->end())
+    		return *this;
+
+		std::for_each(iterator, _edges->end(), [])
 
         return *this;
     }
