@@ -17,9 +17,9 @@ namespace Graph {
     		V vertex1, vertex2;
     	};
 
-        std::vector<E> _edges;
+        std::list<E>* _edges;
 
-        std::vector<V> _vertices;
+        std::list<V>* _vertices;
 
         GraphAbstract<V, E> &print(std::ostream &ostream) override;
 

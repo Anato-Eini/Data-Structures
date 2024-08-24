@@ -2,6 +2,7 @@
 #define DATA_STRUCTURES_GRAPHABSTRACT_H
 
 #include <vector>
+#include <list>
 #include <iostream>
 #include <algorithm>
 #include <set>

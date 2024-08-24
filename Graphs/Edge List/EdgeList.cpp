@@ -5,7 +5,7 @@
 namespace Graph {
 
     template <typename V, typename E>
-    EdgeList<V, E>::EdgeList() : _edges(new std::vector<E, std::pair<V, V>>), _vertices(new std::vector<V>) {}
+    EdgeList<V, E>::EdgeList() : _edges(new std::list<E>), _vertices(new std::list<V>) {}
 
     template<typename V, typename E>
     std::vector<V>* EdgeList<V, E>::vertices() const {
@@ -60,7 +60,7 @@ namespace Graph {
     template <typename V, typename E>
     std::pmr::set<E>* EdgeList<V, E>::unique_edge()
     {
-        std::pmr::set<E> unique_edges = new std::pmr::set<E>();
+        std::set<E> unique_edges = new std::set<E>();
     	std::for_each(_edges.begin(), _edges.end(), [&unique_edges](const E & edges) -> void
     			{ unique_edges.insert(edges.edgeName); });
 
@@ -87,7 +87,6 @@ namespace Graph {
             throw std::logic_error(vertex + " vertex already exists\n");
 
 		_vertices->push_back(vertex);
-
         return *this;
     }
 
@@ -96,30 +95,44 @@ namespace Graph {
         if(!_vertices.contains(vertex1) || !_vertices.contains(vertex2))
             throw std::logic_error("vertex doesn't exists\n");
 
-        _edges.insert({edge, {vertex1, vertex2}});
+        _edges->push_back({edge, vertex1, vertex2});
 
         return *this;
     }
 
+	template <typename V, typename E>
+	GraphAbstract<V, E> &EdgeList<V, E>::add_bidirected_Edge(const E &edge, const V &vertex1, const V &vertex2)
+	{
+    	if(!_vertices.contains(vertex1) || !_vertices.contains(vertex2))
+    		throw std::logic_error("vertex doesn't exists\n");
+
+    	_edges->push_back({edge, vertex1, vertex2});
+    	_edges->push_back({edge, vertex2, vertex1});
+
+    	return *this;
+	}
+
     template<typename V, typename E>
     GraphAbstract<V, E> &EdgeList<V, E>::removeVertex(const V &vertex) {
-        auto iterator = Vertices.find(vertex);
-        if (iterator != Vertices.end()) {
-            Vertices.erase(*iterator);
-            std::vector<E> to_be_deleted;
-            for (std::pair<const E, std::pair<V, V>> &pair: Edges)
-                if (pair.second.first == vertex || pair.second.second == vertex)
-                    to_be_deleted.emplace_back(pair.first);
-            for (const E &edge: to_be_deleted)
-                Edges.erase(edge);
-        } else throw std::logic_error(vertex + " vertex doesn't exist\n");
+		_vertices->erase(std::find(_vertices.begin(), _vertices.end(), vertex));
+
+    	std::vector<typename std::list<E>::iterator> iterators;
+
+    	for (typename std::list<E>::iterator it = _edges.begin(); it != _edges.end(); ++it)
+    		if(it->vertex1 == vertex || it->vertex2 == vertex)
+    			iterators.push_back(it);
+
+    	std::for_each(iterators.begin(), iterators.end(), [this]
+    		(const typename std::vector<E>::iterator & it) -> void
+    	{ _edges->erase(std::find(_edges.begin(), _edges.end(), it)); });
 
         return *this;
     }
 
     template<typename V, typename E>
     GraphAbstract<V, E> &EdgeList<V, E>::removeEdge(const E &edge) {
-        auto iterator = Edges.find(edge);
+        auto iterator = _vertices.find(edge);
+    	_vertices.erase(_vertices.find(e))
         if (iterator != Edges.end())
             Edges.erase(iterator);
         else
