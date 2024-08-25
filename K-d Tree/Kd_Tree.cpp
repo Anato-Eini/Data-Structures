@@ -108,7 +108,7 @@ bool Kd_Tree::isEqual(const int *point1, const int *point2) const {
     return true;
 }
 
-bool Kd_Tree::isEqual(const int *point1, const std::vector<int> point2) const {
+bool Kd_Tree::isEqual(const int *point1, const std::vector<int>& point2) const {
     for(int i = 0; i < k_dimension; i++)
         if(point1[i] != point2[i])
             return false;
@@ -131,6 +131,31 @@ bool Kd_Tree::keyExist(const int *point) const {
                 else
                     return false;
             } else if (isEqual(point, curr->point))
+                return true;
+            else if (curr->right)
+                curr = curr->right;
+            else return false;
+        }
+    }
+    return false;
+}
+
+bool Kd_Tree::keyExist(const std::vector<int> &point) const {
+    if(root){
+        const Node* curr = root;
+
+        for(int i = 0; true; i = ++i % k_dimension){
+            if (point[i] < curr->point[i]){
+                if(curr->left)
+                    curr = curr->left;
+                else
+                    return false;
+            } else if (point[i] > curr->point[i]) {
+                if (curr->right)
+                    curr = curr->right;
+                else
+                    return false;
+            } else if (isEqual(curr->point, point))
                 return true;
             else if (curr->right)
                 curr = curr->right;
