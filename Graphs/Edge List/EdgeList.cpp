@@ -82,7 +82,7 @@ namespace Graph {
     template <typename V, typename E>
     std::pmr::set<E>* EdgeList<V, E>::unique_edge()
     {
-        std::set<E>* unique_edges = new std::set<E>();
+        auto* unique_edges = new std::set<E>();
 
     	std::for_each(_edges->begin(), _edges->end(), [&unique_edges](const E & edges) -> void
     			{ unique_edges->insert(edges.edgeName); });
@@ -144,79 +144,70 @@ namespace Graph {
 
 		_vertices->erase(iterator);
 
-    	std::vector<typename std::list<E>::iterator> iterators;
-
-    	for (typename std::list<E>::iterator it = _edges->begin(); it != _edges->end(); ++it)
-    		if(it->vertex1 == vertex || it->vertex2 == vertex)
-    			iterators.emplace_back(it);
-
-    	std::for_each(iterators.begin(), iterators.end(), [this]
-    		(const typename std::vector<E>::iterator & it) -> void
-    	{ _edges->erase(std::find(_edges->begin(), _edges->end(), it)); });
+    	_edges->remove_if([&vertex] (const E & edge) -> bool
+    	{  return edge.vertex1 == vertex || edge.vertex2 == vertex; });
 
         return *this;
     }
 
     template<typename V, typename E>
     GraphAbstract<V, E> &EdgeList<V, E>::removeEdge(const E &edge) {
-    	typename std::list<E>::iterator iterator = std::find(_edges->begin(), _edges->end(), edge);
 
-    	if(iterator == _edges->end())
-    		return *this;
-
-		std::for_each(iterator, _edges->end(), [])
+    	_edges->remove_if([& edge] (const E & _edge) -> bool { return _edge.edgeName == edge;});
 
         return *this;
     }
 
     template<typename V, typename E>
     size_t EdgeList<V, E>::numVertices() {
-        return Vertices.size();
+        return _vertices->size();
     }
 
     template<typename V, typename E>
     size_t EdgeList<V, E>::numEdges() {
-        return Edges.size();
+        return _edges->size();
     }
 
     template<typename V, typename E>
     size_t EdgeList<V, E>::outDegree(const V &vertex) {
         if (!containVertex(vertex))
             throw std::logic_error(vertex + " vertex doesn't exist\n");
-        auto iterator = Vertices.find(vertex);
-        if (iterator != Vertices.end()) {
-            size_t numOutDegree = 0;
-            for (const std::pair<const E, std::pair<V, V> > &pair: Edges)
-                if (pair.second.first == vertex || pair.second.second == vertex)
-                    numOutDegree++;
-            return numOutDegree;
-        }
-        return -1;
+
+    	std::vector<E> * outEdges = outgoingEdges(vertex);
+		const size_t outDegree = outEdges->size();
+    	delete outEdges;
+        return outDegree;
     }
 
     template<typename V, typename E>
     size_t EdgeList<V, E>::inDegree(const V &vertex) {
-        return outDegree(vertex);
+        if (!containVertex(vertex))
+            throw std::logic_error(vertex + " vertex doesn't exist\n");
+
+    	std::vector<E> * inEdges = incomingEdges(vertex);
+    	const size_t inDegree = inEdges->size();
+    	delete inEdges;
+        return inDegree;
     }
 
     template<typename V, typename E>
     bool EdgeList<V, E>::containEdge(const E &edge) const {
-        return Edges.contains(edge);
+        return std::ranges::find(_edges, edge) != _edges->end();
     }
 
     template<typename V, typename E>
     bool EdgeList<V, E>::containVertex(const V &vertex) const {
-        return Vertices.contains(vertex);
+        return std::ranges::find(_vertices, vertex) != _vertices->end();
     }
 
     template<typename V, typename E>
     GraphAbstract<V, E> &EdgeList<V, E>::print(std::ostream &ostream) {
         ostream << "Vertices:";
-        for (const V &s: Vertices)
+        for (const V &s: _vertices)
             ostream << " " << s;
-        ostream << "\nEdges:\n";
-        for (const std::pair<const E, std::pair<V, V>> &pair: Edges)
-            ostream << "Name: " << pair.first << " <" << pair.second.first << ", " << pair.second.second << ">\n";
+            ostream << "\nEdges:\n";
+        for (const E & edge: _edges)
+            ostream << "Name: " << edge.edgeName << " <" << edge.vertex1 << ", " << edge.vertex2 << ">\n";
 
         return *this;
     }
