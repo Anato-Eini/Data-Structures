@@ -77,7 +77,6 @@ int main(){
                         for(const std::pair<std::string, std::string> & pair : *endVertices)
                         {
                             std::cout << pair.first << " -> " << pair.second << '\n';
-                            std::cout << pair.second << " -> " << pair.first << '\n';
                         }
                     else
                         std::cout << edge << " edge doesn't exist";
@@ -91,7 +90,7 @@ int main(){
                         for (const std::string &e: *edges)
                             std::cout << ' ' << e;
                     } else
-                        std::cout << edge << " doesn't have outgoing edges";
+                        std::cout << vertex1 << " doesn't have outgoing edges";
                     break;
                 case 'I':
                     std::cout << "Enter vertex: ";
@@ -102,7 +101,7 @@ int main(){
                         for (const std::string &e: *edges)
                             std::cout << ' ' << e;
                     } else
-                        std::cout << edge << " doesn't have incoming edges";
+                        std::cout << vertex1 << " doesn't have incoming edges";
                     break;
                 case 'G':
                     std::cout << "Enter vertex 1: ";
@@ -159,14 +158,14 @@ int main(){
                     std::cin >> vertex1;
                     number = graph->outDegree(vertex1);
                     std::cout << vertex1 << " vertex" << (number == -1 ? " doesn't exist" :
-                                                                    " incoming edges: " + std::to_string(number));
+                                                                    " outgoing edges: " + std::to_string(number));
                     break;
                 case 'd':
                     std::cout << "Enter vertex: ";
                     std::cin >> vertex1;
                     number = graph->inDegree(vertex1);
                     std::cout << vertex1 << " vertex" << (number == -1 ? " doesn't exist" :
-                                                                     " outgoing edges: " + std::to_string(number));
+                                                                     " incoming edges: " + std::to_string(number));
                     break;
                 case 't':
                     delete graph;

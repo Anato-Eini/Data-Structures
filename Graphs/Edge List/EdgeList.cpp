@@ -101,7 +101,7 @@ namespace Graph {
 
     template<typename V, typename E>
     GraphAbstract<V, E> &EdgeList<V, E>::addVertex(const V &vertex) {
-        if (std::find(_vertices->begin(), _vertices->end(), vertex) == _vertices->end())
+        if (std::find(_vertices->begin(), _vertices->end(), vertex) != _vertices->end())
             throw std::logic_error(vertex + " vertex already exists\n");
 
 		_vertices->emplace_back(vertex);
