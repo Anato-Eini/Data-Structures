@@ -3,10 +3,9 @@
 
 #include <vector>
 #include <list>
-#include <iostream>
+#include <ostream>
 #include <algorithm>
 #include <set>
-#include <string>
 #include <functional>
 
 namespace Graph {
@@ -43,20 +42,20 @@ namespace Graph {
          * @param edge
          * @return std::vector from heap
          */
-        virtual std::vector<std::pair<V, V>>* endVertices(const E &edge) = 0;
+        virtual std::vector<std::pair<V, V>>* endVertices(const E &edge) const = 0;
 
         /**
          * Return an array of outgoing edges from vertex
          * @param vertex
          * @return std::vector from heap
          */
-        virtual std::vector<E>* outgoingEdges(const V &vertex) = 0;
+        virtual std::vector<E>* outgoingEdges(const V &vertex) const = 0;
 
         /**
          * return an array of incoming edges from vertex
          * @return std::vector from heap
          */
-        virtual std::vector<E>* incomingEdges(const V &vertex) = 0;
+        virtual std::vector<E>* incomingEdges(const V &vertex) const = 0;
 
         /**
          *
@@ -64,9 +63,9 @@ namespace Graph {
          * @param vertex2
          * @return an edge between two vertices
          */
-        virtual E getEdge(const V &vertex1, const V &vertex2) = 0;
+        virtual E getEdge(const V &vertex1, const V &vertex2) const = 0;
 
-        virtual std::vector<V>* opposite(const V &vertex) = 0;
+        virtual std::vector<V>* opposite(const V &vertex) const = 0;
 
         ///Must be unique
         virtual GraphAbstract &addVertex(const V &vertex) = 0;
@@ -79,19 +78,19 @@ namespace Graph {
 
         virtual GraphAbstract &removeEdge(const E &edge) = 0;
 
-        virtual std::set<E>* unique_edge() = 0;
+        virtual std::vector<E>* unique_edge() const = 0;
 
         virtual bool containEdge(const E &edge) const = 0;
 
         virtual bool containVertex(const V &vertex) const = 0;
 
-        virtual size_t numVertices() = 0;
+        virtual size_t numVertices() const = 0;
 
-        virtual size_t numEdges() = 0;
+        virtual size_t numEdges() const = 0;
 
-        virtual size_t outDegree(const V &vertex) = 0;
+        virtual size_t outDegree(const V &vertex) const = 0;
 
-        virtual size_t inDegree(const V &vertex) = 0;
+        virtual size_t inDegree(const V &vertex) const = 0;
 
         friend std::ostream &operator<< <V, E>(std::ostream &, GraphAbstract *graph);
 

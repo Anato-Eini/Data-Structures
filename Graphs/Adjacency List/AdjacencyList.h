@@ -7,15 +7,27 @@ namespace Graph {
 
     template<typename V, typename E>
     class AdjacencyList final: public GraphAbstract<V, E> {
-        //<vertex, edges>
-        std::unordered_map<V, std::unordered_set<E>> list;
+
+        struct Vertex{
+            V name;
+
+            std::list<E> inEdges;
+
+            std::list<E> outEdges;
+        };
+
+        std::list<Vertex> * list;
+
+        size_t sizeEdge;
 
         GraphAbstract<V, E> &print(std::ostream &ostream) override;
 
     public:
-        std::vector<V> vertices() const override;
+        AdjacencyList();
 
-        std::vector<E> edges() const override;
+        std::vector<V> * vertices() const override;
+
+        std::vector<E> * edges() const override;
 
         std::pmr::vector<std::pair<V, V>> endVertices(const E &edge) override;
 
@@ -46,6 +58,8 @@ namespace Graph {
         size_t outDegree(const V &vertex) override;
 
         size_t inDegree(const V &vertex) override;
+
+        ~AdjacencyList() override;
     };
 }
 

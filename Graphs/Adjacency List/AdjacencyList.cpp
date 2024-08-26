@@ -6,25 +6,29 @@
 namespace Graph {
 
     template<typename V, typename E>
-    std::vector<V> AdjacencyList<V, E>::vertices() const {
-        std::vector<V> vertices;
-        for (const std::pair<const V, std::unordered_set<E>> &pair: list)
-            vertices.emplace_back(pair.first);
+    AdjacencyList<V, E>::AdjacencyList() : list(new std::list<Vertex>()), sizeEdge(0){}
+
+    template<typename V, typename E>
+    std::vector<V> * AdjacencyList<V, E>::vertices() const {
+        std::vector<V> * vertices = new std::vector<V>();
+
+        std::transform(list->begin(), list->end(), std::back_inserter(*vertices),
+                       [](const Vertex & vertex) -> V { return vertex.name; });
+
         return vertices;
     }
 
     template<typename V, typename E>
-    std::vector<E> AdjacencyList<V, E>::edges() const {
-        std::vector<E> edges;
-        for (const std::pair<const V, std::unordered_set<E>> &pair: list)
-            for (const E &s: pair.second) {
-                if (std::any_of(edges.begin(), edges.end(), [&s](const E &edge) -> bool {
-                    return s == edge;
-                }))
-                    continue;
-                edges.emplace_back(s);
-            }
-        return edges;
+    std::vector<E> * AdjacencyList<V, E>::edges() const {
+
+        std::vector<E> * arr_edges = new std::vector<E>();
+
+        std::for_each(list->begin(), list->end(), [& arr_edges] (const Vertex & vertex) -> void {
+            arr_edges->insert(arr_edges->end(), std::make_move_iterator(vertex.outEdges.begin()),
+                              std::make_move_iterator(vertex.outEdges.end()));
+        });
+
+        return arr_edges;
     }
 
     template<typename V, typename E>
@@ -189,6 +193,11 @@ namespace Graph {
             ostream << '\n';
         }
         return *this;
+    }
+
+    template<typename V, typename E>
+    AdjacencyList<V, E>::~AdjacencyList(){
+        delete list;
     }
 }
 

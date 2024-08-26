@@ -28,7 +28,7 @@ namespace Graph {
     }
 
     template<typename V, typename E>
-    std::vector<std::pair<V, V>>* EdgeList<V, E>::endVertices(const E &edge) {
+    std::vector<std::pair<V, V>>* EdgeList<V, E>::endVertices(const E &edge) const {
     	auto* vertices = new std::vector<std::pair<V, V>>;
 
     	std::for_each(_edges->begin(), _edges->end(), [& vertices, & edge](const Edge & e) -> void
@@ -41,7 +41,7 @@ namespace Graph {
     }
 
     template<typename V, typename E>
-    std::vector<E>* EdgeList<V, E>::outgoingEdges(const V &vertex) {
+    std::vector<E>* EdgeList<V, E>::outgoingEdges(const V &vertex) const {
         auto * outgoingEdges = new std::vector<E>();
 
     	std::for_each(_edges->begin(), _edges->end(), [&outgoingEdges, &vertex] (const Edge & e) -> void
@@ -54,7 +54,7 @@ namespace Graph {
     }
 
     template<typename V, typename E>
-    std::vector<E>* EdgeList<V, E>::incomingEdges(const V &vertex) {
+    std::vector<E>* EdgeList<V, E>::incomingEdges(const V &vertex) const {
     	auto * incomingEdges = new std::vector<E>();
 
     	std::for_each(_edges->begin(), _edges->end(), [& incomingEdges, &vertex](const Edge & e) -> void
@@ -67,7 +67,7 @@ namespace Graph {
     }
 
     template<typename V, typename E>
-    E EdgeList<V, E>::getEdge(const V &vertex1, const V &vertex2) {
+    E EdgeList<V, E>::getEdge(const V &vertex1, const V &vertex2) const {
 		for (const Edge & edges: *_edges)
 			if(edges.vertex1 == vertex1 && edges.vertex2 == vertex2)
 				return edges.edgeName;
@@ -76,18 +76,23 @@ namespace Graph {
     }
 
     template <typename V, typename E>
-    std::set<E>* EdgeList<V, E>::unique_edge()
-    {
-        auto* unique_edges = new std::set<E>();
+    std::vector<E>* EdgeList<V, E>::unique_edge() const {
+        std::set<E> edgeSet;
+        auto * unique_edges = new std::vector<E>();
 
-    	std::for_each(_edges->begin(), _edges->end(), [&unique_edges](const Edge & edges) -> void
-    			{ unique_edges->insert(edges.edgeName); });
+    	std::for_each(_edges->begin(), _edges->end(), [&unique_edges, & edgeSet](const Edge & edges) -> void
+        {
+            if(!edgeSet.contains(edges)){
+                unique_edges->emplace_back(edges);
+                edgeSet.insert(edges);
+            }
+        });
 
         return unique_edges;
     }
 
     template<typename V, typename E>
-    std::vector<V>* EdgeList<V, E>::opposite(const V &vertex) {
+    std::vector<V>* EdgeList<V, E>::opposite(const V &vertex) const {
         auto* oppositeVertices = new std::vector<V>();
 
     	std::for_each(_edges->begin(), _edges->end(), [& oppositeVertices, & vertex](const Edge & edge) -> void
@@ -171,17 +176,17 @@ namespace Graph {
     }
 
     template<typename V, typename E>
-    size_t EdgeList<V, E>::numVertices() {
+    size_t EdgeList<V, E>::numVertices() const {
         return _vertices->size();
     }
 
     template<typename V, typename E>
-    size_t EdgeList<V, E>::numEdges() {
+    size_t EdgeList<V, E>::numEdges() const {
         return _edges->size();
     }
 
     template<typename V, typename E>
-    size_t EdgeList<V, E>::outDegree(const V &vertex) {
+    size_t EdgeList<V, E>::outDegree(const V &vertex) const {
         if (!containVertex(vertex))
             throw std::logic_error(vertex + " vertex doesn't exist\n");
 
@@ -192,7 +197,7 @@ namespace Graph {
     }
 
     template<typename V, typename E>
-    size_t EdgeList<V, E>::inDegree(const V &vertex) {
+    size_t EdgeList<V, E>::inDegree(const V &vertex) const {
         if (!containVertex(vertex))
             throw std::logic_error(vertex + " vertex doesn't exist\n");
 
@@ -227,6 +232,13 @@ namespace Graph {
 
         return *this;
     }
+
+    template<typename V, typename E>
+    EdgeList<V, E>::~EdgeList() {
+        delete _vertices;
+        delete _edges;
+    }
+
 }
 
 #endif

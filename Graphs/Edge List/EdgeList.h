@@ -30,15 +30,15 @@ namespace Graph {
 
         std::vector<E>* edges() const override;
 
-        std::vector<std::pair<V, V>>* endVertices(const E &edge) override;
+        std::vector<std::pair<V, V>>* endVertices(const E &edge) const override;
 
-        std::vector<E>* outgoingEdges(const V &vertex) override;
+        std::vector<E>* outgoingEdges(const V &vertex) const override;
 
-        std::vector<E>* incomingEdges(const V &vertex) override;
+        std::vector<E>* incomingEdges(const V &vertex) const override;
 
-        E getEdge(const V &vertex1, const V &vertex2) override;
+        E getEdge(const V &vertex1, const V &vertex2) const override;
 
-        std::vector<V>* opposite(const V &vertex) override;
+        std::vector<V>* opposite(const V &vertex) const override;
 
         GraphAbstract<V, E> &addVertex(const V &vertex) override;
 
@@ -48,7 +48,7 @@ namespace Graph {
 
         GraphAbstract<V, E> &removeVertex(const V &vertex) override;
 
-        std::set<E>* unique_edge() override;
+        std::vector<E>* unique_edge() const override;
 
         GraphAbstract<V, E> &removeEdge(const E &edge) override;
 
@@ -56,13 +56,15 @@ namespace Graph {
 
         bool containVertex(const V &vertex) const override;
 
-        size_t numVertices() override;
+        size_t numVertices() const override;
 
-        size_t numEdges() override;
+        size_t numEdges() const override;
 
-        size_t outDegree(const V &vertex) override;
+        size_t outDegree(const V &vertex) const override;
 
-        size_t inDegree(const V &vertex) override;
+        size_t inDegree(const V &vertex) const override;
+
+        ~EdgeList() override;
     };
 }
 
