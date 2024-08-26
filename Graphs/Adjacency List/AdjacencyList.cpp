@@ -2,6 +2,7 @@
 #define DATA_STRUCTURES_ADJACENCYLIST_CPP
 
 #include "AdjacencyList.h"
+#include "thread"
 
 namespace Graph {
 
@@ -32,21 +33,22 @@ namespace Graph {
     }
 
     template<typename V, typename E>
-    std::pmr::vector<std::pair<V, V>> AdjacencyList<V, E>::endVertices(const E &edge) {
-        if (!containEdge(edge))
-            throw std::logic_error(edge + " edge doesn't exist\n");
+    std::vector<std::pair<V, V>> * AdjacencyList<V, E>::endVertices(const E &edge) const {
 
-        V firstVertex{};
-        std::pmr::vector<std::pair<V, V>> vector;
-        for (const std::pair<const V, std::unordered_set<E>> &pair: list)
-            if (pair.second.contains(edge)) {
-                if (firstVertex == (V) {})
-                    firstVertex = pair.first;
-                else
-                    return {{firstVertex, pair.first}};
-            }
+        auto * end_vertices = new std::vector<std::pair<V, V>>();
+
+        typename std::list<E>::iterator inEdge, outEdge;
+
+
+
+        std::thread threadIn([& inEdge] (const Vertex & v) -> void {
+            if(std::find(v.inEdges.begin(), v.inEdges.end(), ) != v.inEdges.end())
+        }), threadOut;
+
         return vector;
     }
+
+
 
     template<typename V, typename E>
     std::vector<E> AdjacencyList<V, E>::outgoingEdges(const V &vertex) {
