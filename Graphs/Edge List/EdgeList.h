@@ -9,7 +9,7 @@ namespace Graph {
     class EdgeList final : public GraphAbstract<V, E>
 	{
 
-    	struct Edges
+    	struct Edge
     	{
     		E edgeName;
 
@@ -17,7 +17,7 @@ namespace Graph {
     		V vertex1, vertex2;
     	};
 
-        std::list<E>* _edges;
+        std::list<Edge>* _edges;
 
         std::list<V>* _vertices;
 

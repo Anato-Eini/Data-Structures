@@ -8,19 +8,19 @@
 using namespace Graph;
 int main(){
     //For testing different graphs implementation
-    Graph::GraphAbstract<std::string, std::string>* graph;
+    GraphAbstract<std::string, std::string>* graph;
     char op;
-    int number;
+    size_t number;
     std::string vertex1, vertex2, edge;
-    std::vector<std::string> edges;
-    std::vector<std::string> vertices;
-    std::pmr::vector<std::pair<std::string, std::string>> endVertices;
+    std::vector<std::string>* edges;
+    std::vector<std::string>* vertices;
+    std::vector<std::pair<std::string, std::string>>* endVertices;
     do{
         std::cout << "1-Edge_List 2-Adjacency_List 3-Adjacency_Map 4-Adjacency_Matrix: ";
         std::cin >> number;
         switch (number) {
             case 1:
-                graph = new EdgeList<std::string, std::string>{};
+                graph = new EdgeList<std::string, std::string>();
                 break;
             /*case 2:
                 graph = new AdjacencyList<std::string, std::string>{};
@@ -47,7 +47,7 @@ int main(){
                     std::cin >> vertex1;
                     std::cout << "Enter the second vertex: ";
                     std::cin >> vertex2;
-                    graph->addEdge(edge, vertex1, vertex2);
+                    graph->add_bidirected_Edge(edge, vertex1, vertex2);
                     break;
                 case 'V':
                     std::cout << "Enter vertex name: ";
@@ -60,21 +60,21 @@ int main(){
                 case 'v':
                     vertices = graph->vertices();
                     std::cout << "Vertices:";
-                    for (const std::string &s: vertices)
+                    for (const std::string &s: *vertices)
                         std::cout << " " << s;
                     break;
                 case 'e':
                     edges = graph->edges();
-                    std::cout << "Edges:";
-                    for (const std::string &pair: edges)
+                    std::cout << "Edge:";
+                    for (const std::string &pair: *edges)
                         std::cout << "\nName: " << pair;
                     break;
                 case 'Q':
                     std::cout << "Enter edge: ";
                     std::cin >> edge;
                     endVertices = graph->endVertices(edge);
-                    if (!endVertices.empty())
-                        for(const std::pair<std::string, std::string> & pair : endVertices)
+                    if (!endVertices->empty())
+                        for(const std::pair<std::string, std::string> & pair : *endVertices)
                         {
                             std::cout << pair.first << " -> " << pair.second << '\n';
                             std::cout << pair.second << " -> " << pair.first << '\n';
@@ -86,9 +86,9 @@ int main(){
                     std::cout << "Enter vertex: ";
                     std::cin >> vertex1;
                     edges = graph->outgoingEdges(vertex1);
-                    if (!edges.empty()) {
+                    if (!edges->empty()) {
                         std::cout << "Outgoing edges:";
-                        for (const std::string &e: edges)
+                        for (const std::string &e: *edges)
                             std::cout << ' ' << e;
                     } else
                         std::cout << edge << " doesn't have outgoing edges";
@@ -97,9 +97,9 @@ int main(){
                     std::cout << "Enter vertex: ";
                     std::cin >> vertex1;
                     edges = graph->incomingEdges(vertex1);
-                    if (!edges.empty()) {
+                    if (!edges->empty()) {
                         std::cout << "Incoming edges:";
-                        for (const std::string &e: edges)
+                        for (const std::string &e: *edges)
                             std::cout << ' ' << e;
                     } else
                         std::cout << edge << " doesn't have incoming edges";
@@ -119,11 +119,11 @@ int main(){
                     std::cout << "Enter vertex: ";
                     std::cin >> vertex1;
                     vertices = graph->opposite(vertex1);
-                    if (vertices.empty())
+                    if (vertices->empty())
                         std::cout << vertex1 << " doesn't exists";
                     else {
                         std::cout << "Opposite of " << vertex1 << ": ";
-                        for (const std::string &s: vertices)
+                        for (const std::string &s: *vertices)
                             std::cout << s << ' ';
                     }
                     break;
@@ -175,17 +175,17 @@ int main(){
                         std::cin >> number;
                         switch (number) {
                             case 1:
-                                graph = new EdgeList<std::string, std::string>{};
+                                graph = new EdgeList<std::string, std::string>();
                                 break;
-                            case 2:
-                                graph = new AdjacencyList<std::string, std::string>{};
-                                break;
-                            case 3:
-                                graph = new AdjacencyMap<std::string, std::string>{};
-                                break;
-                            case 4:
-                                graph = new AdjacencyMatrix<std::string, std::string>{};
-                                break;
+//                            case 2:
+//                                graph = new AdjacencyList<std::string, std::string>{};
+//                                break;
+//                            case 3:
+//                                graph = new AdjacencyMap<std::string, std::string>{};
+//                                break;
+//                            case 4:
+//                                graph = new AdjacencyMatrix<std::string, std::string>{};
+//                                break;
                             default:
                                 std::cout << "Invalid operation\n";
                         }
