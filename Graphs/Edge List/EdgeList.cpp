@@ -76,7 +76,7 @@ namespace Graph {
     }
 
     template <typename V, typename E>
-    std::pmr::set<E>* EdgeList<V, E>::unique_edge()
+    std::set<E>* EdgeList<V, E>::unique_edge()
     {
         auto* unique_edges = new std::set<E>();
 
@@ -101,7 +101,7 @@ namespace Graph {
 
     template<typename V, typename E>
     GraphAbstract<V, E> &EdgeList<V, E>::addVertex(const V &vertex) {
-        if (std::find(_vertices->begin(), _vertices->end(), vertex))
+        if (std::find(_vertices->begin(), _vertices->end(), vertex) == _vertices->end())
             throw std::logic_error(vertex + " vertex already exists\n");
 
 		_vertices->emplace_back(vertex);
@@ -111,12 +111,18 @@ namespace Graph {
 
     template<typename V, typename E>
     GraphAbstract<V, E> &EdgeList<V, E>::add_directed_Edge(const E &edge, const V &vertex1, const V &vertex2) {
-        if(!_vertices->contains(vertex1) || !_vertices->contains(vertex2))
+
+        std::function<bool(V)> lambda = [& vertex1, & vertex2](const V & vertex) -> bool {
+            return vertex1 == vertex || vertex2 == vertex;
+        };
+
+        typename std::list<V>::iterator _vertices_iterator =
+                std::find_if(_vertices->begin(), _vertices->end(), lambda);
+
+        if(std::find_if(_vertices_iterator, _vertices->end(), lambda) == _vertices->end())
             throw std::logic_error("vertex doesn't exists\n");
 
-        if(std::find_if_not(_vertices->begin(), _vertices->end(), []))
-
-        _edges->push_back({edge, vertex1, vertex2});
+        _edges->emplace_back(edge, vertex1, vertex2);
 
         return *this;
     }
@@ -124,11 +130,19 @@ namespace Graph {
 	template <typename V, typename E>
 	GraphAbstract<V, E> &EdgeList<V, E>::add_bidirected_Edge(const E &edge, const V &vertex1, const V &vertex2)
 	{
-    	if(!_vertices->contains(vertex1) || !_vertices->contains(vertex2))
-    		throw std::logic_error("vertex doesn't exists\n");
 
-    	_edges->push_back({edge, vertex1, vertex2});
-    	_edges->push_back({edge, vertex2, vertex1});
+        std::function<bool(V)> lambda = [& vertex1, & vertex2](const V & vertex) -> bool {
+            return vertex1 == vertex || vertex2 == vertex;
+        };
+
+        typename std::list<V>::iterator _vertices_iterator =
+                std::find_if(_vertices->begin(), _vertices->end(), lambda);
+
+        if(std::find_if(_vertices_iterator, _vertices->end(), lambda) == _vertices->end())
+            throw std::logic_error("vertex doesn't exists\n");
+
+    	_edges->emplace_back(edge, vertex1, vertex2);
+    	_edges->emplace_back(edge, vertex2, vertex1);
 
     	return *this;
 	}

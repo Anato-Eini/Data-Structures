@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <set>
 #include <string>
+#include <functional>
 
 namespace Graph {
 
@@ -78,7 +79,7 @@ namespace Graph {
 
         virtual GraphAbstract &removeEdge(const E &edge) = 0;
 
-        virtual std::pmr::set<E>* unique_edge() = 0;
+        virtual std::set<E>* unique_edge() = 0;
 
         virtual bool containEdge(const E &edge) const = 0;
 

@@ -48,7 +48,7 @@ namespace Graph {
 
         GraphAbstract<V, E> &removeVertex(const V &vertex) override;
 
-        std::pmr::set<E>* unique_edge() override;
+        std::set<E>* unique_edge() override;
 
         GraphAbstract<V, E> &removeEdge(const E &edge) override;
 
