@@ -31,7 +31,7 @@ namespace Graph {
 
         std::vector<std::pair<V, V>> * endVertices(const E &edge) const override;
 
-        std::vector<E> outgoingEdges(const V &vertex) const override;
+        std::vector<E> * outgoingEdges(const V &vertex) const override;
 
         std::vector<E> incomingEdges(const V &vertex) const override;
 

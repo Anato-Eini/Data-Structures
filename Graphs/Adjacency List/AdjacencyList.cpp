@@ -3,8 +3,11 @@
 
 #include "AdjacencyList.h"
 #include "thread"
+#include "mutex"
 
 namespace Graph {
+
+    std::mutex mutex;
 
     template<typename V, typename E>
     AdjacencyList<V, E>::AdjacencyList() : list(new std::list<Vertex>()), sizeEdge(0){}
@@ -37,25 +40,52 @@ namespace Graph {
 
         auto * end_vertices = new std::vector<std::pair<V, V>>();
 
-        typename std::list<E>::iterator inEdge, outEdge;
+        size_t i = 0;
+        size_t j = 0;
 
+        //Destination thread
+        std::thread threadIn([this, & edge, & i, end_vertices] () -> void {
+            std::for_each(list->begin(), list->end(), [this, & edge, & i, end_vertices](const Vertex &v) -> void {
+                std::list<Vertex> &cList = v.inEdges;
+                if (std::find(cList.begin(), cList.end(), edge) != cList.end()) {
+                    std::lock_guard<std::mutex> lockGuard(mutex);
+                    if (i++ == end_vertices->size())
+                        end_vertices->emplace_back({}, v.name);
+                    else
+                        end_vertices[i - 1].first = v.name;
+                }
+            });
+        });
 
+        //Origin thread
+        std::thread threadOut([this, & edge, & j, end_vertices] () -> void {
+            std::for_each(list->begin(), list->end(), [this, & edge, & j, end_vertices](const Vertex &v) -> void {
+                std::list<Vertex> &cList = v.outEdges;
+                if (std::find(cList.begin(), cList.end(), edge) != cList.end()) {
+                    std::lock_guard<std::mutex> lockGuard(mutex);
+                    if (j++ == end_vertices->size())
+                        end_vertices->emplace_back(v.name, {});
+                    else
+                        end_vertices[j - 1].second = v.name;
+                }
+            });
+        });
 
-        std::thread threadIn([& inEdge] (const Vertex & v) -> void {
-            if(std::find(v.inEdges.begin(), v.inEdges.end(), ) != v.inEdges.end())
-        }), threadOut;
+        threadIn.join();
+        threadOut.join();
 
-        return vector;
+        return end_vertices;
     }
 
-
-
     template<typename V, typename E>
-    std::vector<E> AdjacencyList<V, E>::outgoingEdges(const V &vertex) {
-        std::vector<E> outgoingEdges;
-        if (list.contains(vertex))
-            for (const E &edges: list[vertex])
-                outgoingEdges.emplace_back(edges);
+    std::vector<E> * AdjacencyList<V, E>::outgoingEdges(const V &vertex) const {
+        std::vector<E> * outgoingEdges = new std::vector<E>();
+
+        std::for_each(list->begin(), list->end(), [outgoingEdges, & vertex] (const Vertex & v) -> void {
+            if(v.name == vertex)
+                outgoingEdges->insert(outgoingEdges->end(), v.inEdges.begin(), v.inEdges.end());
+        });
+
         return outgoingEdges;
     }
 
