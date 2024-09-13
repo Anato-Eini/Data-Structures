@@ -33,7 +33,7 @@ namespace Graph {
 
         std::vector<E> * outgoingEdges(const V &vertex) const override;
 
-        std::vector<E> incomingEdges(const V &vertex) const override;
+        std::vector<E> * incomingEdges(const V &vertex) const override;
 
         E getEdge(const V &vertex1, const V &vertex2) const override;
 

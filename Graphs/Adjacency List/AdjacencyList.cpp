@@ -27,6 +27,7 @@ namespace Graph {
 
         std::vector<E> * arr_edges = new std::vector<E>();
 
+        //TODO Don't use make_move_iterator
         std::for_each(list->begin(), list->end(), [& arr_edges] (const Vertex & vertex) -> void {
             arr_edges->insert(arr_edges->end(), std::make_move_iterator(vertex.outEdges.begin()),
                               std::make_move_iterator(vertex.outEdges.end()));
@@ -83,34 +84,34 @@ namespace Graph {
 
         std::for_each(list->begin(), list->end(), [outgoingEdges, & vertex] (const Vertex & v) -> void {
             if(v.name == vertex)
-                outgoingEdges->insert(outgoingEdges->end(), v.inEdges.begin(), v.inEdges.end());
+                outgoingEdges->insert(outgoingEdges->end(), v.outEdges.begin(), v.outEdges.end());
         });
 
         return outgoingEdges;
     }
 
     template<typename V, typename E>
-    std::vector<E> AdjacencyList<V, E>::incomingEdges(const V &vertex) {
-        return outgoingEdges(vertex);
+    std::vector<E> * AdjacencyList<V, E>::incomingEdges(const V &vertex) const {
+        std::vector<E> * incomingEdges = new std::vector<E>();
+
+        std::for_each(list->begin(), list->end(), [incomingEdges, & vertex] (const Vertex & v) -> void {
+            if(v.name == vertex)
+                incomingEdges->insert(incomingEdges->end(), v.inEdges.begin(), v.inEdges.end());
+        });
+
+        return incomingEdges;
     }
 
     template<typename V, typename E>
-    E AdjacencyList<V, E>::getEdge(const V &vertex1, const V &vertex2) {
-        if (!containVertex(vertex1))
-            throw std::logic_error(vertex1 + " vertex doesn't exist\n");
-        else if (!containVertex(vertex2))
-            throw std::logic_error(vertex2 + " vertex doesn't exist\n");
+    E AdjacencyList<V, E>::getEdge(const V &vertex1, const V &vertex2) const {
+        typename std::list<Vertex>::iterator i_vertex_1 = std::find(list->begin(), list->end(), vertex1);
+        typename std::list<Vertex>::iterator i_vertex_2 = std::find(list->begin(), list->end(), vertex2);
 
-        if (list[vertex1].size() > list[vertex2].size()) {
-            for (const E &edge: list[vertex2])
-                if (list[vertex1].contains(edge))
-                    return edge;
-        } else {
-            for (const E &edge: list[vertex1])
-                if (list[vertex2].contains(edge))
-                    return edge;
+        if(i_vertex_1 != list->end() && i_vertex_2 != list->end()){
+
         }
-        return {};
+
+        throw std::logic_error("Edge doesn't exist\n");
     }
 
     template<typename V, typename E>
