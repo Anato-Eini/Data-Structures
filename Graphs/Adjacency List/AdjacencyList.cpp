@@ -27,10 +27,8 @@ namespace Graph {
 
         std::vector<E> * arr_edges = new std::vector<E>();
 
-        //TODO Don't use make_move_iterator
         std::for_each(list->begin(), list->end(), [& arr_edges] (const Vertex & vertex) -> void {
-            arr_edges->insert(arr_edges->end(), std::make_move_iterator(vertex.outEdges.begin()),
-                              std::make_move_iterator(vertex.outEdges.end()));
+            arr_edges->insert(arr_edges->end(), vertex.outEdges.begin(), vertex.outEdges.end());
         });
 
         return arr_edges;
@@ -108,25 +106,26 @@ namespace Graph {
         typename std::list<Vertex>::iterator i_vertex_2 = std::find(list->begin(), list->end(), vertex2);
 
         if(i_vertex_1 != list->end() && i_vertex_2 != list->end()){
+            std::set<E> edges;
 
+            std::list<E> & v1 = i_vertex_1->outEdges;
+            std::list<E> & v2 = i_vertex_2->inEdges;
+
+            std::for_each(v1.begin(), v1.end(), [&edges] (const E & edge) -> E {
+                return edge;
+            });
+
+            for (const E & e : v2)
+                if (edges.contains(e))
+                    return e;
         }
 
         throw std::logic_error("Edge doesn't exist\n");
     }
 
     template<typename V, typename E>
-    std::vector<V> AdjacencyList<V, E>::opposite(const V &vertex) {
-        if (!containVertex(vertex))
-            throw std::logic_error(vertex + " vertex doesn't exist\n");
-        std::vector<V> oppositeVertices;
-        for (const std::pair<const V, std::unordered_set<E>> &pair: list)
-            if (pair.first != vertex)
-                for (const E &edge: list[vertex])
-                    if (pair.second.contains(edge)) {
-                        oppositeVertices.emplace_back(pair.first);
-                        break;
-                    }
-        return oppositeVertices;
+    std::vector<V> * AdjacencyList<V, E>::opposite(const V &vertex) const {
+
     }
 
     template<typename V, typename E>
