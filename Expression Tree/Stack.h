@@ -24,6 +24,7 @@ class StackOp: public Stack{
             case '*':
                 return number1 * number2;
         }
+        return 0;
     }
 public:
     //constructor
