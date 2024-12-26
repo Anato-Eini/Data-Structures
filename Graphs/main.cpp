@@ -4,8 +4,10 @@
 // #include "Adjacency List/AdjacencyList.h"
 // #include "Adjacency Map/AdjacencyMap.h"
 // #include "Adjacency Matrix/AdjacencyMatrix.h"
+// #include "General Graph/GraphAbstract.h"
 
 using namespace Graph;
+
 int main()
 {
 	// For testing different graphs implementation

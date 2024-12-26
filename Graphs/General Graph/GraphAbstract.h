@@ -2,11 +2,7 @@
 #define DATA_STRUCTURES_GRAPHABSTRACT_H
 
 #include <vector>
-#include <list>
-#include <ostream>
-#include <algorithm>
-#include <set>
-#include <functional>
+#include <iostream>
 
 namespace Graph {
 
@@ -100,6 +96,5 @@ namespace Graph {
     };
 }
 
-#include "GraphAbstract.cpp"
 
 #endif //DATA_STRUCTURES_GRAPHABSTRACT_H
