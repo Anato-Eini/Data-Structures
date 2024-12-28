@@ -3,66 +3,78 @@
 
 #include "../General Graph/GraphAbstract.h"
 
-namespace Graph {
+#include <list>
 
-    template<typename V, typename E>
-    class AdjacencyList final: public GraphAbstract<V, E> {
+namespace Graph
+{
+	template <typename V, typename E>
+	class AdjacencyList final : public GraphAbstract<V, E>
+	{
 
-        struct Vertex{
-            V name;
+		struct Vertex
+		{
+			V name;
 
-            std::list<E> inEdges;
+			std::list<E> inEdges;
 
-            std::list<E> outEdges;
-        };
+			std::list<E> outEdges;
 
-        std::list<Vertex> * list;
+			Vertex(const V &name);
 
-        size_t sizeEdge;
+			Vertex(const V & name, const std::list<E> & inEdges, const std::list<E> & outEdges);
+		};
 
-        GraphAbstract<V, E> &print(std::ostream &ostream) override;
+		std::list<Vertex> *list;
 
-    public:
-        AdjacencyList();
+		size_t sizeEdge;
 
-        std::vector<V> * vertices() const override;
+		GraphAbstract<V, E> &print(std::ostream &ostream) override;
 
-        std::vector<E> * edges() const override;
+	public:
+		AdjacencyList();
 
-        std::vector<std::pair<V, V>> * endVertices(const E &edge) const override;
+		std::vector<V> *vertices() const override;
 
-        std::vector<E> * outgoingEdges(const V &vertex) const override;
+		std::vector<E> *edges() const override;
 
-        std::vector<E> * incomingEdges(const V &vertex) const override;
+		std::vector<std::pair<V, V>> *endVertices(const E &edge) const override;
 
-        E getEdge(const V &vertex1, const V &vertex2) const override;
+		std::vector<E> *outgoingEdges(const V &vertex) const override;
 
-        std::vector<V> * opposite(const V &vertex) const override;
+		std::vector<E> *incomingEdges(const V &vertex) const override;
 
-        GraphAbstract<V, E> &addVertex(const V &vertex) override;
+		E getEdge(const V &vertex1, const V &vertex2) const override;
 
-        GraphAbstract<V, E> &addEdge(const E &edge, const V &vertex1, const V &vertex2) override;
+		std::vector<V> *opposite(const V &vertex) const override;
 
-        GraphAbstract<V, E> &removeVertex(const V &vertex) override;
+        std::vector<E>* unique_edge() const override;
 
-        GraphAbstract<V, E> &removeEdge(const E &edge) override;
+		GraphAbstract<V, E> &addVertex(const V &vertex) override;
 
-        bool containEdge(const E &edge) const override;
+		GraphAbstract<V, E> &add_directed_Edge(const E &edge, const V &vertex1, const V &vertex2) override;
 
-        bool containVertex(const V &vertex) const override;
+		GraphAbstract<V, E> &add_bidirected_Edge(const E &edge, const V &vertex1, const V &vertex2) override;
 
-        size_t numVertices() const override;
+		GraphAbstract<V, E> &removeVertex(const V &vertex) override;
 
-        size_t numEdges() const override;
+		GraphAbstract<V, E> &removeEdge(const E &edge) override;
 
-        size_t outDegree(const V &vertex) const override;
+		bool containEdge(const E &edge) const override;
 
-        size_t inDegree(const V &vertex) const override;
+		bool containVertex(const V &vertex) const override;
 
-        ~AdjacencyList() override;
-    };
-}
+		size_t numVertices() const override;
+
+		size_t numEdges() const override;
+
+		size_t outDegree(const V &vertex) const override;
+
+		size_t inDegree(const V &vertex) const override;
+
+		~AdjacencyList() override;
+	};
+} // namespace Graph
 
 #include "AdjacencyList.cpp"
 
-#endif //DATA_STRUCTURES_ADJACENCYLIST_H
+#endif // DATA_STRUCTURES_ADJACENCYLIST_H
