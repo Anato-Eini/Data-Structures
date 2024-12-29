@@ -253,7 +253,7 @@ int Kd_Tree::getMinimumRecursion(Node *node, int &dimension, int depth) const
 
 	int currDimension = depth % k_dimension;
 
-	if (dimension == currDimension)
+	if (dimension == currDimension + 1)
 	{
 		if (!node->left)
 			return node->point[dimension - 1];
@@ -266,7 +266,7 @@ int Kd_Tree::getMinimumRecursion(Node *node, int &dimension, int depth) const
 
 int Kd_Tree::getMinimum(int &dimension) const
 {
-	if (dimension < 1 || dimension >= k_dimension)
+	if (dimension < 1 || dimension > k_dimension)
 		throw std::invalid_argument("Invalid dimension");
 
 	return getMinimumRecursion(root, dimension, 0);
