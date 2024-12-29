@@ -30,7 +30,8 @@ Kd_Tree::Node::~Node()
 	delete left;
 }
 
-Kd_Tree::Kd_Tree(const int k_dimension) : root{nullptr}, size{0}{
+Kd_Tree::Kd_Tree(const int k_dimension) : root{nullptr}, size{0}
+{
 	if (k_dimension < 1)
 		throw std::invalid_argument("Invalid k dimension");
 
@@ -208,7 +209,7 @@ bool Kd_Tree::keyExist(const std::vector<int> &point) const
 	return false;
 }
 
-#include "deque"
+#include <deque>
 
 void Kd_Tree::print(std::ostream &ostream) const
 {
@@ -251,17 +252,16 @@ int Kd_Tree::getMinimumRecursion(Node *node, int &dimension, int depth) const
 	if (!node)
 		return INT_MAX;
 
-	int currDimension = depth % k_dimension;
-
-	if (dimension == currDimension + 1)
+	if (dimension == depth % k_dimension + 1)
 	{
 		if (!node->left)
 			return node->point[dimension - 1];
 		return getMinimumRecursion(node->left, dimension, depth + 1);
 	}
 	else
-		return std::min(node->point[dimension - 1], std::min(getMinimumRecursion(node->left, dimension, depth + 1),
-		                                                 getMinimumRecursion(node->right, dimension, depth + 1)));
+		return std::min(node->point[dimension - 1],
+						std::min(getMinimumRecursion(node->left, dimension, depth + 1),
+								 getMinimumRecursion(node->right, dimension, depth + 1)));
 }
 
 int Kd_Tree::getMinimum(int &dimension) const
