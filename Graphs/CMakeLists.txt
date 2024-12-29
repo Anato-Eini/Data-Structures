@@ -11,8 +11,9 @@ add_executable(Graph
         "Adjacency List/AdjacencyList.cpp"
         "Edge List/EdgeList.h"
         "Edge List/EdgeList.cpp"
-        #[["Adjacency Map/AdjacencyMap.h"
+        "Adjacency Map/AdjacencyMap.h"
         "Adjacency Map/AdjacencyMap.cpp"
+        #[[
         "Adjacency Matrix/AdjacencyMatrix.h"
         "Adjacency Matrix/AdjacencyMatrix.cpp"]]
         "main.cpp"

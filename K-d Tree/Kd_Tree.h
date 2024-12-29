@@ -22,6 +22,8 @@ class Kd_Tree {
 
     void print(std::ostream & ostream) const;
 
+    int getMinimumRecursion(Node * node, int & dimension, int depth) const;
+
     [[nodiscard]] bool isEqual(const int point1[], const int point2[]) const;
 
     [[nodiscard]] bool isEqual(const int point1[], const std::vector<int>& point2) const;
@@ -43,6 +45,7 @@ public:
 
     void deleteKey(const std::vector<int> & point);
 
+    int getMinimum(int & dimension) const;
 
 private:
     //Fields

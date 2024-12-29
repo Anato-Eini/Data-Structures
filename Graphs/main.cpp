@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "Edge List/EdgeList.h"
 #include "Adjacency List/AdjacencyList.h"
-// #include "Adjacency Map/AdjacencyMap.h"
+#include "Adjacency Map/AdjacencyMap.h"
+#include "Edge List/EdgeList.h"
 // #include "Adjacency Matrix/AdjacencyMatrix.h"
 // #include "General Graph/GraphAbstract.h"
 
@@ -30,10 +30,10 @@ int main()
 		case 2:
 			graph = new AdjacencyList<std::string, std::string>();
 			break;
-		/*case 3:
+		case 3:
 			graph = new AdjacencyMap<std::string, std::string>{};
 			break;
-		case 4:
+		/*case 4:
 			graph = new AdjacencyMatrix<std::string, std::string>{};
 			break;*/
 		default:
@@ -194,9 +194,9 @@ int main()
 					case 2:
 						graph = new AdjacencyList<std::string, std::string>();
 						break;
-						//                            case 3:
-						//                                graph = new AdjacencyMap<std::string, std::string>{};
-						//                                break;
+					case 3:
+						graph = new AdjacencyMap<std::string, std::string>{};
+						break;
 						//                            case 4:
 						//                                graph = new AdjacencyMatrix<std::string, std::string>{};
 						//                                break;

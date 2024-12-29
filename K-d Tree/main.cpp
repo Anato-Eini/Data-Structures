@@ -7,7 +7,7 @@ int main(){
     std::cout << "Enter k dimension: ";
     std::cin >> kDimension;
 
-    auto * tree = new Kd_Tree(kDimension);
+    Kd_Tree * tree = new Kd_Tree(kDimension);
 
     int inputKey[kDimension];
     char op;
