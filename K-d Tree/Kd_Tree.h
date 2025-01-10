@@ -20,14 +20,6 @@ class Kd_Tree {
         ~Node();
     };
 
-    void print(std::ostream & ostream) const;
-
-    int getMinimumRecursion(Node * node, int & dimension, int depth) const;
-
-    [[nodiscard]] bool isEqual(const int point1[], const int point2[]) const;
-
-    [[nodiscard]] bool isEqual(const int point1[], const std::vector<int>& point2) const;
-
 public:
     Kd_Tree();
 
@@ -55,6 +47,16 @@ private:
     int size;
 
     int k_dimension;
+
+    void print(std::ostream & ostream) const;
+
+    int getMinimumRecursion(Node * node, int & dimension, int depth) const;
+
+    Node* searchNode(const int point[]) const;
+
+    [[nodiscard]] bool isEqual(const int point1[], const int point2[]) const;
+
+    [[nodiscard]] bool isEqual(const int point1[], const std::vector<int>& point2) const;
 
     friend std::ostream & operator<<(std::ostream & ostream, const Kd_Tree * tree);
 

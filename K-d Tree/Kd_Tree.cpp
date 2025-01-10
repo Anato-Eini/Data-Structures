@@ -125,7 +125,85 @@ void Kd_Tree::insertKey(const std::vector<int> &point)
 	size++;
 }
 
-void Kd_Tree::deleteKey(const int point[]) {}
+void Kd_Tree::deleteKey(const int point[])
+{
+	if (!root)
+		return;
+
+	Node *parent = nullptr;
+	Node *curr = root;
+	int depth = 0;
+
+	while (curr && !isEqual(curr->point, point))
+	{
+		parent = curr;
+		int cd = depth % k_dimension;
+		if (point[cd] < curr->point[cd])
+			curr = curr->left;
+		else
+			curr = curr->right;
+		depth++;
+	}
+
+	if (!curr)
+		return;
+
+	if (curr->right)
+	{
+		Node *minParent = curr;
+		Node *min = curr->right;
+		int minDepth = depth + 1;
+
+		while (min->left)
+		{
+			minParent = min;
+			min = min->left;
+			minDepth++;
+		}
+
+		std::copy(min->point, min->point + k_dimension, curr->point);
+
+		if (minParent->left == min)
+			minParent->left = min->right;
+		else
+			minParent->right = min->right;
+
+		delete min;
+	}
+	else if (curr->left)
+	{
+		Node *minParent = curr;
+		Node *min = curr->left;
+		int minDepth = depth + 1;
+
+		while (min->right)
+		{
+			minParent = min;
+			min = min->right;
+			minDepth++;
+		}
+
+		std::copy(min->point, min->point + k_dimension, curr->point);
+
+		if (minParent->right == min)
+			minParent->right = min->left;
+		else
+			minParent->left = min->left;
+
+		delete min;
+	}
+	else
+	{
+		if (!parent)
+			root = nullptr;
+		else if (parent->left == curr)
+			parent->left = nullptr;
+		else
+			parent->right = nullptr;
+
+		delete curr;
+	}
+}
 
 bool Kd_Tree::isEqual(const int *point1, const int *point2) const
 {
@@ -143,38 +221,39 @@ bool Kd_Tree::isEqual(const int *point1, const std::vector<int> &point2) const
 	return true;
 }
 
-bool Kd_Tree::keyExist(const int *point) const
+Kd_Tree::Node *Kd_Tree::searchNode(const int *point) const
 {
-	if (root)
-	{
-		const Node *curr = root;
+	if (!root)
+		return nullptr;
 
-		for (int i = 0; true; i = ++i % k_dimension)
+	Node *curr = root;
+
+	for (int i = 0; true; i = ++i % k_dimension)
+	{
+		if (point[i] < curr->point[i])
 		{
-			if (point[i] < curr->point[i])
-			{
-				if (curr->left)
-					curr = curr->left;
-				else
-					return false;
-			}
-			else if (point[i] > curr->point[i])
-			{
-				if (curr->right)
-					curr = curr->right;
-				else
-					return false;
-			}
-			else if (isEqual(point, curr->point))
-				return true;
-			else if (curr->right)
+			if (curr->left)
+				curr = curr->left;
+			else
+				return nullptr;
+		}
+		else if (point[i] > curr->point[i])
+		{
+			if (curr->right)
 				curr = curr->right;
 			else
-				return false;
+				return nullptr;
 		}
+		else if (isEqual(point, curr->point))
+			return curr;
+		else if (curr->right)
+			curr = curr->right;
+		else
+			return nullptr;
 	}
-	return false;
 }
+
+bool Kd_Tree::keyExist(const int *point) const { return searchNode(point); }
 
 bool Kd_Tree::keyExist(const std::vector<int> &point) const
 {
